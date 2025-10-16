@@ -30,6 +30,8 @@ model Bolsa {
     quantidadeDePecasSemCadastro Int
     observacoes                  String?
 
+    deletedAt DateTime?
+
     fornecedora   Fornecedora @relation(fields: [fornecedoraId], references: [fornecedoraId])
     fornecedoraId Int
 

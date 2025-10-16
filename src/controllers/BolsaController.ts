@@ -3,42 +3,46 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// Tipagem para o corpo da requisição de criação/atualização
+// ... (Interface BolsaBody não muda)
 interface BolsaBody {
     dataMensagem?: string | Date;
     quantidadeDePecasSemCadastro: number;
     observacoes?: string;
     fornecedoraId: number;
     setorId: number;
-    // Adicionamos a lista de códigos de peça, que virá como um array de strings
     codigosDePeca?: string[];
 }
 
 export const BolsaController = {
-    // GET (getBolsas e getBolsa) não precisam de alteração
-    // ... (mantenha os métodos GET como estão)
+    // GET: /api/bolsa (MODIFICADO para filtrar deletados)
     getBolsas: async (request: FastifyRequest, reply: FastifyReply) => {
         const bolsas = await prisma.bolsa.findMany({
+            where: { deletedAt: null }, // <-- SÓ RETORNA BOLSAS ATIVAS
             include: {
                 fornecedora: true,
                 setor: true,
-                pecasCadastradas: true, // Opcional: incluir as peças já na listagem
+                pecasCadastradas: true,
             },
         });
         return reply.send(bolsas);
     },
 
+    // GET: /api/bolsa/:id (MODIFICADO para filtrar deletados)
     getBolsa: async (
         request: FastifyRequest<{ Params: { id: string } }>,
         reply: FastifyReply
     ) => {
         const { id } = request.params;
-        const bolsa = await prisma.bolsa.findUnique({
-            where: { bolsaId: parseInt(id) },
+        const bolsa = await prisma.bolsa.findFirst({
+            // Usamos findFirst para combinar 'where'
+            where: {
+                bolsaId: parseInt(id),
+                deletedAt: null,
+            },
             include: {
                 fornecedora: true,
                 setor: true,
-                pecasCadastradas: true, // Inclui as peças ao buscar uma bolsa específica
+                pecasCadastradas: true,
             },
         });
         if (!bolsa)
@@ -46,42 +50,43 @@ export const BolsaController = {
         return reply.send(bolsa);
     },
 
-    // POST: /api/bolsa (MODIFICADO)
+    // POST: /api/bolsa (Não precisa de alteração)
     createBolsa: async (
         request: FastifyRequest<{ Body: BolsaBody }>,
         reply: FastifyReply
     ) => {
         const { codigosDePeca, ...bolsaData } = request.body;
-
-        const novaBolsaComPecas = await prisma.$transaction(async (tx) => {
-            // 1. Cria a bolsa primeiro para obter um ID
-            const novaBolsa = await tx.bolsa.create({
-                data: {
-                    ...bolsaData,
-                    dataMensagem: bolsaData.dataMensagem
-                        ? new Date(bolsaData.dataMensagem)
-                        : null,
-                },
-            });
-
-            // 2. Se houver códigos, formata e cria as peças associadas
-            if (codigosDePeca && codigosDePeca.length > 0) {
-                const pecasParaCriar = codigosDePeca.map((codigo) => ({
-                    codigoDaPeca: codigo,
-                    bolsaId: novaBolsa.bolsaId, // Associa ao ID da bolsa recém-criada
-                }));
-                await tx.pecaCadastrada.createMany({
-                    data: pecasParaCriar,
+        try {
+            const novaBolsaComPecas = await prisma.$transaction(async (tx) => {
+                const novaBolsa = await tx.bolsa.create({
+                    data: {
+                        ...bolsaData,
+                        dataMensagem: bolsaData.dataMensagem
+                            ? new Date(bolsaData.dataMensagem)
+                            : null,
+                    },
                 });
-            }
-
-            return novaBolsa;
-        });
-
-        return reply.status(201).send(novaBolsaComPecas);
+                if (codigosDePeca && codigosDePeca.length > 0) {
+                    const pecasParaCriar = codigosDePeca.map((codigo) => ({
+                        codigoDaPeca: codigo,
+                        bolsaId: novaBolsa.bolsaId,
+                    }));
+                    await tx.pecaCadastrada.createMany({
+                        data: pecasParaCriar,
+                    });
+                }
+                return novaBolsa;
+            });
+            return reply.status(201).send(novaBolsaComPecas);
+        } catch (error) {
+            request.log.error(error);
+            return reply
+                .status(500)
+                .send({ message: "Erro ao criar a bolsa e suas peças." });
+        }
     },
 
-    // PUT: /api/bolsa/:id (MODIFICADO)
+    // PUT: /api/bolsa/:id (Não precisa de alteração)
     updateBolsa: async (
         request: FastifyRequest<{
             Params: { id: string };
@@ -91,10 +96,8 @@ export const BolsaController = {
     ) => {
         const { id } = request.params;
         const { codigosDePeca, ...bolsaData } = request.body;
-
         try {
             const bolsaAtualizada = await prisma.$transaction(async (tx) => {
-                // 1. Atualiza os dados da bolsa
                 const bolsa = await tx.bolsa.update({
                     where: { bolsaId: parseInt(id) },
                     data: {
@@ -104,15 +107,10 @@ export const BolsaController = {
                             : undefined,
                     },
                 });
-
-                // 2. Se a lista de códigos foi enviada, sincronizamos as peças
                 if (codigosDePeca) {
-                    // Deleta as peças antigas...
                     await tx.pecaCadastrada.deleteMany({
                         where: { bolsaId: parseInt(id) },
                     });
-
-                    // ... e cria as novas
                     if (codigosDePeca.length > 0) {
                         const pecasParaCriar = codigosDePeca.map((codigo) => ({
                             codigoDaPeca: codigo,
@@ -125,7 +123,6 @@ export const BolsaController = {
                 }
                 return bolsa;
             });
-
             return reply.send(bolsaAtualizada);
         } catch (error) {
             request.log.error(error);
@@ -135,16 +132,18 @@ export const BolsaController = {
         }
     },
 
-    // DELETE (deleteBolsa) não precisa de alteração
-    // ... (mantenha o método DELETE como está)
+    // DELETE: /api/bolsa/:id (MODIFICADO para soft delete)
     deleteBolsa: async (
         request: FastifyRequest<{ Params: { id: string } }>,
         reply: FastifyReply
     ) => {
         const { id } = request.params;
         try {
-            // A deleção em cascata (configurada no schema.prisma) cuidará das peças
-            await prisma.bolsa.delete({ where: { bolsaId: parseInt(id) } });
+            // Em vez de deletar, atualizamos o campo 'deletedAt'
+            await prisma.bolsa.update({
+                where: { bolsaId: parseInt(id) },
+                data: { deletedAt: new Date() },
+            });
             return reply.status(204).send();
         } catch (error) {
             request.log.error(error);
