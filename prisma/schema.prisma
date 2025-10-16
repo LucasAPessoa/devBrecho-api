@@ -18,6 +18,7 @@ model Setor {
 
 model Fornecedora {
     fornecedoraId Int     @id @default(autoincrement())
+    codigo        String  @unique
     nome          String
     telefone      String?
     bolsas        Bolsa[]

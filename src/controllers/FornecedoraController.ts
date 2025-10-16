@@ -4,7 +4,9 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // Tipagem para o corpo da requisição de criação/atualização
+// Tipagem atualizada
 interface FornecedoraBody {
+    codigo: string;
     nome: string;
     telefone?: string;
 }
@@ -48,26 +50,25 @@ export const FornecedoraController = {
         }
     },
 
-    // POST: /api/fornecedora
     createFornecedora: async (
         request: FastifyRequest<{ Body: FornecedoraBody }>,
         reply: FastifyReply
     ) => {
         try {
-            const { nome, telefone } = request.body;
+            const { nome, telefone, codigo } = request.body;
             const novaFornecedora = await prisma.fornecedora.create({
-                data: { nome, telefone },
+                data: { nome, telefone, codigo },
             });
             return reply.status(201).send(novaFornecedora);
         } catch (error) {
             request.log.error(error);
-            return reply
-                .status(500)
-                .send({ message: "Erro ao criar fornecedora" });
+            return reply.status(500).send({
+                message: "Erro ao criar fornecedora. O código já pode existir.",
+            });
         }
     },
 
-    // PUT: /api/fornecedora/:id
+    // PUT: /api/fornecedora/:id (MODIFICADO)
     updateFornecedora: async (
         request: FastifyRequest<{
             Params: { id: string };
@@ -77,7 +78,7 @@ export const FornecedoraController = {
     ) => {
         try {
             const { id } = request.params;
-            const data = request.body;
+            const data = request.body; // 'data' já inclui o campo 'codigo'
             const fornecedora = await prisma.fornecedora.update({
                 where: { fornecedoraId: parseInt(id) },
                 data,
@@ -85,11 +86,10 @@ export const FornecedoraController = {
             return reply.send(fornecedora);
         } catch (error) {
             request.log.error(error);
-            return reply
-                .status(404)
-                .send({
-                    message: "Fornecedora não encontrada para atualização",
-                });
+            return reply.status(404).send({
+                message:
+                    "Fornecedora não encontrada ou o código já está em uso.",
+            });
         }
     },
 
