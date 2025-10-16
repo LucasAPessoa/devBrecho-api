@@ -14,7 +14,7 @@ const start = async () => {
     try {
         const allowedOrigins = [
             "http://localhost:5173", // Para desenvolvimento local
-            "https://devbrecho-frontend.onrender.com", // IMPORTANTE: Substitua pela URL real do seu frontend
+            "https://devbrecho-front.onrender.com", // IMPORTANTE: Substitua pela URL real do seu frontend
         ];
 
         await app.register(cors, {
