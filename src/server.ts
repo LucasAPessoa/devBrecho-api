@@ -12,10 +12,24 @@ console.log("--- [PASSO 2] Instância do Fastify criada ---");
 
 const start = async () => {
     try {
-        await app.register(cors, {
-            origin: "http://localhost:5173",
-        });
+        const allowedOrigins = [
+            "http://localhost:5173", // Para desenvolvimento local
+            "https://devbrecho-frontend.onrender.com", // IMPORTANTE: Substitua pela URL real do seu frontend
+        ];
 
+        await app.register(cors, {
+            origin: (origin, callback) => {
+                // Permite requisições sem 'origin' (como apps mobile ou Postman)
+                if (!origin) return callback(null, true);
+
+                if (allowedOrigins.indexOf(origin) === -1) {
+                    const msg =
+                        "A política de CORS para este site não permite acesso da Origem especificada.";
+                    return callback(new Error(msg), false);
+                }
+                return callback(null, true);
+            },
+        });
         app.register(appRoutes, { prefix: "/api" });
         console.log("--- [PASSO 3] Rotas registradas ---");
 
