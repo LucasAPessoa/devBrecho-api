@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL") // Lê a string de conexão do arquivo .env
+}
+
+model Setor {
+    setorId Int     @id @default(autoincrement())
+    nome    String
+    bolsas  Bolsa[]
+}
+
+model Fornecedora {
+    fornecedoraId Int     @id @default(autoincrement())
+    nome          String
+    telefone      String?
+    bolsas        Bolsa[]
+}
+
+model Bolsa {
+    bolsaId                      Int       @id @default(autoincrement())
+    dataDeEntrada                DateTime  @default(now())
+    dataMensagem                 DateTime?
+    quantidadeDePecasSemCadastro Int
+    observacoes                  String?
+
+    fornecedora   Fornecedora @relation(fields: [fornecedoraId], references: [fornecedoraId])
+    fornecedoraId Int
+
+    setor   Setor @relation(fields: [setorId], references: [setorId])
+    setorId Int
+
+    pecasCadastradas PecaCadastrada[]
+}
+
+model PecaCadastrada {
+    pecaCadastradaId Int    @id @default(autoincrement())
+    codigoDaPeca     String
+
+    bolsa   Bolsa @relation(fields: [bolsaId], references: [bolsaId])
+    bolsaId Int
+}
