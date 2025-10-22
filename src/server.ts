@@ -13,13 +13,12 @@ console.log("--- [PASSO 2] Instância do Fastify criada ---");
 const start = async () => {
     try {
         const allowedOrigins = [
-            "http://localhost:5173", // Para desenvolvimento local
-            "https://devbrecho-front.onrender.com", // IMPORTANTE: Substitua pela URL real do seu frontend
+            "http://localhost:5173",
+            "https://devbrecho-front.onrender.com",
         ];
 
         await app.register(cors, {
             origin: (origin, callback) => {
-                // Permite requisições sem 'origin' (como apps mobile ou Postman)
                 if (!origin) return callback(null, true);
 
                 if (allowedOrigins.indexOf(origin) === -1) {
@@ -30,10 +29,10 @@ const start = async () => {
                 return callback(null, true);
             },
         });
-        app.register(appRoutes, { prefix: "/api" });
-        console.log("--- [PASSO 3] Rotas registradas ---");
 
-        console.log("--- [PASSO 4] Dentro da função start ---");
+        app.register(appRoutes, { prefix: "/api" });
+
+        console.log("--- [PASSO 3] Rotas registradas ---");
 
         if (!process.env.DATABASE_URL) {
             console.error(
@@ -43,7 +42,7 @@ const start = async () => {
         }
 
         console.log(
-            "--- [PASSO 5] DATABASE_URL encontrada. Tentando iniciar o servidor... ---"
+            "--- [PASSO 4] DATABASE_URL encontrada. Tentando iniciar o servidor... ---"
         );
 
         const port = Number(process.env.PORT) || 3333;
