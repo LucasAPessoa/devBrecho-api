@@ -1,4 +1,3 @@
-import { type } from "os";
 import z from "zod";
 
 // Request body schema for Setor

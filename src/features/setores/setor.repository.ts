@@ -35,7 +35,7 @@ export class SetorRepository {
 
     async delete(data: SetorDeleteType): Promise<boolean> {
         try {
-            prisma.setor.delete({
+            await prisma.setor.delete({
                 where: { setorId: data.setorId },
             });
             return true;
