@@ -21,6 +21,10 @@ import { FornecedoraRepository } from "./features/fornecedoras/fornecedora.repos
 import { FornecedoraController } from "./features/fornecedoras/fornecedora.controller";
 import { FornecedoraService } from "./features/fornecedoras/fornecedora.service";
 import { fornecedoraRoutes } from "./features/fornecedoras/fornecedora.route";
+import { BolsaRepository } from "./features/bolsas/bolsa.repository";
+import { BolsaService } from "./features/bolsas/bolsa.service";
+import { BolsaController } from "./features/bolsas/bolsa.controller";
+import { bolsaRoutes } from "./features/bolsas/bolsa.route";
 
 console.log("--- [PASSO 1] Iniciando o arquivo server.ts ---");
 
@@ -88,6 +92,15 @@ const start = async () => {
         app.register(fornecedoraRoutes, {
             prefix: "/api/fornecedoras",
             controller: fornecedoraController,
+        });
+
+        const bolsaRepository = new BolsaRepository();
+        const bolsaService = new BolsaService(bolsaRepository);
+        const bolsaController = new BolsaController(bolsaService);
+
+        app.register(bolsaRoutes, {
+            prefix: "/api/bolsas",
+            controller: bolsaController,
         });
 
         console.log("--- [PASSO 3] Rotas registradas ---");
