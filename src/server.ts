@@ -17,6 +17,10 @@ import { PecaCadastradaRepository } from "./features/pecasCadastradas/pecaCadast
 import { PecaCadastradaController } from "./features/pecasCadastradas/pecaCadastrada.controller";
 
 import { PecaCadastradaService } from "./features/pecasCadastradas/pecaCadastrada.service";
+import { FornecedoraRepository } from "./features/fornecedoras/fornecedora.repository";
+import { FornecedoraController } from "./features/fornecedoras/fornecedora.controller";
+import { FornecedoraService } from "./features/fornecedoras/fornecedora.service";
+import { fornecedoraRoutes } from "./features/fornecedoras/fornecedora.route";
 
 console.log("--- [PASSO 1] Iniciando o arquivo server.ts ---");
 
@@ -71,6 +75,19 @@ const start = async () => {
         app.register(pecaCadastradaRoutes, {
             prefix: "/api/pecaCadastrada",
             controller: pecaCadastradaController,
+        });
+
+        const forncecedoraRepository = new FornecedoraRepository();
+        const fornecedoraService = new FornecedoraService(
+            forncecedoraRepository
+        );
+        const fornecedoraController = new FornecedoraController(
+            fornecedoraService
+        );
+
+        app.register(fornecedoraRoutes, {
+            prefix: "/api/fornecedoras",
+            controller: fornecedoraController,
         });
 
         console.log("--- [PASSO 3] Rotas registradas ---");
