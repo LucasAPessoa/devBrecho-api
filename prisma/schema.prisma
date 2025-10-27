@@ -31,6 +31,8 @@ model Bolsa {
     dataMensagem                 DateTime?
     quantidadeDePecasSemCadastro Int
     observacoes                  String?
+    statusDevolvida              Boolean?
+    statusDoada                  Boolean?
 
     deletedAt DateTime?
 
