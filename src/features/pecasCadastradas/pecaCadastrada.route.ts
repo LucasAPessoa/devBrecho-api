@@ -14,7 +14,7 @@ export async function pecaCadastradaRoutes(
 ) {
     //GetByBolsaId
     app.get(
-        "/pecaCadastrada/:bolsaId",
+        "/:bolsaId",
         {
             schema: {
                 params: pecaCadastradaGetByBolsaIdSchema,
@@ -28,7 +28,7 @@ export async function pecaCadastradaRoutes(
 
     //GetAll
     app.get(
-        "/pecaCadastrada",
+        "/",
         {
             schema: {
                 response: {
@@ -41,7 +41,7 @@ export async function pecaCadastradaRoutes(
 
     // Create
     app.post(
-        "/pecaCadastrada",
+        "/",
         {
             schema: {
                 body: pecaCadastradaCreateSchema,
@@ -55,7 +55,7 @@ export async function pecaCadastradaRoutes(
 
     // Delete
     app.delete(
-        "/pecaCadastrada/:pecaCadastradaId",
+        "/:pecaCadastradaId",
         {
             schema: {
                 params: pecaCadastradaDeleteSchema,
@@ -67,7 +67,7 @@ export async function pecaCadastradaRoutes(
     // Update
 
     app.put(
-        "/pecaCadastrada",
+        "/",
         {
             schema: {
                 body: pecaCadastradaUpdateSchema,

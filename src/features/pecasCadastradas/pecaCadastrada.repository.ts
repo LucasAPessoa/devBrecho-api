@@ -28,7 +28,7 @@ export class PecaCadastradaRepository {
                 codigoDaPeca: codigo,
                 bolsaId: data.bolsaId,
             }));
-            prisma.pecaCadastrada.createMany({
+            await prisma.pecaCadastrada.createMany({
                 data: dataFormatted,
             });
             return true;
@@ -39,7 +39,7 @@ export class PecaCadastradaRepository {
 
     async delete(data: PecaCadastradaDeleteType): Promise<boolean> {
         try {
-            prisma.pecaCadastrada.delete({
+            await prisma.pecaCadastrada.delete({
                 where: { pecaCadastradaId: data.pecaCadastradaId },
             });
             return true;
