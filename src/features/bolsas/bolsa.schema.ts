@@ -1,5 +1,9 @@
 import { z } from "zod";
 
+import { pecaCadastradaSchema } from "../pecasCadastradas/pecaCadastrada.schema";
+import { fornecedoraSchema } from "../fornecedoras/fornecedora.schema";
+import { setorSchema } from "../setores/setor.schema";
+
 export const bolsaSchema = z.object({
     bolsaId: z.number().int().positive(),
     dataDeEntrada: z.coerce.date(),
@@ -18,7 +22,7 @@ export const bolsaSchema = z.object({
     deletedAt: z.coerce.date().optional().nullable(),
     fornecedoraId: z.number().int().positive(),
     setorId: z.number().int().positive(),
-    pecasCadastradas: z.array(z.string()).optional(),
+    pecasCadastradas: z.array(pecaCadastradaSchema).optional(),
 });
 
 export const bolsaCreateSchema = z.object({
@@ -87,8 +91,15 @@ export type BolsaCreateType = z.infer<typeof bolsaCreateSchema>;
 export type BolsaUpdateType = z.infer<typeof bolsaUpdateSchema>;
 export type BolsaParamsType = z.infer<typeof bolsaParamsSchema>;
 
-export const bolsaResponseSchema = bolsaSchema;
-export const bolsaGetAllResponseSchema = z.array(bolsaResponseSchema);
+export const bolsaPopulatedResponseSchema = bolsaSchema.extend({
+    fornecedora: fornecedoraSchema,
+    setor: setorSchema,
+    pecasCadastradas: z.array(pecaCadastradaSchema),
+});
+
+export const bolsaResponseSchema = bolsaPopulatedResponseSchema;
+
+export const bolsaGetAllResponseSchema = z.array(bolsaPopulatedResponseSchema);
 
 export type BolsaResponseType = z.infer<typeof bolsaResponseSchema>;
 export type BolsaGetAllResponseType = z.infer<typeof bolsaGetAllResponseSchema>;
