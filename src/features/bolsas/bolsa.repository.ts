@@ -57,8 +57,8 @@ export class BolsaRepository {
         return novaBolsaCompleta;
     }
 
-    async update(data: BolsaUpdateType): Promise<BolsaType> {
-        const { bolsaId, ...updateData } = data;
+    async update(data: BolsaUpdateType, bolsaId: number): Promise<BolsaType> {
+        const { ...updateData } = data;
         return prisma.bolsa.update({
             where: { bolsaId: bolsaId },
             data: updateData,

@@ -53,12 +53,17 @@ export class BolsaController {
     async update(
         request: FastifyRequest<{
             Body: BolsaUpdateType;
+            Params: BolsaParamsType;
         }>,
         reply: FastifyReply
     ) {
         try {
+            const bolsaId = request.params.bolsaId;
             const data = request.body;
-            const bolsaAtualizada = await this.bolsaService.update(data);
+            const bolsaAtualizada = await this.bolsaService.update(
+                data,
+                bolsaId
+            );
             return bolsaAtualizada;
         } catch (error: any) {
             if (error.message === "Bolsa não encontrada.") {
