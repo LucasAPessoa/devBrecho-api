@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL") // Lê a string de conexão do arquivo .env
+    provider          = "postgresql"
+    url               = env("DATABASE_URL")
+    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Setor {
@@ -30,6 +31,8 @@ model Bolsa {
     dataMensagem                 DateTime?
     quantidadeDePecasSemCadastro Int
     observacoes                  String?
+    statusDevolvida              Boolean?
+    statusDoada                  Boolean?
 
     deletedAt DateTime?
 

@@ -1,25 +1,53 @@
+import "dotenv/config";
 import Fastify from "fastify";
-import { appRoutes } from "./routes";
+
 import cors from "@fastify/cors";
+import { setorRoutes } from "./features/setores/setor.route";
+import { SetorRepository } from "./features/setores/setor.repository";
+import { SetorService } from "./features/setores/setor.service";
+import { SetorController } from "./features/setores/setor.controller";
+
+import {
+    serializerCompiler,
+    validatorCompiler,
+    ZodTypeProvider,
+} from "fastify-type-provider-zod";
+import { pecaCadastradaRoutes } from "./features/pecasCadastradas/pecaCadastrada.route";
+import { PecaCadastradaRepository } from "./features/pecasCadastradas/pecaCadastrada.repository";
+import { PecaCadastradaController } from "./features/pecasCadastradas/pecaCadastrada.controller";
+
+import { PecaCadastradaService } from "./features/pecasCadastradas/pecaCadastrada.service";
+import { FornecedoraRepository } from "./features/fornecedoras/fornecedora.repository";
+import { FornecedoraController } from "./features/fornecedoras/fornecedora.controller";
+import { FornecedoraService } from "./features/fornecedoras/fornecedora.service";
+import { fornecedoraRoutes } from "./features/fornecedoras/fornecedora.route";
+import { BolsaRepository } from "./features/bolsas/bolsa.repository";
+import { BolsaService } from "./features/bolsas/bolsa.service";
+import { BolsaController } from "./features/bolsas/bolsa.controller";
+import { bolsaRoutes } from "./features/bolsas/bolsa.route";
 
 console.log("--- [PASSO 1] Iniciando o arquivo server.ts ---");
 
 const app = Fastify({
     logger: true,
-});
+}).withTypeProvider<ZodTypeProvider>();
+
+console.log("--- [PASSO 1.1] Adicionando os compilers ---");
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
 
 console.log("--- [PASSO 2] Instância do Fastify criada ---");
 
 const start = async () => {
     try {
         const allowedOrigins = [
-            "http://localhost:5173", // Para desenvolvimento local
-            "https://devbrecho-front.onrender.com", // IMPORTANTE: Substitua pela URL real do seu frontend
+            "http://localhost:5173",
+            "https://devbrecho-front.onrender.com",
         ];
 
         await app.register(cors, {
             origin: (origin, callback) => {
-                // Permite requisições sem 'origin' (como apps mobile ou Postman)
                 if (!origin) return callback(null, true);
 
                 if (allowedOrigins.indexOf(origin) === -1) {
@@ -30,10 +58,52 @@ const start = async () => {
                 return callback(null, true);
             },
         });
-        app.register(appRoutes, { prefix: "/api" });
-        console.log("--- [PASSO 3] Rotas registradas ---");
 
-        console.log("--- [PASSO 4] Dentro da função start ---");
+        const setorRepository = new SetorRepository();
+        const setorService = new SetorService(setorRepository);
+        const setorController = new SetorController(setorService);
+
+        app.register(setorRoutes, {
+            prefix: "/api/setores",
+            controller: setorController,
+        });
+
+        const pecaCadastradaRepository = new PecaCadastradaRepository();
+        const pecaCadastradaService = new PecaCadastradaService(
+            pecaCadastradaRepository
+        );
+        const pecaCadastradaController = new PecaCadastradaController(
+            pecaCadastradaService
+        );
+
+        app.register(pecaCadastradaRoutes, {
+            prefix: "/api/pecaCadastrada",
+            controller: pecaCadastradaController,
+        });
+
+        const forncecedoraRepository = new FornecedoraRepository();
+        const fornecedoraService = new FornecedoraService(
+            forncecedoraRepository
+        );
+        const fornecedoraController = new FornecedoraController(
+            fornecedoraService
+        );
+
+        app.register(fornecedoraRoutes, {
+            prefix: "/api/fornecedoras",
+            controller: fornecedoraController,
+        });
+
+        const bolsaRepository = new BolsaRepository();
+        const bolsaService = new BolsaService(bolsaRepository);
+        const bolsaController = new BolsaController(bolsaService);
+
+        app.register(bolsaRoutes, {
+            prefix: "/api/bolsas",
+            controller: bolsaController,
+        });
+
+        console.log("--- [PASSO 3] Rotas registradas ---");
 
         if (!process.env.DATABASE_URL) {
             console.error(
@@ -43,13 +113,13 @@ const start = async () => {
         }
 
         console.log(
-            "--- [PASSO 5] DATABASE_URL encontrada. Tentando iniciar o servidor... ---"
+            "--- [PASSO 4] DATABASE_URL encontrada. Tentando iniciar o servidor... ---"
         );
 
         const port = Number(process.env.PORT) || 3333;
         await app.listen({ port, host: "0.0.0.0" });
 
-        app.log.info(`🚀 Servidor HTTP rodando na porta ${port}`);
+        app.log.info(`Servidor HTTP rodando na porta ${port}`);
     } catch (err) {
         console.error("--- ERRO FATAL AO INICIAR O SERVIDOR ---");
         console.error(err);
