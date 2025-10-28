@@ -62,6 +62,7 @@ export class BolsaRepository {
         return prisma.bolsa.update({
             where: { bolsaId: bolsaId },
             data: updateData,
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
         });
     }
 
