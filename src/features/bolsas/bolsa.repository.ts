@@ -11,19 +11,22 @@ import {
 
 export class BolsaRepository {
     async getAll(): Promise<BolsaGetAllResponseType> {
-        return prisma.bolsa.findMany();
+        return prisma.bolsa.findMany({
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
+        });
     }
 
     async getById(data: BolsaParamsType): Promise<BolsaResponseType | null> {
         return prisma.bolsa.findUnique({
             where: { bolsaId: data.bolsaId },
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
         });
     }
 
     async create(data: BolsaCreateType): Promise<BolsaType> {
         const { codigosDasPecas, ...bolsaData } = data;
 
-        const novaBolsa = await prisma.$transaction(async (tx) => {
+        const novaBolsaCompleta = await prisma.$transaction(async (tx) => {
             const bolsa = await tx.bolsa.create({
                 data: {
                     ...bolsaData,
@@ -39,10 +42,19 @@ export class BolsaRepository {
                 data: pecasData,
             });
 
-            return bolsa;
+            const bolsaCompleta = await tx.bolsa.findUniqueOrThrow({
+                where: { bolsaId: bolsa.bolsaId },
+                include: {
+                    fornecedora: true,
+                    setor: true,
+                    pecasCadastradas: true,
+                },
+            });
+
+            return bolsaCompleta;
         });
 
-        return novaBolsa;
+        return novaBolsaCompleta;
     }
 
     async update(data: BolsaUpdateType): Promise<BolsaType> {
@@ -82,6 +94,5 @@ export class BolsaRepository {
                 },
             },
         });
-        // Não precisamos retornar nada
     }
 }
