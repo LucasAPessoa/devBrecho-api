@@ -53,10 +53,6 @@ export const bolsaCreateSchema = z.object({
 });
 
 export const bolsaUpdateSchema = z.object({
-    bolsaId: z
-        .number({ invalid_type_error: "O ID da bolsa deve ser um número." })
-        .int()
-        .positive(),
     dataMensagem: z.coerce.date().optional().nullable(),
     quantidadeDePecasSemCadastro: z
         .number()

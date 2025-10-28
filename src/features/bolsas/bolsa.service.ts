@@ -36,11 +36,11 @@ export class BolsaService {
         }
     }
 
-    async update(data: BolsaUpdateType): Promise<BolsaType> {
-        await this.getById({ bolsaId: data.bolsaId });
+    async update(data: BolsaUpdateType, bolsaId: number): Promise<BolsaType> {
+        await this.getById({ bolsaId: bolsaId });
 
         try {
-            return await this.repository.update(data);
+            return await this.repository.update(data, bolsaId);
         } catch (error) {
             throw new Error("Erro ao atualizar bolsa.");
         }
