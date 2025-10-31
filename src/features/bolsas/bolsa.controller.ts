@@ -7,6 +7,7 @@ import {
     BolsaUpdateType,
     BolsaParamsType,
     BolsaSyncPecasType,
+    BolsaSetStatusType,
 } from "./bolsa.schema";
 
 export class BolsaController {
@@ -106,6 +107,26 @@ export class BolsaController {
                 return reply.status(404).send({ message: error.message });
             }
             return reply.status(500).send({ message: error.message });
+        }
+    }
+
+    async setStatus(
+        request: FastifyRequest<{
+            Params: BolsaParamsType;
+            Body: BolsaSetStatusType;
+        }>,
+        reply: FastifyReply
+    ) {
+        try {
+            const { bolsaId } = request.params;
+
+            await this.bolsaService.setStatus({ bolsaId }, request.body);
+
+            return reply.status(204).send();
+        } catch (error: any) {
+            if (error.message === "Bolsa não encontrada.") {
+                return reply.status(404).send({ message: error.message });
+            }
         }
     }
 }

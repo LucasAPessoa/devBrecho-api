@@ -82,10 +82,16 @@ export const bolsaParamsSchema = z.object({
         .positive("O ID da bolsa deve ser um número positivo."),
 });
 
+export const bolsaSetStatusSchema = z.object({
+    statusDevolvida: z.boolean().optional().nullable(),
+    statusDoada: z.boolean().optional().nullable(),
+});
+
 export type BolsaType = z.infer<typeof bolsaSchema>;
 export type BolsaCreateType = z.infer<typeof bolsaCreateSchema>;
 export type BolsaUpdateType = z.infer<typeof bolsaUpdateSchema>;
 export type BolsaParamsType = z.infer<typeof bolsaParamsSchema>;
+export type BolsaSetStatusType = z.infer<typeof bolsaSetStatusSchema>;
 
 export const bolsaPopulatedResponseSchema = bolsaSchema.extend({
     fornecedora: fornecedoraSchema,

@@ -1,4 +1,5 @@
 import { prisma } from "../../lib/prisma";
+import { BolsaSetStatusType } from "./bolsa.schema";
 import {
     BolsaCreateType,
     BolsaType,
@@ -95,5 +96,23 @@ export class BolsaRepository {
                 },
             },
         });
+    }
+
+    async setStatus(
+        bolsaId: BolsaParamsType,
+        data: BolsaSetStatusType
+    ): Promise<boolean> {
+        try {
+            console.log(data);
+
+            await prisma.bolsa.update({
+                where: { bolsaId: bolsaId.bolsaId },
+                data: data,
+            });
+
+            return true;
+        } catch {
+            return false;
+        }
     }
 }
