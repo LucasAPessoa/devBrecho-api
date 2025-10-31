@@ -2,11 +2,11 @@ import { prisma } from "../../lib/prisma";
 import {
     FornecedoraCreateType,
     FornecedoraType,
-    FornecedoraParamsType, // Usado para getById e delete
+    FornecedoraParamsType,
     FornecedoraUpdateType,
     FornecedoraResponseType,
     FornecedoraGetAllResponseType,
-} from "./fornecedora.schema"; // Certifique-se que o caminho está correto
+} from "./fornecedora.schema";
 
 export class FornecedoraRepository {
     async getAll(): Promise<FornecedoraGetAllResponseType> {

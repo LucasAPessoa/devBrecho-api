@@ -8,6 +8,7 @@ import {
     bolsaGetAllResponseSchema,
     bolsaResponseSchema,
     bolsaSyncPecasSchema,
+    bolsaSetStatusSchema,
 } from "./bolsa.schema";
 
 export async function bolsaRoutes(
@@ -86,6 +87,8 @@ export async function bolsaRoutes(
         controller.delete.bind(controller)
     );
 
+    // Sync Pecas
+
     app.put(
         "/:bolsaId/pecas",
         {
@@ -98,5 +101,21 @@ export async function bolsaRoutes(
             },
         },
         controller.syncPecas.bind(controller)
+    );
+
+    // Set Status
+
+    app.patch(
+        "/:bolsaId/status",
+        {
+            schema: {
+                params: bolsaParamsSchema,
+                body: bolsaSetStatusSchema,
+                response: {
+                    204: { type: null },
+                },
+            },
+        },
+        controller.setStatus.bind(controller)
     );
 }

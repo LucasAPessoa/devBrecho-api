@@ -7,6 +7,7 @@ import {
     BolsaResponseType,
     BolsaGetAllResponseType,
     BolsaSyncPecasType,
+    BolsaSetStatusType,
 } from "./bolsa.schema";
 
 export class BolsaService {
@@ -60,12 +61,24 @@ export class BolsaService {
         params: BolsaParamsType,
         data: BolsaSyncPecasType
     ): Promise<void> {
-        await this.getById(params);
-
         try {
+            await this.getById(params);
+
             await this.repository.syncPecas(params.bolsaId, data);
         } catch (error) {
             throw new Error("Erro ao sincronizar as peças da bolsa.");
+        }
+    }
+
+    async setStatus(
+        params: BolsaParamsType,
+        data: BolsaSetStatusType
+    ): Promise<void> {
+        try {
+            await this.getById(params);
+            await this.repository.setStatus(params, data);
+        } catch (error) {
+            throw new Error("Erro ao atualizar o status da bolsa.");
         }
     }
 }
