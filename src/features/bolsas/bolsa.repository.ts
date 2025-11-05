@@ -1,5 +1,7 @@
 import { prisma } from "../../lib/prisma";
-import { BolsaSetStatusType } from "./bolsa.schema";
+import {
+    BolsaSetStatusType,
+} from "./bolsa.schema";
 import {
     BolsaCreateType,
     BolsaType,
@@ -11,9 +13,13 @@ import {
 } from "./bolsa.schema";
 
 export class BolsaRepository {
-    async getAll(): Promise<BolsaGetAllResponseType> {
+    async getAllActive(): Promise<BolsaGetAllActiveResponseType> {
         return prisma.bolsa.findMany({
             include: { pecasCadastradas: true, fornecedora: true, setor: true },
+            where: {
+                statusDevolvida: { not: true },
+                statusDoada: { not: true },
+            },
         });
     }
 

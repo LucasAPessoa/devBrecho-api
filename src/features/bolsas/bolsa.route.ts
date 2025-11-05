@@ -5,7 +5,7 @@ import {
     bolsaParamsSchema,
     bolsaCreateSchema,
     bolsaUpdateSchema,
-    bolsaGetAllResponseSchema,
+    bolsaGetAllActiveResponseSchema,
     bolsaResponseSchema,
     bolsaSyncPecasSchema,
     bolsaSetStatusSchema,
@@ -17,17 +17,17 @@ export async function bolsaRoutes(
 ) {
     const { controller } = options;
 
-    // GetAll
+    // getAllActive
     app.get(
         "/",
         {
             schema: {
                 response: {
-                    200: bolsaGetAllResponseSchema,
+                    200: bolsaGetAllActiveResponseSchema,
                 },
             },
         },
-        controller.getAll.bind(controller)
+        controller.getAllActive.bind(controller)
     );
 
     // GetById

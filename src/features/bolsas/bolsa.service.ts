@@ -5,7 +5,7 @@ import {
     BolsaParamsType,
     BolsaUpdateType,
     BolsaResponseType,
-    BolsaGetAllResponseType,
+    BolsaGetAllActiveResponseType,
     BolsaSyncPecasType,
     BolsaSetStatusType,
 } from "./bolsa.schema";
@@ -13,8 +13,8 @@ import {
 export class BolsaService {
     constructor(private repository: BolsaRepository) {}
 
-    async getAll(): Promise<BolsaGetAllResponseType> {
-        return this.repository.getAll();
+    async getAllActive(): Promise<BolsaGetAllActiveResponseType> {
+        return this.repository.getAllActive();
     }
 
     async getById(data: BolsaParamsType): Promise<BolsaResponseType> {

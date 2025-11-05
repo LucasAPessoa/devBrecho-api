@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { BolsaService } from "./bolsa.service";
 import {
     BolsaCreateType,
-    BolsaGetAllResponseType,
+    BolsaGetAllActiveResponseType,
     BolsaResponseType,
     BolsaUpdateType,
     BolsaParamsType,
@@ -13,11 +13,11 @@ import {
 export class BolsaController {
     constructor(private bolsaService: BolsaService) {}
 
-    async getAll(
+    async getAllActive(
         request: FastifyRequest,
         reply: FastifyReply
-    ): Promise<BolsaGetAllResponseType> {
-        const bolsas = await this.bolsaService.getAll();
+    ): Promise<BolsaGetAllActiveResponseType> {
+        const bolsas = await this.bolsaService.getAllActive();
         return bolsas;
     }
 
