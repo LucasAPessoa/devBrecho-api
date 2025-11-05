@@ -59,7 +59,7 @@ export class BolsaRepository {
     }
 
     async update(data: BolsaUpdateType, bolsaId: number): Promise<BolsaType> {
-        const { ...updateData } = data;
+        const { codigosDasPecas, ...updateData } = data;
         return prisma.bolsa.update({
             where: { bolsaId: bolsaId },
             data: updateData,
@@ -83,15 +83,20 @@ export class BolsaRepository {
             return false;
         }
     }
-    async syncPecas(bolsaId: number, data: BolsaSyncPecasType): Promise<void> {
+
+    async syncPecas(bolsaId: number, codigosDasPecas: string[]): Promise<void> {
+        const codigos = codigosDasPecas || [];
+
         await prisma.bolsa.update({
             where: { bolsaId: bolsaId },
             data: {
                 pecasCadastradas: {
                     deleteMany: {},
 
-                    create: data.codigosDasPecas.map((codigo) => ({
-                        codigoDaPeca: codigo,
+                    connectOrCreate: codigos.map((codigo: string) => ({
+                        where: { codigoDaPeca: codigo },
+
+                        create: { codigoDaPeca: codigo },
                     })),
                 },
             },

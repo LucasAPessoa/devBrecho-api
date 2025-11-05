@@ -40,9 +40,18 @@ export class BolsaService {
     async update(data: BolsaUpdateType, bolsaId: number): Promise<BolsaType> {
         await this.getById({ bolsaId: bolsaId });
 
+        const { codigosDasPecas, ...dadosDaBolsa } = data;
+
         try {
-            return await this.repository.update(data, bolsaId);
+            await this.repository.update(dadosDaBolsa, bolsaId);
+
+            const codigosLimpos = codigosDasPecas || [];
+
+            await this.repository.syncPecas(bolsaId, codigosLimpos);
+
+            return this.getById({ bolsaId: bolsaId });
         } catch (error) {
+            console.error("Erro ao atualizar bolsa:", error);
             throw new Error("Erro ao atualizar bolsa.");
         }
     }
@@ -64,7 +73,10 @@ export class BolsaService {
         try {
             await this.getById(params);
 
-            await this.repository.syncPecas(params.bolsaId, data);
+            await this.repository.syncPecas(
+                params.bolsaId,
+                data.codigosDasPecas
+            );
         } catch (error) {
             throw new Error("Erro ao sincronizar as peças da bolsa.");
         }
