@@ -73,6 +73,7 @@ export const bolsaUpdateSchema = z.object({
         .number({ invalid_type_error: "O ID do setor é obrigatório." })
         .int()
         .positive(),
+    codigosDasPecas: z.array(z.string()).optional(),
 });
 
 export const bolsaParamsSchema = z.object({
