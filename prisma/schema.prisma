@@ -31,8 +31,8 @@ model Bolsa {
     dataMensagem                 DateTime?
     quantidadeDePecasSemCadastro Int
     observacoes                  String?
-    statusDevolvida              Boolean?
-    statusDoada                  Boolean?
+    statusDevolvida              Boolean?  @default(false)
+    statusDoada                  Boolean?  @default(false)
 
     deletedAt DateTime?
 
