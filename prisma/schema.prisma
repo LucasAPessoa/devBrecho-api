@@ -47,7 +47,7 @@ model Bolsa {
 
 model PecaCadastrada {
     pecaCadastradaId Int    @id @default(autoincrement())
-    codigoDaPeca     String
+    codigoDaPeca     String @unique
 
     bolsa   Bolsa @relation(fields: [bolsaId], references: [bolsaId])
     bolsaId Int
