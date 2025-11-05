@@ -9,6 +9,8 @@ import {
     bolsaResponseSchema,
     bolsaSyncPecasSchema,
     bolsaSetStatusSchema,
+    bolsaGetAllDoadasAndDevolvidasSchema,
+    bolsaGetAllDoadasAndDevolvidasResponseSchema,
 } from "./bolsa.schema";
 
 export async function bolsaRoutes(
@@ -117,5 +119,20 @@ export async function bolsaRoutes(
             },
         },
         controller.setStatus.bind(controller)
+    );
+
+    // Get All Doadas And Devolvidas
+
+    app.get(
+        "/doadasEDevolvidas/:fornecedoraId",
+        {
+            schema: {
+                params: bolsaGetAllDoadasAndDevolvidasSchema,
+                response: {
+                    200: bolsaGetAllDoadasAndDevolvidasResponseSchema,
+                },
+            },
+        },
+        controller.getAllDoadasAndDevolvidas.bind(controller)
     );
 }

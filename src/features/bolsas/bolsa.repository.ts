@@ -1,5 +1,7 @@
 import { prisma } from "../../lib/prisma";
 import {
+    BolsaGetAllDoadasAndDevolvidasResponseType,
+    BolsaGetAllDoadasAndDevolvidasType,
     BolsaSetStatusType,
 } from "./bolsa.schema";
 import {
@@ -7,7 +9,7 @@ import {
     BolsaType,
     BolsaParamsType,
     BolsaUpdateType,
-    BolsaGetAllResponseType,
+    BolsaGetAllActiveResponseType,
     BolsaResponseType,
     BolsaSyncPecasType,
 } from "./bolsa.schema";
@@ -120,5 +122,17 @@ export class BolsaRepository {
         } catch {
             return false;
         }
+    }
+
+    async getAllDoadasAndDevolvidas(
+        fornecedoraId: BolsaGetAllDoadasAndDevolvidasType
+    ): Promise<BolsaGetAllDoadasAndDevolvidasResponseType> {
+        return prisma.bolsa.findMany({
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
+            where: {
+                fornecedoraId: fornecedoraId.fornecedoraId,
+                OR: [{ statusDevolvida: true }, { statusDoada: true }],
+            },
+        });
     }
 }

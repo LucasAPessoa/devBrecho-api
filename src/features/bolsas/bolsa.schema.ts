@@ -87,11 +87,21 @@ export const bolsaSetStatusSchema = z.object({
     statusDoada: z.boolean().optional().nullable(),
 });
 
+export const bolsaGetAllDoadasAndDevolvidasSchema = z.object({
+    fornecedoraId: z.coerce
+        .number({ invalid_type_error: "O ID da fornecedora é obrigatório." })
+        .int()
+        .positive(),
+});
+
 export type BolsaType = z.infer<typeof bolsaSchema>;
 export type BolsaCreateType = z.infer<typeof bolsaCreateSchema>;
 export type BolsaUpdateType = z.infer<typeof bolsaUpdateSchema>;
 export type BolsaParamsType = z.infer<typeof bolsaParamsSchema>;
 export type BolsaSetStatusType = z.infer<typeof bolsaSetStatusSchema>;
+export type BolsaGetAllDoadasAndDevolvidasType = z.infer<
+    typeof bolsaGetAllDoadasAndDevolvidasSchema
+>;
 
 export const bolsaPopulatedResponseSchema = bolsaSchema.extend({
     fornecedora: fornecedoraSchema,
@@ -101,10 +111,21 @@ export const bolsaPopulatedResponseSchema = bolsaSchema.extend({
 
 export const bolsaResponseSchema = bolsaPopulatedResponseSchema;
 
-export const bolsaGetAllResponseSchema = z.array(bolsaPopulatedResponseSchema);
+export const bolsaGetAllActiveResponseSchema = z.array(
+    bolsaPopulatedResponseSchema
+);
+
+export const bolsaGetAllDoadasAndDevolvidasResponseSchema = z.array(
+    bolsaPopulatedResponseSchema
+);
 
 export type BolsaResponseType = z.infer<typeof bolsaResponseSchema>;
-export type BolsaGetAllResponseType = z.infer<typeof bolsaGetAllResponseSchema>;
+export type BolsaGetAllActiveResponseType = z.infer<
+    typeof bolsaGetAllActiveResponseSchema
+>;
+export type BolsaGetAllDoadasAndDevolvidasResponseType = z.infer<
+    typeof bolsaGetAllDoadasAndDevolvidasResponseSchema
+>;
 
 export const bolsaSyncPecasSchema = z.object({
     codigosDasPecas: z
