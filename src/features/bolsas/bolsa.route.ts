@@ -98,7 +98,7 @@ export async function bolsaRoutes(
                 params: bolsaParamsSchema,
                 body: bolsaSetStatusSchema,
                 response: {
-                    204: { type: null },
+                    204: { type: "null" },
                 },
             },
         },
