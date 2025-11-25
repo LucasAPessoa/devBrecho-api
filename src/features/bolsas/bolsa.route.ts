@@ -73,20 +73,6 @@ export async function bolsaRoutes(
         controller.update.bind(controller)
     );
 
-    // Delete
-    app.delete(
-        "/:bolsaId",
-        {
-            schema: {
-                params: bolsaParamsSchema,
-                response: {
-                    204: { type: "null" },
-                },
-            },
-        },
-        controller.delete.bind(controller)
-    );
-
     // Sync Pecas
 
     app.put(

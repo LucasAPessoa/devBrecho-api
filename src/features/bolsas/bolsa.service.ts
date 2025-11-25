@@ -56,16 +56,6 @@ export class BolsaService {
         }
     }
 
-    async delete(data: BolsaParamsType): Promise<void> {
-        await this.getById(data);
-
-        const success = await this.repository.delete(data);
-
-        if (!success) {
-            throw new Error("Não foi possível deletar a bolsa.");
-        }
-    }
-
     async syncPecas(
         params: BolsaParamsType,
         data: BolsaSyncPecasType

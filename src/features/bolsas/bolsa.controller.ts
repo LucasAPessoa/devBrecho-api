@@ -74,22 +74,6 @@ export class BolsaController {
         }
     }
 
-    async delete(
-        request: FastifyRequest<{ Params: BolsaParamsType }>,
-        reply: FastifyReply
-    ) {
-        try {
-            const { bolsaId } = request.params;
-            await this.bolsaService.delete({ bolsaId });
-            return reply.status(204).send();
-        } catch (error: any) {
-            if (error.message === "Bolsa não encontrada.") {
-                return reply.status(404).send({ message: error.message });
-            }
-            return reply.status(500).send({ message: error.message });
-        }
-    }
-
     async syncPecas(
         request: FastifyRequest<{
             Params: BolsaParamsType;
