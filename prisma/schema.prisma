@@ -34,8 +34,6 @@ model Bolsa {
     statusDevolvida              Boolean?
     statusDoada                  Boolean?
 
-    deletedAt DateTime?
-
     fornecedora   Fornecedora @relation(fields: [fornecedoraId], references: [fornecedoraId])
     fornecedoraId Int
 
