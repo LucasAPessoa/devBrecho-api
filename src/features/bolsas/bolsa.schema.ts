@@ -75,6 +75,10 @@ export const bolsaUpdateSchema = z.object({
     codigosDasPecas: z.array(z.string()).optional(),
 });
 
+export const bolsaGetAllDoadasAndDevolvidasSchema = z.object({
+    fornecedoraId: z.number().int().positive(),
+});
+
 export const bolsaParamsSchema = z.object({
     bolsaId: z.coerce
         .number({ invalid_type_error: "O ID da bolsa deve ser um número." })
@@ -97,6 +101,9 @@ export type BolsaUpdateType = z.infer<typeof bolsaUpdateSchema>;
 export type BolsaParamsType = z.infer<typeof bolsaParamsSchema>;
 export type BolsaSetStatusType = z.infer<typeof bolsaSetStatusSchema>;
 export type BolsaSearchQueryType = z.infer<typeof bolsaSearchQuerySchema>;
+export type BolsaGetAllDoadasAndDevolvidasType = z.infer<
+    typeof bolsaGetAllDoadasAndDevolvidasSchema
+>;
 
 export const bolsaPopulatedResponseSchema = bolsaSchema.extend({
     fornecedora: fornecedoraSchema,

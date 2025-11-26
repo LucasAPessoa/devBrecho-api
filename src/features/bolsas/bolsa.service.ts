@@ -15,7 +15,7 @@ import {
 export class BolsaService {
     constructor(private repository: BolsaRepository) {}
 
-    async getAll(query: string): Promise<BolsaGetAllResponseType> {
+    async getAll(query: string): Promise<BolsaGetAllActiveResponseType> {
         return this.repository.getAll(query);
     }
 

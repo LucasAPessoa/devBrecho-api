@@ -161,4 +161,16 @@ export class BolsaRepository {
             orderBy: { dataDeEntrada: "desc" },
         });
     }
+
+    async getAllDoadasAndDevolvidas(
+        fornecedoraId: BolsaGetAllDoadasAndDevolvidasType
+    ): Promise<BolsaGetAllDoadasAndDevolvidasResponseType> {
+        return prisma.bolsa.findMany({
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
+            where: {
+                fornecedoraId: fornecedoraId.fornecedoraId,
+                OR: [{ statusDevolvida: true }, { statusDoada: true }],
+            },
+        });
+    }
 }

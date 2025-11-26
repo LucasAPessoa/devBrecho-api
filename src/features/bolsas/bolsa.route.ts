@@ -10,6 +10,8 @@ import {
     bolsaSyncPecasSchema,
     bolsaSetStatusSchema,
     bolsaSearchQuerySchema,
+    bolsaGetAllDoadasAndDevolvidasSchema,
+    bolsaGetAllDoadasAndDevolvidasResponseSchema,
 } from "./bolsa.schema";
 
 export async function bolsaRoutes(
@@ -29,7 +31,7 @@ export async function bolsaRoutes(
                 },
             },
         },
-        controller.getAllActive.bind(controller)
+        controller.getAll.bind(controller)
     );
 
     // GetById

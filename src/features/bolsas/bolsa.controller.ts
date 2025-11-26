@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { BolsaService } from "./bolsa.service";
 import {
     BolsaCreateType,
-    BolsaGetAllResponseType,
+    BolsaGetAllActiveResponseType,
     BolsaSearchQueryType,
     BolsaUpdateType,
     BolsaParamsType,
@@ -18,7 +18,7 @@ export class BolsaController {
     async getAll(
         request: FastifyRequest<{ Querystring: BolsaSearchQueryType }>,
         reply: FastifyReply
-    ): Promise<BolsaGetAllResponseType> {
+    ): Promise<BolsaGetAllActiveResponseType> {
         const { query } = request.query;
 
         const bolsas = await this.bolsaService.getAll(query || "");
