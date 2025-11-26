@@ -10,6 +10,6 @@ export default {
     },
     datasource: {
         url: env("DATABASE_URL"),
-        shadowDatabaseUrl: env("SHADOW_DATABASE_URL"),
+        //shadowDatabaseUrl: env("SHADOW_DATABASE_URL"),
     },
 } as PrismaConfig;
