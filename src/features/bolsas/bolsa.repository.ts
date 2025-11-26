@@ -75,23 +75,6 @@ export class BolsaRepository {
         });
     }
 
-    async delete(data: BolsaParamsType): Promise<boolean> {
-        try {
-            await prisma.$transaction(async (tx) => {
-                await tx.pecaCadastrada.deleteMany({
-                    where: { bolsaId: data.bolsaId },
-                });
-
-                await tx.bolsa.delete({
-                    where: { bolsaId: data.bolsaId },
-                });
-            });
-            return true;
-        } catch {
-            return false;
-        }
-    }
-
     async syncPecas(bolsaId: number, codigosDasPecas: string[]): Promise<void> {
         const codigos = codigosDasPecas || [];
 

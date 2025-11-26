@@ -7,8 +7,7 @@ generator client {
 
 datasource db {
     provider          = "postgresql"
-    url               = env("DATABASE_URL")
-    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+   
 }
 
 model Setor {
@@ -33,8 +32,6 @@ model Bolsa {
     observacoes                  String?
     statusDevolvida              Boolean?  @default(false)
     statusDoada                  Boolean?  @default(false)
-
-    deletedAt DateTime?
 
     fornecedora   Fornecedora @relation(fields: [fornecedoraId], references: [fornecedoraId])
     fornecedoraId Int

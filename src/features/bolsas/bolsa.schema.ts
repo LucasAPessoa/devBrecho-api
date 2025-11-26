@@ -19,7 +19,6 @@ export const bolsaSchema = z.object({
         .nullable(),
     statusDevolvida: z.boolean().optional().nullable(),
     statusDoada: z.boolean().optional().nullable(),
-    deletedAt: z.coerce.date().optional().nullable(),
     fornecedoraId: z.number().int().positive(),
     setorId: z.number().int().positive(),
     pecasCadastradas: z.array(pecaCadastradaSchema).optional(),
