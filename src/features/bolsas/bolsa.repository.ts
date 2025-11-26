@@ -11,12 +11,6 @@ import {
 } from "./bolsa.schema";
 
 export class BolsaRepository {
-    async getAll(): Promise<BolsaGetAllResponseType> {
-        return prisma.bolsa.findMany({
-            include: { pecasCadastradas: true, fornecedora: true, setor: true },
-        });
-    }
-
     async getById(data: BolsaParamsType): Promise<BolsaResponseType | null> {
         return prisma.bolsa.findUnique({
             where: { bolsaId: data.bolsaId },
@@ -102,5 +96,65 @@ export class BolsaRepository {
         } catch {
             return false;
         }
+    }
+
+    async getAll(query?: string): Promise<BolsaResponseType[]> {
+        const term = query?.trim();
+
+        const activeFilters = {
+            statusDevolvida: { not: true },
+            statusDoada: { not: true },
+        };
+
+        let textFilter = {};
+
+        if (term) {
+            textFilter = {
+                OR: [
+                    { observacoes: { contains: term, mode: "insensitive" } },
+
+                    {
+                        fornecedora: {
+                            nome: { contains: term, mode: "insensitive" },
+                        },
+                    },
+                    {
+                        fornecedora: {
+                            codigo: { contains: term, mode: "insensitive" },
+                        },
+                    },
+                    {
+                        fornecedora: {
+                            telefone: { contains: term, mode: "insensitive" },
+                        },
+                    },
+
+                    {
+                        setor: {
+                            nome: { contains: term, mode: "insensitive" },
+                        },
+                    },
+
+                    {
+                        pecasCadastradas: {
+                            some: {
+                                codigoDaPeca: {
+                                    contains: term,
+                                    mode: "insensitive",
+                                },
+                            },
+                        },
+                    },
+                ],
+            };
+        }
+
+        return prisma.bolsa.findMany({
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
+            where: {
+                AND: [activeFilters, textFilter],
+            },
+            orderBy: { dataDeEntrada: "desc" },
+        });
     }
 }

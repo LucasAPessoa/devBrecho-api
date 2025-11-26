@@ -13,8 +13,8 @@ import {
 export class BolsaService {
     constructor(private repository: BolsaRepository) {}
 
-    async getAll(): Promise<BolsaGetAllResponseType> {
-        return this.repository.getAll();
+    async getAll(query: string): Promise<BolsaGetAllResponseType> {
+        return this.repository.getAll(query);
     }
 
     async getById(data: BolsaParamsType): Promise<BolsaResponseType> {

@@ -9,6 +9,7 @@ import {
     bolsaResponseSchema,
     bolsaSyncPecasSchema,
     bolsaSetStatusSchema,
+    bolsaSearchQuerySchema,
 } from "./bolsa.schema";
 
 export async function bolsaRoutes(
@@ -22,6 +23,7 @@ export async function bolsaRoutes(
         "/",
         {
             schema: {
+                querystring: bolsaSearchQuerySchema,
                 response: {
                     200: bolsaGetAllResponseSchema,
                 },

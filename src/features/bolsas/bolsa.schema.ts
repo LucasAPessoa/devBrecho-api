@@ -87,11 +87,16 @@ export const bolsaSetStatusSchema = z.object({
     statusDoada: z.boolean().optional().nullable(),
 });
 
+export const bolsaSearchQuerySchema = z.object({
+    query: z.string().optional(),
+});
+
 export type BolsaType = z.infer<typeof bolsaSchema>;
 export type BolsaCreateType = z.infer<typeof bolsaCreateSchema>;
 export type BolsaUpdateType = z.infer<typeof bolsaUpdateSchema>;
 export type BolsaParamsType = z.infer<typeof bolsaParamsSchema>;
 export type BolsaSetStatusType = z.infer<typeof bolsaSetStatusSchema>;
+export type BolsaSearchQueryType = z.infer<typeof bolsaSearchQuerySchema>;
 
 export const bolsaPopulatedResponseSchema = bolsaSchema.extend({
     fornecedora: fornecedoraSchema,

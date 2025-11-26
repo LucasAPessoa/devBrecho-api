@@ -3,7 +3,7 @@ import { BolsaService } from "./bolsa.service";
 import {
     BolsaCreateType,
     BolsaGetAllResponseType,
-    BolsaResponseType,
+    BolsaSearchQueryType,
     BolsaUpdateType,
     BolsaParamsType,
     BolsaSyncPecasType,
@@ -14,10 +14,13 @@ export class BolsaController {
     constructor(private bolsaService: BolsaService) {}
 
     async getAll(
-        request: FastifyRequest,
+        request: FastifyRequest<{ Querystring: BolsaSearchQueryType }>,
         reply: FastifyReply
     ): Promise<BolsaGetAllResponseType> {
-        const bolsas = await this.bolsaService.getAll();
+        const { query } = request.query;
+
+        const bolsas = await this.bolsaService.getAll(query || "");
+
         return bolsas;
     }
 
