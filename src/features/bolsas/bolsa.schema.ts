@@ -106,10 +106,21 @@ export const bolsaPopulatedResponseSchema = bolsaSchema.extend({
 
 export const bolsaResponseSchema = bolsaPopulatedResponseSchema;
 
-export const bolsaGetAllResponseSchema = z.array(bolsaPopulatedResponseSchema);
+export const bolsaGetAllActiveResponseSchema = z.array(
+    bolsaPopulatedResponseSchema
+);
+
+export const bolsaGetAllDoadasAndDevolvidasResponseSchema = z.array(
+    bolsaPopulatedResponseSchema
+);
 
 export type BolsaResponseType = z.infer<typeof bolsaResponseSchema>;
-export type BolsaGetAllResponseType = z.infer<typeof bolsaGetAllResponseSchema>;
+export type BolsaGetAllActiveResponseType = z.infer<
+    typeof bolsaGetAllActiveResponseSchema
+>;
+export type BolsaGetAllDoadasAndDevolvidasResponseType = z.infer<
+    typeof bolsaGetAllDoadasAndDevolvidasResponseSchema
+>;
 
 export const bolsaSyncPecasSchema = z.object({
     codigosDasPecas: z

@@ -8,6 +8,8 @@ import {
     BolsaParamsType,
     BolsaSyncPecasType,
     BolsaSetStatusType,
+    BolsaGetAllDoadasAndDevolvidasType,
+    BolsaGetAllDoadasAndDevolvidasResponseType,
 } from "./bolsa.schema";
 
 export class BolsaController {
@@ -114,6 +116,25 @@ export class BolsaController {
             if (error.message === "Bolsa não encontrada.") {
                 return reply.status(404).send({ message: error.message });
             }
+        }
+    }
+
+    async getAllDoadasAndDevolvidas(
+        request: FastifyRequest<{
+            Params: BolsaGetAllDoadasAndDevolvidasType;
+            Body: BolsaGetAllDoadasAndDevolvidasResponseType;
+        }>,
+        reply: FastifyReply
+    ) {
+        try {
+            const { fornecedoraId } = request.params;
+
+            const bolsas = await this.bolsaService.getAllDoadasAndDevolvidas({
+                fornecedoraId,
+            });
+            return bolsas;
+        } catch (error: any) {
+            return reply.status(500).send({ message: error.message });
         }
     }
 }

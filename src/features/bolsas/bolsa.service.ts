@@ -5,9 +5,11 @@ import {
     BolsaParamsType,
     BolsaUpdateType,
     BolsaResponseType,
-    BolsaGetAllResponseType,
+    BolsaGetAllActiveResponseType,
     BolsaSyncPecasType,
     BolsaSetStatusType,
+    BolsaGetAllDoadasAndDevolvidasResponseType,
+    BolsaGetAllDoadasAndDevolvidasType,
 } from "./bolsa.schema";
 
 export class BolsaService {
@@ -82,5 +84,11 @@ export class BolsaService {
         } catch (error) {
             throw new Error("Erro ao atualizar o status da bolsa.");
         }
+    }
+
+    async getAllDoadasAndDevolvidas(
+        fornecedoraId: BolsaGetAllDoadasAndDevolvidasType
+    ): Promise<BolsaGetAllDoadasAndDevolvidasResponseType> {
+        return this.repository.getAllDoadasAndDevolvidas(fornecedoraId);
     }
 }

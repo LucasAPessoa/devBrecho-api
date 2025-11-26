@@ -41,22 +41,11 @@ console.log("--- [PASSO 2] Instância do Fastify criada ---");
 
 const start = async () => {
     try {
-        const allowedOrigins = [
-            "http://localhost:5173",
-            "https://devbrecho-front.onrender.com",
-        ];
-
         await app.register(cors, {
-            origin: (origin, callback) => {
-                if (!origin) return callback(null, true);
-
-                if (allowedOrigins.indexOf(origin) === -1) {
-                    const msg =
-                        "A política de CORS para este site não permite acesso da Origem especificada.";
-                    return callback(new Error(msg), false);
-                }
-                return callback(null, true);
-            },
+            origin: [
+                "http://localhost:5173",
+                "https://devbrecho-front.onrender.com",
+            ],
         });
 
         const setorRepository = new SetorRepository();

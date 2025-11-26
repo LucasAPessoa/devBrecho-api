@@ -1,11 +1,15 @@
 import { prisma } from "../../lib/prisma";
-import { BolsaSetStatusType } from "./bolsa.schema";
+import {
+    BolsaGetAllDoadasAndDevolvidasResponseType,
+    BolsaGetAllDoadasAndDevolvidasType,
+    BolsaSetStatusType,
+} from "./bolsa.schema";
 import {
     BolsaCreateType,
     BolsaType,
     BolsaParamsType,
     BolsaUpdateType,
-    BolsaGetAllResponseType,
+    BolsaGetAllActiveResponseType,
     BolsaResponseType,
     BolsaSyncPecasType,
 } from "./bolsa.schema";

@@ -5,7 +5,7 @@ import {
     bolsaParamsSchema,
     bolsaCreateSchema,
     bolsaUpdateSchema,
-    bolsaGetAllResponseSchema,
+    bolsaGetAllActiveResponseSchema,
     bolsaResponseSchema,
     bolsaSyncPecasSchema,
     bolsaSetStatusSchema,
@@ -18,18 +18,18 @@ export async function bolsaRoutes(
 ) {
     const { controller } = options;
 
-    // GetAll
+    // getAllActive
     app.get(
         "/",
         {
             schema: {
                 querystring: bolsaSearchQuerySchema,
                 response: {
-                    200: bolsaGetAllResponseSchema,
+                    200: bolsaGetAllActiveResponseSchema,
                 },
             },
         },
-        controller.getAll.bind(controller)
+        controller.getAllActive.bind(controller)
     );
 
     // GetById
@@ -105,5 +105,20 @@ export async function bolsaRoutes(
             },
         },
         controller.setStatus.bind(controller)
+    );
+
+    // Get All Doadas And Devolvidas
+
+    app.get(
+        "/doadasEDevolvidas/:fornecedoraId",
+        {
+            schema: {
+                params: bolsaGetAllDoadasAndDevolvidasSchema,
+                response: {
+                    200: bolsaGetAllDoadasAndDevolvidasResponseSchema,
+                },
+            },
+        },
+        controller.getAllDoadasAndDevolvidas.bind(controller)
     );
 }
