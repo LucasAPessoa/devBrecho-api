@@ -9,8 +9,10 @@ import {
 } from "./fornecedora.schema";
 
 export class FornecedoraRepository {
-    async getAll(): Promise<FornecedoraGetAllResponseType> {
-        return prisma.fornecedora.findMany();
+    async getAll(query: string): Promise<FornecedoraGetAllResponseType> {
+        return prisma.fornecedora.findMany({
+            where: { nome: { contains: query, mode: "insensitive" } },
+        });
     }
 
     async getById(

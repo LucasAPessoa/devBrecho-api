@@ -11,8 +11,8 @@ import {
 export class FornecedoraService {
     constructor(private repository: FornecedoraRepository) {}
 
-    async getAll(): Promise<FornecedoraGetAllResponseType> {
-        return this.repository.getAll();
+    async getAll(query: string): Promise<FornecedoraGetAllResponseType> {
+        return this.repository.getAll(query);
     }
 
     async getById(

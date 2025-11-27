@@ -3,9 +3,9 @@ import { FornecedoraService } from "./fornecedora.service";
 import {
     FornecedoraCreateType,
     FornecedoraGetAllResponseType,
-    FornecedoraResponseType,
     FornecedoraUpdateType,
     FornecedoraParamsType,
+    FornecedoraSearchQueryType,
 } from "./fornecedora.schema";
 
 export class FornecedoraController {
@@ -15,7 +15,9 @@ export class FornecedoraController {
         request: FastifyRequest,
         reply: FastifyReply
     ): Promise<FornecedoraGetAllResponseType> {
-        const fornecedoras = await this.fornecedoraService.getAll();
+        const { query } = request.query as FornecedoraSearchQueryType;
+
+        const fornecedoras = await this.fornecedoraService.getAll(query || "");
         return fornecedoras;
     }
 
