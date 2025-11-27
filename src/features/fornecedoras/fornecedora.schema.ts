@@ -40,10 +40,17 @@ export const fornecedoraParamsSchema = z.object({
         .positive("O ID da fornecedora deve ser um número positivo."),
 });
 
+export const FornecedoraSearchQuerySchema = z.object({
+    query: z.string().optional(),
+});
+
 export type FornecedoraType = z.infer<typeof fornecedoraSchema>;
 export type FornecedoraCreateType = z.infer<typeof fornecedoraCreateSchema>;
 export type FornecedoraUpdateType = z.infer<typeof fornecedoraUpdateSchema>;
 export type FornecedoraParamsType = z.infer<typeof fornecedoraParamsSchema>;
+export type FornecedoraSearchQueryType = z.infer<
+    typeof FornecedoraSearchQuerySchema
+>;
 
 export const fornecedoraResponseSchema = fornecedoraSchema;
 export const fornecedoraGetAllResponseSchema = z.array(

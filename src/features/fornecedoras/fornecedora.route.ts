@@ -7,6 +7,7 @@ import {
     fornecedoraUpdateSchema,
     fornecedoraGetAllResponseSchema,
     fornecedoraResponseSchema,
+    FornecedoraSearchQuerySchema,
 } from "./fornecedora.schema";
 
 export async function fornecedoraRoutes(
@@ -20,6 +21,7 @@ export async function fornecedoraRoutes(
         "/",
         {
             schema: {
+                params: FornecedoraSearchQuerySchema,
                 response: {
                     200: fornecedoraGetAllResponseSchema,
                 },
