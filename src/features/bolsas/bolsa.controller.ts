@@ -119,18 +119,19 @@ export class BolsaController {
         }
     }
 
-    async getAllDoadasAndDevolvidas(
+  async getAllDoadasAndDevolvidas(
         request: FastifyRequest<{
-            Params: BolsaGetAllDoadasAndDevolvidasType;
-            Body: BolsaGetAllDoadasAndDevolvidasResponseType;
+            Params: {fornecedoraId: string};
         }>,
         reply: FastifyReply
     ) {
         try {
             const { fornecedoraId } = request.params;
 
+            const fornecedoraIdInt = parseInt(fornecedoraId)
+
             const bolsas = await this.bolsaService.getAllDoadasAndDevolvidas({
-                fornecedoraId,
+                fornecedoraId: fornecedoraIdInt,
             });
             return bolsas;
         } catch (error: any) {
