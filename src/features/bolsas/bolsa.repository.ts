@@ -9,12 +9,21 @@ import {
     BolsaType,
     BolsaParamsType,
     BolsaUpdateType,
-    BolsaGetAllActiveResponseType,
     BolsaResponseType,
-    BolsaSyncPecasType,
 } from "./bolsa.schema";
 
 export class BolsaRepository {
+    async getByFornecedoraId(fornecedoraId: number): Promise<BolsaType | null> {
+        return prisma.bolsa.findFirst({
+            where: {
+                fornecedoraId: fornecedoraId,
+                statusDevolvida: false,
+                statusDoada: false,
+            },
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
+        });
+    }
+
     async getById(data: BolsaParamsType): Promise<BolsaResponseType | null> {
         return prisma.bolsa.findUnique({
             where: { bolsaId: data.bolsaId },

@@ -31,7 +31,17 @@ export class BolsaService {
 
     async create(data: BolsaCreateType): Promise<BolsaType> {
         try {
-            return await this.repository.create(data);
+            const bolsaExists = await this.repository.getByFornecedoraId(
+                data.fornecedoraId
+            );
+
+            if (!bolsaExists) {
+                return await this.repository.create(data);
+            }
+
+            throw new Error(
+                "Já existe uma bolsa cadastrada para essa fornecedora."
+            );
         } catch (error) {
             throw new Error(
                 "Não foi possível criar a bolsa. Verifique os dados."
