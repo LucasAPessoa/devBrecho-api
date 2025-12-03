@@ -9,9 +9,7 @@ import {
     BolsaType,
     BolsaParamsType,
     BolsaUpdateType,
-    BolsaGetAllActiveResponseType,
     BolsaResponseType,
-    BolsaSyncPecasType,
 } from "./bolsa.schema";
 
 export class BolsaRepository {
