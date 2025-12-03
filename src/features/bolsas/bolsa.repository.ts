@@ -26,6 +26,18 @@ export class BolsaRepository {
         const { codigosDasPecas, ...bolsaData } = data;
 
         const novaBolsaCompleta = await prisma.$transaction(async (tx) => {
+            const bolsaExists = await tx.bolsa.findFirst({
+                where: {
+                    fornecedoraId: bolsaData.fornecedoraId,
+                },
+            });
+
+            if (bolsaExists) {
+                throw new Error(
+                    "Já existe uma bolsa cadastrada para essa fornecedora."
+                );
+            }
+
             const bolsa = await tx.bolsa.create({
                 data: {
                     ...bolsaData,
