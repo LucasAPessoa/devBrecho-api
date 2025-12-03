@@ -13,6 +13,17 @@ import {
 } from "./bolsa.schema";
 
 export class BolsaRepository {
+    async getByFornecedoraId(fornecedoraId: number): Promise<BolsaType | null> {
+        return prisma.bolsa.findFirst({
+            where: {
+                fornecedoraId: fornecedoraId,
+                statusDevolvida: false,
+                statusDoada: false,
+            },
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
+        });
+    }
+
     async getById(data: BolsaParamsType): Promise<BolsaResponseType | null> {
         return prisma.bolsa.findUnique({
             where: { bolsaId: data.bolsaId },
@@ -24,18 +35,6 @@ export class BolsaRepository {
         const { codigosDasPecas, ...bolsaData } = data;
 
         const novaBolsaCompleta = await prisma.$transaction(async (tx) => {
-            const bolsaExists = await tx.bolsa.findFirst({
-                where: {
-                    fornecedoraId: bolsaData.fornecedoraId,
-                },
-            });
-
-            if (bolsaExists) {
-                throw new Error(
-                    "Já existe uma bolsa cadastrada para essa fornecedora."
-                );
-            }
-
             const bolsa = await tx.bolsa.create({
                 data: {
                     ...bolsaData,
