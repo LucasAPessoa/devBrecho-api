@@ -68,3 +68,6 @@ export type PecaCadastradaGetByBolsaIdResponseType = z.infer<
 export type PecaCadastradaUpdateResponseType = z.infer<
     typeof pecaCadastradaUpdateResponseSchema
 >;
+
+export type PecaCadastradaGetByCodigoDaPecaResponseType =
+    PecaCadastradaResponseType | null;

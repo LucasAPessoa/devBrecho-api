@@ -2,6 +2,7 @@ import { PecaCadastradaRepository } from "./pecaCadastrada.repository";
 import {
     PecaCadastradaGetAllResponseType,
     PecaCadastradaGetByBolsaIdResponseType,
+    PecaCadastradaGetByCodigoDaPecaResponseType,
     PecaCadastradaUpdateResponseType,
 } from "./pecaCadastrada.schema";
 
@@ -33,5 +34,11 @@ export class PecaCadastradaService {
         codigoDaPeca: string;
     }): Promise<PecaCadastradaUpdateResponseType> {
         return this.PecaCadastradaRepository.update(data);
+    }
+
+    async getByCodigoDaPeca(
+        codigoDaPeca: string
+    ): Promise<PecaCadastradaGetByCodigoDaPecaResponseType> {
+        return this.PecaCadastradaRepository.getByCodigoDaPeca(codigoDaPeca);
     }
 }
