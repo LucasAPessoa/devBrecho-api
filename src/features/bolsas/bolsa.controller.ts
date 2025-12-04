@@ -7,8 +7,6 @@ import {
     BolsaParamsType,
     BolsaSyncPecasType,
     BolsaSetStatusType,
-    BolsaGetAllDoadasAndDevolvidasType,
-    BolsaGetAllDoadasAndDevolvidasResponseType,
     BolsaGetAllActiveResponseType,
 } from "./bolsa.schema";
 
@@ -30,30 +28,17 @@ export class BolsaController {
         request: FastifyRequest<{ Params: BolsaParamsType }>,
         reply: FastifyReply
     ) {
-        try {
-            const { bolsaId } = request.params;
-            const bolsa = await this.bolsaService.getById({ bolsaId });
-            return bolsa;
-        } catch (error: any) {
-            if (error.message === "Bolsa não encontrada.") {
-                return reply.status(404).send({ message: error.message });
-            }
-            return reply
-                .status(500)
-                .send({ message: "Erro interno no servidor." });
-        }
+        const { bolsaId } = request.params;
+        const bolsa = await this.bolsaService.getById({ bolsaId });
+        return bolsa;
     }
 
     async create(
         request: FastifyRequest<{ Body: BolsaCreateType }>,
         reply: FastifyReply
     ) {
-        try {
-            const novaBolsa = await this.bolsaService.create(request.body);
-            return reply.status(201).send(novaBolsa);
-        } catch (error: any) {
-            return reply.status(400).send({ message: error.message });
-        }
+        const novaBolsa = await this.bolsaService.create(request.body);
+        return reply.status(201).send(novaBolsa);
     }
 
     async update(
@@ -63,20 +48,10 @@ export class BolsaController {
         }>,
         reply: FastifyReply
     ) {
-        try {
-            const bolsaId = request.params.bolsaId;
-            const data = request.body;
-            const bolsaAtualizada = await this.bolsaService.update(
-                data,
-                bolsaId
-            );
-            return bolsaAtualizada;
-        } catch (error: any) {
-            if (error.message === "Bolsa não encontrada.") {
-                return reply.status(404).send({ message: error.message });
-            }
-            return reply.status(500).send({ message: error.message });
-        }
+        const bolsaId = request.params.bolsaId;
+        const data = request.body;
+        const bolsaAtualizada = await this.bolsaService.update(data, bolsaId);
+        return bolsaAtualizada;
     }
 
     async syncPecas(
@@ -86,17 +61,10 @@ export class BolsaController {
         }>,
         reply: FastifyReply
     ) {
-        try {
-            const { bolsaId } = request.params;
-            await this.bolsaService.syncPecas({ bolsaId }, request.body);
+        const { bolsaId } = request.params;
+        await this.bolsaService.syncPecas({ bolsaId }, request.body);
 
-            return reply.status(204).send();
-        } catch (error: any) {
-            if (error.message === "Bolsa não encontrada.") {
-                return reply.status(404).send({ message: error.message });
-            }
-            return reply.status(500).send({ message: error.message });
-        }
+        return reply.status(204).send();
     }
 
     async setStatus(
@@ -106,36 +74,26 @@ export class BolsaController {
         }>,
         reply: FastifyReply
     ) {
-        try {
-            const { bolsaId } = request.params;
+        const { bolsaId } = request.params;
 
-            await this.bolsaService.setStatus({ bolsaId }, request.body);
+        await this.bolsaService.setStatus({ bolsaId }, request.body);
 
-            return reply.status(204).send();
-        } catch (error: any) {
-            if (error.message === "Bolsa não encontrada.") {
-                return reply.status(404).send({ message: error.message });
-            }
-        }
+        return reply.status(204).send();
     }
 
     async getAllDoadasAndDevolvidas(
         request: FastifyRequest<{
-            Params: {fornecedoraId: string};
+            Params: { fornecedoraId: string };
         }>,
         reply: FastifyReply
     ) {
-        try {
-            const { fornecedoraId } = request.params;
+        const { fornecedoraId } = request.params;
 
-            const fornecedoraIdInt = parseInt(fornecedoraId)
+        const fornecedoraIdInt = parseInt(fornecedoraId);
 
-            const bolsas = await this.bolsaService.getAllDoadasAndDevolvidas({
-                fornecedoraId: fornecedoraIdInt,
-            });
-            return bolsas;
-        } catch (error: any) {
-            return reply.status(500).send({ message: error.message });
-        }
+        const bolsas = await this.bolsaService.getAllDoadasAndDevolvidas({
+            fornecedoraId: fornecedoraIdInt,
+        });
+        return bolsas;
     }
 }
