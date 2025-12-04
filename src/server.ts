@@ -1,7 +1,9 @@
 import "dotenv/config";
 import Fastify from "fastify";
-
 import cors from "@fastify/cors";
+
+import { globalErrorHandler } from "./hooks/globalErrorHandler.hook";
+
 import { setorRoutes } from "./features/setores/setor.route";
 import { SetorRepository } from "./features/setores/setor.repository";
 import { SetorService } from "./features/setores/setor.service";
@@ -41,6 +43,8 @@ console.log("--- [PASSO 2] Instância do Fastify criada ---");
 
 const start = async () => {
     try {
+        app.setErrorHandler(globalErrorHandler);
+
         await app.register(cors, {
             origin: [
                 "http://localhost:5173",
