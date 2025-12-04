@@ -1,3 +1,4 @@
+import { PecaCadastradaService } from "../pecasCadastradas/pecaCadastrada.service";
 import { BolsaRepository } from "./bolsa.repository";
 import {
     BolsaCreateType,
@@ -13,7 +14,10 @@ import {
 } from "./bolsa.schema";
 
 export class BolsaService {
-    constructor(private repository: BolsaRepository) {}
+    constructor(
+        private repository: BolsaRepository,
+        private pecaService: PecaCadastradaService
+    ) {}
 
     async getAll(query: string): Promise<BolsaGetAllActiveResponseType> {
         return this.repository.getAll(query);
@@ -35,16 +39,31 @@ export class BolsaService {
                 data.fornecedoraId
             );
 
-            if (!bolsaExists) {
-                return await this.repository.create(data);
+            if (bolsaExists) {
+                throw new Error(
+                    "Já existe uma bolsa cadastrada para essa fornecedora."
+                );
             }
 
-            throw new Error(
-                "Já existe uma bolsa cadastrada para essa fornecedora."
-            );
+            const pecasCadastradas = data.codigosDasPecas;
+
+            for (let i = 0; i < pecasCadastradas.length; i++) {
+                const peca = pecasCadastradas[i];
+                const pecaExists = await this.pecaService.getByCodigoDaPeca(
+                    peca
+                );
+
+                if (pecaExists) {
+                    throw new Error(
+                        "Uma das peças cadastradas já está cadastrada em outra fornecedora, verifique e refaça o cadastro."
+                    );
+                }
+            }
+
+            return await this.repository.create(data);
         } catch (error) {
             throw new Error(
-                "Não foi possível criar a bolsa. Verifique os dados."
+                "Não foi possível criar a bolsa. Verifique os dados." + error
             );
         }
     }
