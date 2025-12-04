@@ -88,7 +88,10 @@ const start = async () => {
         });
 
         const bolsaRepository = new BolsaRepository();
-        const bolsaService = new BolsaService(bolsaRepository);
+        const bolsaService = new BolsaService(
+            bolsaRepository,
+            pecaCadastradaService
+        );
         const bolsaController = new BolsaController(bolsaService);
 
         app.register(bolsaRoutes, {
