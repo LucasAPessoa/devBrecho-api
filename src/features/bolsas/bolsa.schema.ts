@@ -76,7 +76,7 @@ export const bolsaUpdateSchema = z.object({
 });
 
 export const bolsaGetAllDoadasAndDevolvidasSchema = z.object({
-    fornecedoraId: z.number().int().positive(),
+    fornecedoraId: z.coerce.number().int().positive(),
 });
 
 export const bolsaParamsSchema = z.object({
