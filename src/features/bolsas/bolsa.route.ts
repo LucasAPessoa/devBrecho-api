@@ -12,6 +12,7 @@ import {
     bolsaSearchQuerySchema,
     bolsaGetAllDoadasAndDevolvidasSchema,
     bolsaGetAllDoadasAndDevolvidasResponseSchema,
+    bolsaGetGroupedByPrazoSchema,
 } from "./bolsa.schema";
 
 export async function bolsaRoutes(
@@ -122,5 +123,19 @@ export async function bolsaRoutes(
             },
         },
         controller.getAllDoadasAndDevolvidas.bind(controller)
+    );
+
+    // Get Bolsas Grouped By Mensagem
+
+    app.get(
+        "/groupedByDataMensagem",
+        {
+            schema: {
+                response: {
+                    200: bolsaGetGroupedByPrazoSchema,
+                },
+            },
+        },
+        controller.getBolsasGroupedByPrazo.bind(controller)
     );
 }

@@ -8,6 +8,7 @@ import {
     BolsaSyncPecasType,
     BolsaSetStatusType,
     BolsaGetAllActiveResponseType,
+    BolsaGetAllDoadasAndDevolvidasType,
 } from "./bolsa.schema";
 
 export class BolsaController {
@@ -92,6 +93,14 @@ export class BolsaController {
         const bolsas = await this.bolsaService.getAllDoadasAndDevolvidas({
             fornecedoraId,
         });
+        return bolsas;
+    }
+
+    async getBolsasGroupedByPrazo(
+        request: FastifyRequest,
+        reply: FastifyReply
+    ) {
+        const bolsas = await this.bolsaService.getBolsasGroupedByPrazo();
         return bolsas;
     }
 }

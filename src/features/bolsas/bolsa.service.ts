@@ -11,6 +11,7 @@ import {
     BolsaSetStatusType,
     BolsaGetAllDoadasAndDevolvidasResponseType,
     BolsaGetAllDoadasAndDevolvidasType,
+    BolsaGetGroupedByPrazoType,
 } from "./bolsa.schema";
 
 export class BolsaService {
@@ -119,5 +120,32 @@ export class BolsaService {
         fornecedoraId: BolsaGetAllDoadasAndDevolvidasType
     ): Promise<BolsaGetAllDoadasAndDevolvidasResponseType> {
         return this.repository.getAllDoadasAndDevolvidas(fornecedoraId);
+    }
+
+    async getBolsasGroupedByPrazo(): Promise<BolsaGetGroupedByPrazoType> {
+        const bolsas = await this.repository.getBolsasGroupedByPrazo();
+
+        const bolsasGrouped = bolsas.reduce(
+            (accumulator: Record<string, BolsaResponseType[]>, bolsaAtual) => {
+                const dataKey = bolsaAtual
+                    .dataMensagem!.toISOString()
+                    .split("T")[0];
+
+                if (!accumulator[dataKey]) {
+                    accumulator[dataKey] = [];
+                }
+
+                accumulator[dataKey].push(bolsaAtual);
+
+                return accumulator;
+            },
+            {}
+        );
+
+        const bolsasGroupedObject = Object.entries(bolsasGrouped).map(
+            ([date, bolsas]) => ({ date: date, bolsas: bolsas })
+        );
+
+        return bolsasGroupedObject;
     }
 }

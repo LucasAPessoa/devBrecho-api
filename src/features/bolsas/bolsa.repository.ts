@@ -2,6 +2,7 @@ import { prisma } from "../../lib/prisma";
 import {
     BolsaGetAllDoadasAndDevolvidasResponseType,
     BolsaGetAllDoadasAndDevolvidasType,
+    BolsaGetGroupedByPrazoType,
     BolsaSetStatusType,
 } from "./bolsa.schema";
 import {
@@ -179,6 +180,17 @@ export class BolsaRepository {
             where: {
                 fornecedoraId: fornecedoraId.fornecedoraId,
                 OR: [{ statusDevolvida: true }, { statusDoada: true }],
+            },
+        });
+    }
+
+    async getBolsasGroupedByPrazo(): Promise<BolsaResponseType[]> {
+        return await prisma.bolsa.findMany({
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
+            where: {
+                statusDevolvida: false,
+                statusDoada: false,
+                dataMensagem: { not: null },
             },
         });
     }
