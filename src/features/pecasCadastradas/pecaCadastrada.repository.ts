@@ -3,6 +3,7 @@ import {
     PecaCadastradaCreateType,
     PecaCadastradaGetAllResponseType,
     PecaCadastradaGetByBolsaIdResponseType,
+    PecaCadastradaResponseType,
     PecaCadastradaUpdateResponseType,
     PecaCadastradaUpdateType,
 } from "./pecaCadastrada.schema";
@@ -56,6 +57,14 @@ export class PecaCadastradaRepository {
             data: {
                 codigoDaPeca: data.codigoDaPeca,
             },
+        });
+    }
+
+    async getByCodigoDaPeca(
+        codigoDaPeca: string
+    ): Promise<PecaCadastradaResponseType | null> {
+        return prisma.pecaCadastrada.findFirst({
+            where: { codigoDaPeca: codigoDaPeca },
         });
     }
 }

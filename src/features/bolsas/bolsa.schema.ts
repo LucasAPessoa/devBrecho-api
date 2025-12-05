@@ -136,3 +136,14 @@ export const bolsaSyncPecasSchema = z.object({
 });
 
 export type BolsaSyncPecasType = z.infer<typeof bolsaSyncPecasSchema>;
+
+export const bolsaGetGroupedByPrazoSchema = z.array(
+    z.object({
+        date: z.string(),
+        bolsas: z.array(bolsaPopulatedResponseSchema),
+    })
+);
+
+export type BolsaGetGroupedByPrazoType = z.infer<
+    typeof bolsaGetGroupedByPrazoSchema
+>;
