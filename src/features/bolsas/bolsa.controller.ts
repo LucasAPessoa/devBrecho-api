@@ -82,7 +82,7 @@ export class BolsaController {
         return reply.status(204).send();
     }
 
-    async getAllDoadasAndDevolvidas(
+  async getAllDoadasAndDevolvidas(
         request: FastifyRequest<{
             Params: BolsaGetAllDoadasAndDevolvidasType;
         }>,
