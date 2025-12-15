@@ -32,6 +32,7 @@ model Bolsa {
     observacoes                  String?
     statusDevolvida              Boolean?  @default(false)
     statusDoada                  Boolean?  @default(false)
+    updatedAt                    DateTime? @updatedAt
 
     fornecedora   Fornecedora @relation(fields: [fornecedoraId], references: [fornecedoraId])
     fornecedoraId Int
@@ -42,10 +43,60 @@ model Bolsa {
     pecasCadastradas PecaCadastrada[]
 }
 
+enum Role {
+    USER
+    ADMIN
+    MANAGER
+}
+
 model PecaCadastrada {
     pecaCadastradaId Int    @id @default(autoincrement())
     codigoDaPeca     String @unique
 
     bolsa   Bolsa @relation(fields: [bolsaId], references: [bolsaId])
     bolsaId Int
+}
+
+model User {
+    userId       String    @id @default(uuid())
+    firstName    String
+    lastName     String
+    phone        String?   @unique
+    email        String    @unique
+    passwordHash String
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime? @updatedAt
+    deletedAt    DateTime?
+
+    role Role @default(USER)
+
+    managerId String?
+    manager   User?   @relation("ManagerToUsers", fields: [managerId], references: [userId])
+
+    verificationTokens verificationToken[]
+    refreshTokens      refreshToken[]
+
+    users User[] @relation("ManagerToUsers")
+}
+
+model verificationToken {
+    tokenId    String   @id @default(uuid())
+    identifier String
+    token      String
+    expires    DateTime
+
+    userId String
+    user   User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    @@unique([identifier, token])
+}
+
+model refreshToken {
+    tokenId String @id @default(uuid())
+    token   String
+
+    userId String
+    user   User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    @@unique([tokenId, token])
 }

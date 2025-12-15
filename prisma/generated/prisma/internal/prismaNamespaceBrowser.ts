@@ -54,7 +54,10 @@ export const ModelName = {
   Setor: 'Setor',
   Fornecedora: 'Fornecedora',
   Bolsa: 'Bolsa',
-  PecaCadastrada: 'PecaCadastrada'
+  PecaCadastrada: 'PecaCadastrada',
+  User: 'User',
+  verificationToken: 'verificationToken',
+  refreshToken: 'refreshToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -99,6 +102,8 @@ export const BolsaScalarFieldEnum = {
   observacoes: 'observacoes',
   statusDevolvida: 'statusDevolvida',
   statusDoada: 'statusDoada',
+  updatedAt: 'updatedAt',
+  role: 'role',
   fornecedoraId: 'fornecedoraId',
   setorId: 'setorId'
 } as const
@@ -113,6 +118,42 @@ export const PecaCadastradaScalarFieldEnum = {
 } as const
 
 export type PecaCadastradaScalarFieldEnum = (typeof PecaCadastradaScalarFieldEnum)[keyof typeof PecaCadastradaScalarFieldEnum]
+
+
+export const UserScalarFieldEnum = {
+  userId: 'userId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  phone: 'phone',
+  email: 'email',
+  passwordHash: 'passwordHash',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  managerId: 'managerId'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const VerificationTokenScalarFieldEnum = {
+  tokenId: 'tokenId',
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires',
+  userId: 'userId'
+} as const
+
+export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
+
+
+export const RefreshTokenScalarFieldEnum = {
+  tokenId: 'tokenId',
+  token: 'token',
+  userId: 'userId'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
 export const SortOrder = {

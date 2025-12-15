@@ -37,3 +37,18 @@ export type Bolsa = Prisma.BolsaModel
  * 
  */
 export type PecaCadastrada = Prisma.PecaCadastradaModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model verificationToken
+ * 
+ */
+export type verificationToken = Prisma.verificationTokenModel
+/**
+ * Model refreshToken
+ * 
+ */
+export type refreshToken = Prisma.refreshTokenModel
