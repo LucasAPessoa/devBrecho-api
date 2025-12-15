@@ -10,6 +10,7 @@ import { SetorService } from "./features/setores/setor.service";
 import { SetorController } from "./features/setores/setor.controller";
 
 import {
+    jsonSchemaTransform,
     serializerCompiler,
     validatorCompiler,
     ZodTypeProvider,
@@ -27,29 +28,38 @@ import { BolsaRepository } from "./features/bolsas/bolsa.repository";
 import { BolsaService } from "./features/bolsas/bolsa.service";
 import { BolsaController } from "./features/bolsas/bolsa.controller";
 import { bolsaRoutes } from "./features/bolsas/bolsa.route";
-
-console.log("--- [PASSO 1] Iniciando o arquivo server.ts ---");
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 
 const app = Fastify({
     logger: true,
 }).withTypeProvider<ZodTypeProvider>();
 
-console.log("--- [PASSO 1.1] Adicionando os compilers ---");
-
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
-
-console.log("--- [PASSO 2] Instância do Fastify criada ---");
 
 const start = async () => {
     try {
         app.setErrorHandler(globalErrorHandler);
 
         await app.register(cors, {
-            origin: [
-                "http://localhost:5173",
-                "https://devbrecho-front.onrender.com",
-            ],
+            origin: ["http://localhost:5173"],
+            methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+            allowedHeaders: ["Content-Type", "Authorization"],
+        });
+
+        app.register(fastifySwagger, {
+            openapi: {
+                info: {
+                    title: "BrechoApi",
+                    version: "1.0.0",
+                },
+            },
+            transform: jsonSchemaTransform,
+        });
+
+        app.register(fastifySwaggerUi, {
+            routePrefix: "/docs",
         });
 
         const setorRepository = new SetorRepository();
@@ -99,18 +109,12 @@ const start = async () => {
             controller: bolsaController,
         });
 
-        console.log("--- [PASSO 3] Rotas registradas ---");
-
         if (!process.env.DATABASE_URL) {
             console.error(
                 "ERRO FATAL: A variável de ambiente DATABASE_URL não foi definida!"
             );
             throw new Error("DATABASE_URL não definida");
         }
-
-        console.log(
-            "--- [PASSO 4] DATABASE_URL encontrada. Tentando iniciar o servidor... ---"
-        );
 
         const port = Number(process.env.PORT) || 3333;
         await app.listen({ port, host: "0.0.0.0" });
