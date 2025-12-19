@@ -49,7 +49,6 @@ export type BolsaMinAggregateOutputType = {
   statusDevolvida: boolean | null
   statusDoada: boolean | null
   updatedAt: Date | null
-  role: $Enums.Role | null
   fornecedoraId: number | null
   setorId: number | null
 }
@@ -63,7 +62,6 @@ export type BolsaMaxAggregateOutputType = {
   statusDevolvida: boolean | null
   statusDoada: boolean | null
   updatedAt: Date | null
-  role: $Enums.Role | null
   fornecedoraId: number | null
   setorId: number | null
 }
@@ -77,7 +75,6 @@ export type BolsaCountAggregateOutputType = {
   statusDevolvida: number
   statusDoada: number
   updatedAt: number
-  role: number
   fornecedoraId: number
   setorId: number
   _all: number
@@ -107,7 +104,6 @@ export type BolsaMinAggregateInputType = {
   statusDevolvida?: true
   statusDoada?: true
   updatedAt?: true
-  role?: true
   fornecedoraId?: true
   setorId?: true
 }
@@ -121,7 +117,6 @@ export type BolsaMaxAggregateInputType = {
   statusDevolvida?: true
   statusDoada?: true
   updatedAt?: true
-  role?: true
   fornecedoraId?: true
   setorId?: true
 }
@@ -135,7 +130,6 @@ export type BolsaCountAggregateInputType = {
   statusDevolvida?: true
   statusDoada?: true
   updatedAt?: true
-  role?: true
   fornecedoraId?: true
   setorId?: true
   _all?: true
@@ -236,7 +230,6 @@ export type BolsaGroupByOutputType = {
   statusDevolvida: boolean | null
   statusDoada: boolean | null
   updatedAt: Date | null
-  role: $Enums.Role
   fornecedoraId: number
   setorId: number
   _count: BolsaCountAggregateOutputType | null
@@ -273,7 +266,6 @@ export type BolsaWhereInput = {
   statusDevolvida?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   statusDoada?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Bolsa"> | Date | string | null
-  role?: Prisma.EnumRoleFilter<"Bolsa"> | $Enums.Role
   fornecedoraId?: Prisma.IntFilter<"Bolsa"> | number
   setorId?: Prisma.IntFilter<"Bolsa"> | number
   fornecedora?: Prisma.XOR<Prisma.FornecedoraScalarRelationFilter, Prisma.FornecedoraWhereInput>
@@ -290,7 +282,6 @@ export type BolsaOrderByWithRelationInput = {
   statusDevolvida?: Prisma.SortOrderInput | Prisma.SortOrder
   statusDoada?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  role?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
   fornecedora?: Prisma.FornecedoraOrderByWithRelationInput
@@ -310,7 +301,6 @@ export type BolsaWhereUniqueInput = Prisma.AtLeast<{
   statusDevolvida?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   statusDoada?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Bolsa"> | Date | string | null
-  role?: Prisma.EnumRoleFilter<"Bolsa"> | $Enums.Role
   fornecedoraId?: Prisma.IntFilter<"Bolsa"> | number
   setorId?: Prisma.IntFilter<"Bolsa"> | number
   fornecedora?: Prisma.XOR<Prisma.FornecedoraScalarRelationFilter, Prisma.FornecedoraWhereInput>
@@ -327,7 +317,6 @@ export type BolsaOrderByWithAggregationInput = {
   statusDevolvida?: Prisma.SortOrderInput | Prisma.SortOrder
   statusDoada?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  role?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
   _count?: Prisma.BolsaCountOrderByAggregateInput
@@ -349,7 +338,6 @@ export type BolsaScalarWhereWithAggregatesInput = {
   statusDevolvida?: Prisma.BoolNullableWithAggregatesFilter<"Bolsa"> | boolean | null
   statusDoada?: Prisma.BoolNullableWithAggregatesFilter<"Bolsa"> | boolean | null
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Bolsa"> | Date | string | null
-  role?: Prisma.EnumRoleWithAggregatesFilter<"Bolsa"> | $Enums.Role
   fornecedoraId?: Prisma.IntWithAggregatesFilter<"Bolsa"> | number
   setorId?: Prisma.IntWithAggregatesFilter<"Bolsa"> | number
 }
@@ -362,7 +350,6 @@ export type BolsaCreateInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
@@ -377,7 +364,6 @@ export type BolsaUncheckedCreateInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   fornecedoraId: number
   setorId: number
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
@@ -391,7 +377,6 @@ export type BolsaUpdateInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
@@ -406,7 +391,6 @@ export type BolsaUncheckedUpdateInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
@@ -421,7 +405,6 @@ export type BolsaCreateManyInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   fornecedoraId: number
   setorId: number
 }
@@ -434,7 +417,6 @@ export type BolsaUpdateManyMutationInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
 }
 
 export type BolsaUncheckedUpdateManyInput = {
@@ -446,7 +428,6 @@ export type BolsaUncheckedUpdateManyInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -470,7 +451,6 @@ export type BolsaCountOrderByAggregateInput = {
   statusDevolvida?: Prisma.SortOrder
   statusDoada?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
 }
@@ -491,7 +471,6 @@ export type BolsaMaxOrderByAggregateInput = {
   statusDevolvida?: Prisma.SortOrder
   statusDoada?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
 }
@@ -505,7 +484,6 @@ export type BolsaMinOrderByAggregateInput = {
   statusDevolvida?: Prisma.SortOrder
   statusDoada?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
 }
@@ -618,10 +596,6 @@ export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
 }
 
-export type EnumRoleFieldUpdateOperationsInput = {
-  set?: $Enums.Role
-}
-
 export type BolsaCreateNestedOneWithoutPecasCadastradasInput = {
   create?: Prisma.XOR<Prisma.BolsaCreateWithoutPecasCadastradasInput, Prisma.BolsaUncheckedCreateWithoutPecasCadastradasInput>
   connectOrCreate?: Prisma.BolsaCreateOrConnectWithoutPecasCadastradasInput
@@ -644,7 +618,6 @@ export type BolsaCreateWithoutSetorInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
 }
@@ -658,7 +631,6 @@ export type BolsaUncheckedCreateWithoutSetorInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   fornecedoraId: number
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
 }
@@ -701,7 +673,6 @@ export type BolsaScalarWhereInput = {
   statusDevolvida?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   statusDoada?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Bolsa"> | Date | string | null
-  role?: Prisma.EnumRoleFilter<"Bolsa"> | $Enums.Role
   fornecedoraId?: Prisma.IntFilter<"Bolsa"> | number
   setorId?: Prisma.IntFilter<"Bolsa"> | number
 }
@@ -714,7 +685,6 @@ export type BolsaCreateWithoutFornecedoraInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
 }
@@ -728,7 +698,6 @@ export type BolsaUncheckedCreateWithoutFornecedoraInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   setorId: number
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
 }
@@ -767,7 +736,6 @@ export type BolsaCreateWithoutPecasCadastradasInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
 }
@@ -781,7 +749,6 @@ export type BolsaUncheckedCreateWithoutPecasCadastradasInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   fornecedoraId: number
   setorId: number
 }
@@ -810,7 +777,6 @@ export type BolsaUpdateWithoutPecasCadastradasInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
 }
@@ -824,7 +790,6 @@ export type BolsaUncheckedUpdateWithoutPecasCadastradasInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -838,7 +803,6 @@ export type BolsaCreateManySetorInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   fornecedoraId: number
 }
 
@@ -850,7 +814,6 @@ export type BolsaUpdateWithoutSetorInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
 }
@@ -864,7 +827,6 @@ export type BolsaUncheckedUpdateWithoutSetorInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
 }
@@ -878,7 +840,6 @@ export type BolsaUncheckedUpdateManyWithoutSetorInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -891,7 +852,6 @@ export type BolsaCreateManyFornecedoraInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
-  role?: $Enums.Role
   setorId: number
 }
 
@@ -903,7 +863,6 @@ export type BolsaUpdateWithoutFornecedoraInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
 }
@@ -917,7 +876,6 @@ export type BolsaUncheckedUpdateWithoutFornecedoraInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
 }
@@ -931,7 +889,6 @@ export type BolsaUncheckedUpdateManyWithoutFornecedoraInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -975,7 +932,6 @@ export type BolsaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   statusDevolvida?: boolean
   statusDoada?: boolean
   updatedAt?: boolean
-  role?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
@@ -993,7 +949,6 @@ export type BolsaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   statusDevolvida?: boolean
   statusDoada?: boolean
   updatedAt?: boolean
-  role?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
@@ -1009,7 +964,6 @@ export type BolsaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   statusDevolvida?: boolean
   statusDoada?: boolean
   updatedAt?: boolean
-  role?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
@@ -1025,12 +979,11 @@ export type BolsaSelectScalar = {
   statusDevolvida?: boolean
   statusDoada?: boolean
   updatedAt?: boolean
-  role?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
 }
 
-export type BolsaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"bolsaId" | "dataDeEntrada" | "dataMensagem" | "quantidadeDePecasSemCadastro" | "observacoes" | "statusDevolvida" | "statusDoada" | "updatedAt" | "role" | "fornecedoraId" | "setorId", ExtArgs["result"]["bolsa"]>
+export type BolsaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"bolsaId" | "dataDeEntrada" | "dataMensagem" | "quantidadeDePecasSemCadastro" | "observacoes" | "statusDevolvida" | "statusDoada" | "updatedAt" | "fornecedoraId" | "setorId", ExtArgs["result"]["bolsa"]>
 export type BolsaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
   setor?: boolean | Prisma.SetorDefaultArgs<ExtArgs>
@@ -1062,7 +1015,6 @@ export type $BolsaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     statusDevolvida: boolean | null
     statusDoada: boolean | null
     updatedAt: Date | null
-    role: $Enums.Role
     fornecedoraId: number
     setorId: number
   }, ExtArgs["result"]["bolsa"]>
@@ -1499,7 +1451,6 @@ export interface BolsaFieldRefs {
   readonly statusDevolvida: Prisma.FieldRef<"Bolsa", 'Boolean'>
   readonly statusDoada: Prisma.FieldRef<"Bolsa", 'Boolean'>
   readonly updatedAt: Prisma.FieldRef<"Bolsa", 'DateTime'>
-  readonly role: Prisma.FieldRef<"Bolsa", 'Role'>
   readonly fornecedoraId: Prisma.FieldRef<"Bolsa", 'Int'>
   readonly setorId: Prisma.FieldRef<"Bolsa", 'Int'>
 }

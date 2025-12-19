@@ -994,7 +994,6 @@ export const BolsaScalarFieldEnum = {
   statusDevolvida: 'statusDevolvida',
   statusDoada: 'statusDoada',
   updatedAt: 'updatedAt',
-  role: 'role',
   fornecedoraId: 'fornecedoraId',
   setorId: 'setorId'
 } as const
@@ -1021,6 +1020,7 @@ export const UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
+  role: 'role',
   managerId: 'managerId'
 } as const
 

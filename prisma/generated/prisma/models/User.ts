@@ -34,6 +34,7 @@ export type UserMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  role: $Enums.Role | null
   managerId: string | null
 }
 
@@ -47,6 +48,7 @@ export type UserMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  role: $Enums.Role | null
   managerId: string | null
 }
 
@@ -60,6 +62,7 @@ export type UserCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   deletedAt: number
+  role: number
   managerId: number
   _all: number
 }
@@ -75,6 +78,7 @@ export type UserMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  role?: true
   managerId?: true
 }
 
@@ -88,6 +92,7 @@ export type UserMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  role?: true
   managerId?: true
 }
 
@@ -101,6 +106,7 @@ export type UserCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  role?: true
   managerId?: true
   _all?: true
 }
@@ -187,6 +193,7 @@ export type UserGroupByOutputType = {
   createdAt: Date
   updatedAt: Date | null
   deletedAt: Date | null
+  role: $Enums.Role
   managerId: string | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -221,6 +228,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
   manager?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   verificationTokens?: Prisma.VerificationTokenListRelationFilter
@@ -238,6 +246,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   manager?: Prisma.UserOrderByWithRelationInput
   verificationTokens?: Prisma.verificationTokenOrderByRelationAggregateInput
@@ -258,6 +267,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
   manager?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   verificationTokens?: Prisma.VerificationTokenListRelationFilter
@@ -275,6 +285,7 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -294,6 +305,7 @@ export type UserScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   managerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
@@ -307,6 +319,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   manager?: Prisma.UserCreateNestedOneWithoutUsersInput
   verificationTokens?: Prisma.verificationTokenCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenCreateNestedManyWithoutUserInput
@@ -323,6 +336,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   managerId?: string | null
   verificationTokens?: Prisma.verificationTokenUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -339,6 +353,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   manager?: Prisma.UserUpdateOneWithoutUsersNestedInput
   verificationTokens?: Prisma.verificationTokenUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUpdateManyWithoutUserNestedInput
@@ -355,6 +370,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationTokens?: Prisma.verificationTokenUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -371,6 +387,7 @@ export type UserCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   managerId?: string | null
 }
 
@@ -384,6 +401,7 @@ export type UserUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -396,6 +414,7 @@ export type UserUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -424,6 +443,7 @@ export type UserCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
 }
 
@@ -437,6 +457,7 @@ export type UserMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
 }
 
@@ -450,6 +471,7 @@ export type UserMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
 }
 
@@ -476,6 +498,10 @@ export type UserUncheckedCreateNestedManyWithoutManagerInput = {
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutManagerInput | Prisma.UserCreateOrConnectWithoutManagerInput[]
   createMany?: Prisma.UserCreateManyManagerInputEnvelope
   connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type EnumRoleFieldUpdateOperationsInput = {
+  set?: $Enums.Role
 }
 
 export type UserUpdateOneWithoutUsersNestedInput = {
@@ -554,6 +580,7 @@ export type UserCreateWithoutUsersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   manager?: Prisma.UserCreateNestedOneWithoutUsersInput
   verificationTokens?: Prisma.verificationTokenCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenCreateNestedManyWithoutUserInput
@@ -569,6 +596,7 @@ export type UserUncheckedCreateWithoutUsersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   managerId?: string | null
   verificationTokens?: Prisma.verificationTokenUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -589,6 +617,7 @@ export type UserCreateWithoutManagerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   verificationTokens?: Prisma.verificationTokenCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenCreateNestedManyWithoutUserInput
   users?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -604,6 +633,7 @@ export type UserUncheckedCreateWithoutManagerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   verificationTokens?: Prisma.verificationTokenUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenUncheckedCreateNestedManyWithoutUserInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
@@ -640,6 +670,7 @@ export type UserUpdateWithoutUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   manager?: Prisma.UserUpdateOneWithoutUsersNestedInput
   verificationTokens?: Prisma.verificationTokenUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUpdateManyWithoutUserNestedInput
@@ -655,6 +686,7 @@ export type UserUncheckedUpdateWithoutUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationTokens?: Prisma.verificationTokenUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -689,6 +721,7 @@ export type UserScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
 }
 
@@ -702,6 +735,7 @@ export type UserCreateWithoutVerificationTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   manager?: Prisma.UserCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.refreshTokenCreateNestedManyWithoutUserInput
   users?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -717,6 +751,7 @@ export type UserUncheckedCreateWithoutVerificationTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   managerId?: string | null
   refreshTokens?: Prisma.refreshTokenUncheckedCreateNestedManyWithoutUserInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
@@ -748,6 +783,7 @@ export type UserUpdateWithoutVerificationTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   manager?: Prisma.UserUpdateOneWithoutUsersNestedInput
   refreshTokens?: Prisma.refreshTokenUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -763,6 +799,7 @@ export type UserUncheckedUpdateWithoutVerificationTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshTokens?: Prisma.refreshTokenUncheckedUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
@@ -778,6 +815,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   manager?: Prisma.UserCreateNestedOneWithoutUsersInput
   verificationTokens?: Prisma.verificationTokenCreateNestedManyWithoutUserInput
   users?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -793,6 +831,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
   managerId?: string | null
   verificationTokens?: Prisma.verificationTokenUncheckedCreateNestedManyWithoutUserInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
@@ -824,6 +863,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   manager?: Prisma.UserUpdateOneWithoutUsersNestedInput
   verificationTokens?: Prisma.verificationTokenUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -839,6 +879,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationTokens?: Prisma.verificationTokenUncheckedUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
@@ -854,6 +895,7 @@ export type UserCreateManyManagerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
+  role?: $Enums.Role
 }
 
 export type UserUpdateWithoutManagerInput = {
@@ -866,6 +908,7 @@ export type UserUpdateWithoutManagerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   verificationTokens?: Prisma.verificationTokenUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -881,6 +924,7 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   verificationTokens?: Prisma.verificationTokenUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUncheckedUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
@@ -896,6 +940,7 @@ export type UserUncheckedUpdateManyWithoutManagerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
 }
 
 
@@ -957,6 +1002,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  role?: boolean
   managerId?: boolean
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
   verificationTokens?: boolean | Prisma.User$verificationTokensArgs<ExtArgs>
@@ -975,6 +1021,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  role?: boolean
   managerId?: boolean
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -989,6 +1036,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  role?: boolean
   managerId?: boolean
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -1003,10 +1051,11 @@ export type UserSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  role?: boolean
   managerId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "firstName" | "lastName" | "phone" | "email" | "passwordHash" | "createdAt" | "updatedAt" | "deletedAt" | "managerId", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "firstName" | "lastName" | "phone" | "email" | "passwordHash" | "createdAt" | "updatedAt" | "deletedAt" | "role" | "managerId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
   verificationTokens?: boolean | Prisma.User$verificationTokensArgs<ExtArgs>
@@ -1039,6 +1088,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdAt: Date
     updatedAt: Date | null
     deletedAt: Date | null
+    role: $Enums.Role
     managerId: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1476,6 +1526,7 @@ export interface UserFieldRefs {
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly managerId: Prisma.FieldRef<"User", 'String'>
 }
     
