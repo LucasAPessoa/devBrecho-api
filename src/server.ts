@@ -13,7 +13,6 @@ import {
 import { globalErrorHandler } from "./hooks/globalErrorHandler.hook";
 import { AuthHook } from "./hooks/auth.hook";
 
-import { AuthRepository } from "./features/auth/auth.repository";
 import { AuthService } from "./features/auth/auth.service";
 import { AuthController } from "./features/auth/auth.controller";
 import { authRoutes } from "./features/auth/auth.route";
@@ -78,8 +77,7 @@ const start = async () => {
         const userService = new UserService(userRepository);
         const userController = new UserController(userService);
 
-        const authRepository = new AuthRepository();
-        const authService = new AuthService(authRepository, userService);
+        const authService = new AuthService(userService);
         const authController = new AuthController(authService);
 
         const setorRepository = new SetorRepository();
