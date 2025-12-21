@@ -41,6 +41,9 @@ model Bolsa {
     setorId Int
 
     pecasCadastradas PecaCadastrada[]
+
+    user   User?   @relation(fields: [userId], references: [userId])
+    userId String?
 }
 
 enum Role {
@@ -76,7 +79,8 @@ model User {
     verificationTokens verificationToken[]
     refreshTokens      refreshToken[]
 
-    users User[] @relation("ManagerToUsers")
+    users  User[]  @relation("ManagerToUsers")
+    bolsas Bolsa[]
 }
 
 model verificationToken {
