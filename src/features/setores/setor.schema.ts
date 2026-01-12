@@ -11,7 +11,7 @@ export const setorCreateSchema = setorSchema.omit({ setorId: true });
 
 export const setorUpdateSchema = z.object({
     setorId: z
-        .number({ invalid_type_error: "O ID do setor deve ser um número." })
+        .number({ error: "O ID do setor deve ser um número." })
         .int("O ID do setor deve ser um inteiro.")
         .positive("O ID do setor deve ser um número positivo."),
     nome: z.string().min(1).max(10),
@@ -19,7 +19,7 @@ export const setorUpdateSchema = z.object({
 
 export const setorParamsSchema = z.object({
     setorId: z.coerce
-        .number({ invalid_type_error: "O ID do setor deve ser um número." })
+        .number({ error: "O ID do setor deve ser um número." })
         .int("O ID do setor deve ser um inteiro.")
         .positive("O ID do setor deve ser um número positivo."),
 });
