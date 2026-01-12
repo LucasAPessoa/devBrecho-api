@@ -70,18 +70,4 @@ export async function pecaCadastradaRoutes(
     );
 
     // Update
-
-    app.put(
-        "/",
-        {
-            schema: {
-                tags: ["Pecas Cadastradas"],
-                body: pecaCadastradaUpdateSchema,
-                response: {
-                    200: pecaCadastradaUpdateSchema,
-                },
-            },
-        },
-        options.controller.update.bind(options.controller)
-    );
 }

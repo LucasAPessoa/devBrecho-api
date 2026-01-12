@@ -49,17 +49,6 @@ export class PecaCadastradaRepository {
         }
     }
 
-    async update(
-        data: PecaCadastradaUpdateType
-    ): Promise<PecaCadastradaUpdateResponseType> {
-        return prisma.pecaCadastrada.update({
-            where: { pecaCadastradaId: data.pecaCadastradaId },
-            data: {
-                codigoDaPeca: data.codigoDaPeca,
-            },
-        });
-    }
-
     async getByCodigoDaPeca(
         codigoDaPeca: string
     ): Promise<PecaCadastradaResponseType | null> {

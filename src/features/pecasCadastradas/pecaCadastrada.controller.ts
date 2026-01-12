@@ -1,4 +1,3 @@
-import { PecaCadastrada } from "@prisma/client";
 import { PecaCadastradaService } from "./pecaCadastrada.service";
 import { FastifyReply, FastifyRequest } from "fastify";
 import {
@@ -47,10 +46,5 @@ export class PecaCadastradaController {
         return reply.status(204).send();
     }
 
-    async update(request: FastifyRequest, reply: FastifyReply) {
-        const data = request.body as PecaCadastrada;
-        const pecaAtualizada = await this.pecaCadastradaService.update(data);
 
-        return pecaAtualizada;
-    }
 }
