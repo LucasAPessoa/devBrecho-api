@@ -14,6 +14,7 @@ import {
     bolsaGetAllDoadasAndDevolvidasResponseSchema,
     bolsaGetGroupedByPrazoSchema,
 } from "./bolsa.schema";
+import z from "zod";
 
 export async function bolsaRoutes(
     app: FastifyInstance,
@@ -26,6 +27,7 @@ export async function bolsaRoutes(
         "/",
         {
             schema: {
+                tags: ["Bolsas"],
                 querystring: bolsaSearchQuerySchema,
                 response: {
                     200: bolsaGetAllActiveResponseSchema,
@@ -40,6 +42,7 @@ export async function bolsaRoutes(
         "/:bolsaId",
         {
             schema: {
+                tags: ["Bolsas"],
                 params: bolsaParamsSchema,
                 response: {
                     200: bolsaResponseSchema,
@@ -54,6 +57,7 @@ export async function bolsaRoutes(
         "/",
         {
             schema: {
+                tags: ["Bolsas"],
                 body: bolsaCreateSchema,
                 response: {
                     201: bolsaResponseSchema,
@@ -68,6 +72,7 @@ export async function bolsaRoutes(
         "/:bolsaId",
         {
             schema: {
+                tags: ["Bolsas"],
                 params: bolsaParamsSchema,
                 body: bolsaUpdateSchema,
                 response: {
@@ -84,10 +89,11 @@ export async function bolsaRoutes(
         "/:bolsaId/pecas",
         {
             schema: {
+                tags: ["Bolsas", "Pecas Cadastradas"],
                 params: bolsaParamsSchema,
                 body: bolsaSyncPecasSchema,
                 response: {
-                    204: { type: "null" },
+                    204: z.null(),
                 },
             },
         },
@@ -100,10 +106,11 @@ export async function bolsaRoutes(
         "/:bolsaId/status",
         {
             schema: {
+                tags: ["Bolsas"],
                 params: bolsaParamsSchema,
                 body: bolsaSetStatusSchema,
                 response: {
-                    204: { type: "null" },
+                    204: z.null(),
                 },
             },
         },
@@ -116,6 +123,7 @@ export async function bolsaRoutes(
         "/doadasEDevolvidas/:fornecedoraId",
         {
             schema: {
+                tags: ["Bolsas"],
                 params: bolsaGetAllDoadasAndDevolvidasSchema,
                 response: {
                     200: bolsaGetAllDoadasAndDevolvidasResponseSchema,
@@ -131,6 +139,7 @@ export async function bolsaRoutes(
         "/groupedByDataMensagem",
         {
             schema: {
+                tags: ["Bolsas"],
                 response: {
                     200: bolsaGetGroupedByPrazoSchema,
                 },

@@ -38,11 +38,11 @@ export const bolsaCreateSchema = z.object({
     statusDevolvida: z.boolean().optional().nullable(),
     statusDoada: z.boolean().optional().nullable(),
     fornecedoraId: z
-        .number({ invalid_type_error: "O ID da fornecedora é obrigatório." })
+        .number({ error: "O ID da fornecedora é obrigatório." })
         .int()
         .positive(),
     setorId: z
-        .number({ invalid_type_error: "O ID do setor é obrigatório." })
+        .number({ error: "O ID do setor é obrigatório." })
         .int()
         .positive(),
 
@@ -65,11 +65,11 @@ export const bolsaUpdateSchema = z.object({
     statusDevolvida: z.boolean().optional().nullable(),
     statusDoada: z.boolean().optional().nullable(),
     fornecedoraId: z
-        .number({ invalid_type_error: "O ID da fornecedora é obrigatório." })
+        .number({ error: "O ID da fornecedora é obrigatório." })
         .int()
         .positive(),
     setorId: z
-        .number({ invalid_type_error: "O ID do setor é obrigatório." })
+        .number({ error: "O ID do setor é obrigatório." })
         .int()
         .positive(),
     codigosDasPecas: z.array(z.string()).optional(),
@@ -81,7 +81,7 @@ export const bolsaGetAllDoadasAndDevolvidasSchema = z.object({
 
 export const bolsaParamsSchema = z.object({
     bolsaId: z.coerce
-        .number({ invalid_type_error: "O ID da bolsa deve ser um número." })
+        .number({ error: "O ID da bolsa deve ser um número." })
         .int("O ID da bolsa deve ser um inteiro.")
         .positive("O ID da bolsa deve ser um número positivo."),
 });

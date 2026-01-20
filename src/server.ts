@@ -1,65 +1,88 @@
 import "dotenv/config";
 import Fastify from "fastify";
 import cors from "@fastify/cors";
-
-import { globalErrorHandler } from "./hooks/globalErrorHandler.hook";
-
-import { setorRoutes } from "./features/setores/setor.route";
-import { SetorRepository } from "./features/setores/setor.repository";
-import { SetorService } from "./features/setores/setor.service";
-import { SetorController } from "./features/setores/setor.controller";
-
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 import {
+    jsonSchemaTransform,
     serializerCompiler,
     validatorCompiler,
     ZodTypeProvider,
 } from "fastify-type-provider-zod";
-import { pecaCadastradaRoutes } from "./features/pecasCadastradas/pecaCadastrada.route";
-import { PecaCadastradaRepository } from "./features/pecasCadastradas/pecaCadastrada.repository";
-import { PecaCadastradaController } from "./features/pecasCadastradas/pecaCadastrada.controller";
 
+import { globalErrorHandler } from "./hooks/globalErrorHandler.hook";
+import { AuthHook } from "./hooks/auth.hook";
+
+import { AuthService } from "./features/auth/auth.service";
+import { AuthController } from "./features/auth/auth.controller";
+import { authRoutes } from "./features/auth/auth.route";
+
+import { UserRepository } from "./features/users/user.repository";
+import { UserService } from "./features/users/user.service";
+import { UserController } from "./features/users/user.controller";
+import { userRoutes } from "./features/users/user.route";
+
+import { SetorRepository } from "./features/setores/setor.repository";
+import { SetorService } from "./features/setores/setor.service";
+import { SetorController } from "./features/setores/setor.controller";
+import { setorRoutes } from "./features/setores/setor.route";
+
+import { PecaCadastradaRepository } from "./features/pecasCadastradas/pecaCadastrada.repository";
 import { PecaCadastradaService } from "./features/pecasCadastradas/pecaCadastrada.service";
+import { PecaCadastradaController } from "./features/pecasCadastradas/pecaCadastrada.controller";
+import { pecaCadastradaRoutes } from "./features/pecasCadastradas/pecaCadastrada.route";
+
 import { FornecedoraRepository } from "./features/fornecedoras/fornecedora.repository";
-import { FornecedoraController } from "./features/fornecedoras/fornecedora.controller";
 import { FornecedoraService } from "./features/fornecedoras/fornecedora.service";
+import { FornecedoraController } from "./features/fornecedoras/fornecedora.controller";
 import { fornecedoraRoutes } from "./features/fornecedoras/fornecedora.route";
+
 import { BolsaRepository } from "./features/bolsas/bolsa.repository";
 import { BolsaService } from "./features/bolsas/bolsa.service";
 import { BolsaController } from "./features/bolsas/bolsa.controller";
 import { bolsaRoutes } from "./features/bolsas/bolsa.route";
 
-console.log("--- [PASSO 1] Iniciando o arquivo server.ts ---");
-
 const app = Fastify({
     logger: true,
 }).withTypeProvider<ZodTypeProvider>();
 
-console.log("--- [PASSO 1.1] Adicionando os compilers ---");
-
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
-
-console.log("--- [PASSO 2] Instância do Fastify criada ---");
 
 const start = async () => {
     try {
         app.setErrorHandler(globalErrorHandler);
 
         await app.register(cors, {
-            origin: [
-                "http://localhost:5173",
-                "https://devbrecho-front.onrender.com",
-            ],
+            origin: ["http://localhost:5173"],
+            methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+            allowedHeaders: ["Content-Type", "Authorization"],
         });
+
+        await app.register(fastifySwagger, {
+            openapi: {
+                info: {
+                    title: "BrechoApi",
+                    version: "1.0.0",
+                },
+            },
+            transform: jsonSchemaTransform,
+        });
+
+        await app.register(fastifySwaggerUi, {
+            routePrefix: "/docs",
+        });
+
+        const userRepository = new UserRepository();
+        const userService = new UserService(userRepository);
+        const userController = new UserController(userService);
+
+        const authService = new AuthService(userService);
+        const authController = new AuthController(authService);
 
         const setorRepository = new SetorRepository();
         const setorService = new SetorService(setorRepository);
         const setorController = new SetorController(setorService);
-
-        app.register(setorRoutes, {
-            prefix: "/api/setores",
-            controller: setorController,
-        });
 
         const pecaCadastradaRepository = new PecaCadastradaRepository();
         const pecaCadastradaService = new PecaCadastradaService(
@@ -69,23 +92,13 @@ const start = async () => {
             pecaCadastradaService
         );
 
-        app.register(pecaCadastradaRoutes, {
-            prefix: "/api/pecaCadastrada",
-            controller: pecaCadastradaController,
-        });
-
-        const forncecedoraRepository = new FornecedoraRepository();
+        const fornecedoraRepository = new FornecedoraRepository();
         const fornecedoraService = new FornecedoraService(
-            forncecedoraRepository
+            fornecedoraRepository
         );
         const fornecedoraController = new FornecedoraController(
             fornecedoraService
         );
-
-        app.register(fornecedoraRoutes, {
-            prefix: "/api/fornecedoras",
-            controller: fornecedoraController,
-        });
 
         const bolsaRepository = new BolsaRepository();
         const bolsaService = new BolsaService(
@@ -94,23 +107,43 @@ const start = async () => {
         );
         const bolsaController = new BolsaController(bolsaService);
 
-        app.register(bolsaRoutes, {
-            prefix: "/api/bolsas",
-            controller: bolsaController,
+        app.register(authRoutes, {
+            prefix: "/api/auth",
+            controller: authController,
         });
 
-        console.log("--- [PASSO 3] Rotas registradas ---");
+        app.register(async (privateRoutes) => {
+            privateRoutes.addHook("preHandler", AuthHook);
+
+            privateRoutes.register(userRoutes, {
+                prefix: "/api/users",
+                controller: userController,
+            });
+
+            privateRoutes.register(setorRoutes, {
+                prefix: "/api/setores",
+                controller: setorController,
+            });
+
+            privateRoutes.register(pecaCadastradaRoutes, {
+                prefix: "/api/pecaCadastrada",
+                controller: pecaCadastradaController,
+            });
+
+            privateRoutes.register(fornecedoraRoutes, {
+                prefix: "/api/fornecedoras",
+                controller: fornecedoraController,
+            });
+
+            privateRoutes.register(bolsaRoutes, {
+                prefix: "/api/bolsas",
+                controller: bolsaController,
+            });
+        });
 
         if (!process.env.DATABASE_URL) {
-            console.error(
-                "ERRO FATAL: A variável de ambiente DATABASE_URL não foi definida!"
-            );
             throw new Error("DATABASE_URL não definida");
         }
-
-        console.log(
-            "--- [PASSO 4] DATABASE_URL encontrada. Tentando iniciar o servidor... ---"
-        );
 
         const port = Number(process.env.PORT) || 3333;
         await app.listen({ port, host: "0.0.0.0" });

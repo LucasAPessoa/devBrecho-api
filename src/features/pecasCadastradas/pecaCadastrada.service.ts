@@ -29,12 +29,6 @@ export class PecaCadastradaService {
     async delete(pecaCadastradaId: number): Promise<boolean> {
         return this.PecaCadastradaRepository.delete({ pecaCadastradaId });
     }
-    async update(data: {
-        pecaCadastradaId: number;
-        codigoDaPeca: string;
-    }): Promise<PecaCadastradaUpdateResponseType> {
-        return this.PecaCadastradaRepository.update(data);
-    }
 
     async getByCodigoDaPeca(
         codigoDaPeca: string

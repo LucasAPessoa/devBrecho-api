@@ -13,7 +13,6 @@ export async function globalErrorHandler(
     if (error.validation) {
         return rep.status(400).send({
             statusCode: 400,
-            error: "Validation Error",
             message: "Validation failed: " + error.message,
             details: error.validation,
         });
@@ -22,7 +21,6 @@ export async function globalErrorHandler(
     if (error instanceof ZodError) {
         return rep.status(400).send({
             statusCode: 400,
-            error: "Validation Error",
             message: "Validation failed",
             details: error.format(),
         });
@@ -31,14 +29,14 @@ export async function globalErrorHandler(
     if (error.statusCode) {
         return rep.status(error.statusCode).send({
             statusCode: error.statusCode,
-            error: error.name || "Error",
             message: error.message,
+            details: error.validation,
         });
     }
 
     return rep.status(500).send({
         statusCode: 500,
         error: "Internal Server Error",
-        message: "Internal server error.",
+        details: error.message,
     });
 }

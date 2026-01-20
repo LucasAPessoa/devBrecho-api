@@ -7,6 +7,7 @@ import {
     pecaCadastradaGetByBolsaIdSchema,
     pecaCadastradaUpdateSchema,
 } from "./pecaCadastrada.schema";
+import z from "zod";
 
 export async function pecaCadastradaRoutes(
     app: FastifyInstance,
@@ -17,6 +18,7 @@ export async function pecaCadastradaRoutes(
         "/:bolsaId",
         {
             schema: {
+                tags: ["Pecas Cadastradas"],
                 params: pecaCadastradaGetByBolsaIdSchema,
                 response: {
                     200: pecaCadastradaGetAllResponseSchema,
@@ -31,6 +33,7 @@ export async function pecaCadastradaRoutes(
         "/",
         {
             schema: {
+                tags: ["Pecas Cadastradas"],
                 response: {
                     200: pecaCadastradaGetAllResponseSchema,
                 },
@@ -44,9 +47,10 @@ export async function pecaCadastradaRoutes(
         "/",
         {
             schema: {
+                tags: ["Pecas Cadastradas"],
                 body: pecaCadastradaCreateSchema,
                 response: {
-                    201: { type: "boolean" },
+                    201: z.boolean(),
                 },
             },
         },
@@ -58,6 +62,7 @@ export async function pecaCadastradaRoutes(
         "/:pecaCadastradaId",
         {
             schema: {
+                tags: ["Pecas Cadastradas"],
                 params: pecaCadastradaDeleteSchema,
             },
         },
@@ -65,17 +70,4 @@ export async function pecaCadastradaRoutes(
     );
 
     // Update
-
-    app.put(
-        "/",
-        {
-            schema: {
-                body: pecaCadastradaUpdateSchema,
-                response: {
-                    200: pecaCadastradaUpdateSchema,
-                },
-            },
-        },
-        options.controller.update.bind(options.controller)
-    );
 }

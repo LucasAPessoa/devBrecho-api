@@ -18,7 +18,7 @@ export const fornecedoraCreateSchema = fornecedoraSchema.omit({
 export const fornecedoraUpdateSchema = z.object({
     fornecedoraId: z
         .number({
-            invalid_type_error: "O ID da fornecedora deve ser um número.",
+            error: "O ID da fornecedora deve ser um número.",
         })
         .int("O ID da fornecedora deve ser um inteiro.")
         .positive("O ID da fornecedora deve ser um número positivo."),
@@ -34,7 +34,7 @@ export const fornecedoraUpdateSchema = z.object({
 export const fornecedoraParamsSchema = z.object({
     fornecedoraId: z.coerce
         .number({
-            invalid_type_error: "O ID da fornecedora deve ser um número.",
+            error: "O ID da fornecedora deve ser um número.",
         })
         .int("O ID da fornecedora deve ser um inteiro.")
         .positive("O ID da fornecedora deve ser um número positivo."),

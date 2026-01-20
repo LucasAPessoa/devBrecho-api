@@ -9,6 +9,7 @@ import {
     fornecedoraResponseSchema,
     FornecedoraSearchQuerySchema,
 } from "./fornecedora.schema";
+import z from "zod";
 
 export async function fornecedoraRoutes(
     app: FastifyInstance,
@@ -21,6 +22,7 @@ export async function fornecedoraRoutes(
         "/",
         {
             schema: {
+                tags: ["Fornecedoras"],
                 params: FornecedoraSearchQuerySchema,
                 response: {
                     200: fornecedoraGetAllResponseSchema,
@@ -35,6 +37,7 @@ export async function fornecedoraRoutes(
         "/:fornecedoraId",
         {
             schema: {
+                tags: ["Fornecedoras"],
                 params: fornecedoraParamsSchema,
                 response: {
                     200: fornecedoraResponseSchema,
@@ -49,6 +52,7 @@ export async function fornecedoraRoutes(
         "/",
         {
             schema: {
+                tags: ["Fornecedoras"],
                 body: fornecedoraCreateSchema,
                 response: {
                     201: fornecedoraResponseSchema,
@@ -63,6 +67,7 @@ export async function fornecedoraRoutes(
         "/:fornecedoraId",
         {
             schema: {
+                tags: ["Fornecedoras"],
                 params: fornecedoraParamsSchema,
                 body: fornecedoraUpdateSchema,
                 response: {
@@ -78,9 +83,10 @@ export async function fornecedoraRoutes(
         "/:fornecedoraId",
         {
             schema: {
+                tags: ["Fornecedoras"],
                 params: fornecedoraParamsSchema,
                 response: {
-                    204: { type: "null" },
+                    204: z.null(),
                 },
             },
         },

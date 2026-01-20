@@ -21,6 +21,7 @@ export async function setorRoutes(
         "/",
         {
             schema: {
+                tags: ["Setores"],
                 response: {
                     200: setorGetAllResponseSchema,
                 },
@@ -34,6 +35,7 @@ export async function setorRoutes(
         "/:setorId",
         {
             schema: {
+                tags: ["Setores"],
                 params: setorParamsSchema,
                 response: {
                     200: setorResponseSchema,
@@ -48,6 +50,7 @@ export async function setorRoutes(
         "/",
         {
             schema: {
+                tags: ["Setores"],
                 body: setorCreateSchema,
                 response: {
                     201: setorResponseSchema,
@@ -62,6 +65,7 @@ export async function setorRoutes(
         "/:setorId",
         {
             schema: {
+                tags: ["Setores"],
                 params: setorParamsSchema,
                 body: setorUpdateSchema,
                 response: {
@@ -77,6 +81,7 @@ export async function setorRoutes(
         "/:setorId",
         {
             schema: {
+                tags: ["Setores"],
                 params: setorParamsSchema,
             },
         },
