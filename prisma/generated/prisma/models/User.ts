@@ -234,6 +234,7 @@ export type UserWhereInput = {
   verificationTokens?: Prisma.VerificationTokenListRelationFilter
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   users?: Prisma.UserListRelationFilter
+  bolsas?: Prisma.BolsaListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -252,6 +253,7 @@ export type UserOrderByWithRelationInput = {
   verificationTokens?: Prisma.verificationTokenOrderByRelationAggregateInput
   refreshTokens?: Prisma.refreshTokenOrderByRelationAggregateInput
   users?: Prisma.UserOrderByRelationAggregateInput
+  bolsas?: Prisma.BolsaOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -273,6 +275,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   verificationTokens?: Prisma.VerificationTokenListRelationFilter
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   users?: Prisma.UserListRelationFilter
+  bolsas?: Prisma.BolsaListRelationFilter
 }, "userId" | "phone" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -324,6 +327,7 @@ export type UserCreateInput = {
   verificationTokens?: Prisma.verificationTokenCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenCreateNestedManyWithoutUserInput
   users?: Prisma.UserCreateNestedManyWithoutManagerInput
+  bolsas?: Prisma.BolsaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -341,6 +345,7 @@ export type UserUncheckedCreateInput = {
   verificationTokens?: Prisma.verificationTokenUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenUncheckedCreateNestedManyWithoutUserInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  bolsas?: Prisma.BolsaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -358,6 +363,7 @@ export type UserUpdateInput = {
   verificationTokens?: Prisma.verificationTokenUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  bolsas?: Prisma.BolsaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -375,6 +381,7 @@ export type UserUncheckedUpdateInput = {
   verificationTokens?: Prisma.verificationTokenUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUncheckedUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  bolsas?: Prisma.BolsaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -480,6 +487,22 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserCreateNestedOneWithoutBolsasInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBolsasInput, Prisma.UserUncheckedCreateWithoutBolsasInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBolsasInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutBolsasNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBolsasInput, Prisma.UserUncheckedCreateWithoutBolsasInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBolsasInput
+  upsert?: Prisma.UserUpsertWithoutBolsasInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBolsasInput, Prisma.UserUpdateWithoutBolsasInput>, Prisma.UserUncheckedUpdateWithoutBolsasInput>
+}
+
 export type UserCreateNestedOneWithoutUsersInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutUsersInput, Prisma.UserUncheckedCreateWithoutUsersInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutUsersInput
@@ -570,6 +593,90 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
+export type UserCreateWithoutBolsasInput = {
+  userId?: string
+  firstName: string
+  lastName: string
+  phone?: string | null
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  role?: $Enums.Role
+  manager?: Prisma.UserCreateNestedOneWithoutUsersInput
+  verificationTokens?: Prisma.verificationTokenCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.refreshTokenCreateNestedManyWithoutUserInput
+  users?: Prisma.UserCreateNestedManyWithoutManagerInput
+}
+
+export type UserUncheckedCreateWithoutBolsasInput = {
+  userId?: string
+  firstName: string
+  lastName: string
+  phone?: string | null
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  role?: $Enums.Role
+  managerId?: string | null
+  verificationTokens?: Prisma.verificationTokenUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.refreshTokenUncheckedCreateNestedManyWithoutUserInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+}
+
+export type UserCreateOrConnectWithoutBolsasInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBolsasInput, Prisma.UserUncheckedCreateWithoutBolsasInput>
+}
+
+export type UserUpsertWithoutBolsasInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBolsasInput, Prisma.UserUncheckedUpdateWithoutBolsasInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBolsasInput, Prisma.UserUncheckedCreateWithoutBolsasInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBolsasInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBolsasInput, Prisma.UserUncheckedUpdateWithoutBolsasInput>
+}
+
+export type UserUpdateWithoutBolsasInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  manager?: Prisma.UserUpdateOneWithoutUsersNestedInput
+  verificationTokens?: Prisma.verificationTokenUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.refreshTokenUpdateManyWithoutUserNestedInput
+  users?: Prisma.UserUpdateManyWithoutManagerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBolsasInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTokens?: Prisma.verificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.refreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+}
+
 export type UserCreateWithoutUsersInput = {
   userId?: string
   firstName: string
@@ -584,6 +691,7 @@ export type UserCreateWithoutUsersInput = {
   manager?: Prisma.UserCreateNestedOneWithoutUsersInput
   verificationTokens?: Prisma.verificationTokenCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenCreateNestedManyWithoutUserInput
+  bolsas?: Prisma.BolsaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUsersInput = {
@@ -600,6 +708,7 @@ export type UserUncheckedCreateWithoutUsersInput = {
   managerId?: string | null
   verificationTokens?: Prisma.verificationTokenUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenUncheckedCreateNestedManyWithoutUserInput
+  bolsas?: Prisma.BolsaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUsersInput = {
@@ -621,6 +730,7 @@ export type UserCreateWithoutManagerInput = {
   verificationTokens?: Prisma.verificationTokenCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenCreateNestedManyWithoutUserInput
   users?: Prisma.UserCreateNestedManyWithoutManagerInput
+  bolsas?: Prisma.BolsaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagerInput = {
@@ -637,6 +747,7 @@ export type UserUncheckedCreateWithoutManagerInput = {
   verificationTokens?: Prisma.verificationTokenUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.refreshTokenUncheckedCreateNestedManyWithoutUserInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  bolsas?: Prisma.BolsaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagerInput = {
@@ -674,6 +785,7 @@ export type UserUpdateWithoutUsersInput = {
   manager?: Prisma.UserUpdateOneWithoutUsersNestedInput
   verificationTokens?: Prisma.verificationTokenUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUpdateManyWithoutUserNestedInput
+  bolsas?: Prisma.BolsaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUsersInput = {
@@ -690,6 +802,7 @@ export type UserUncheckedUpdateWithoutUsersInput = {
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationTokens?: Prisma.verificationTokenUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  bolsas?: Prisma.BolsaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutManagerInput = {
@@ -739,6 +852,7 @@ export type UserCreateWithoutVerificationTokensInput = {
   manager?: Prisma.UserCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.refreshTokenCreateNestedManyWithoutUserInput
   users?: Prisma.UserCreateNestedManyWithoutManagerInput
+  bolsas?: Prisma.BolsaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVerificationTokensInput = {
@@ -755,6 +869,7 @@ export type UserUncheckedCreateWithoutVerificationTokensInput = {
   managerId?: string | null
   refreshTokens?: Prisma.refreshTokenUncheckedCreateNestedManyWithoutUserInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  bolsas?: Prisma.BolsaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVerificationTokensInput = {
@@ -787,6 +902,7 @@ export type UserUpdateWithoutVerificationTokensInput = {
   manager?: Prisma.UserUpdateOneWithoutUsersNestedInput
   refreshTokens?: Prisma.refreshTokenUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  bolsas?: Prisma.BolsaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerificationTokensInput = {
@@ -803,6 +919,7 @@ export type UserUncheckedUpdateWithoutVerificationTokensInput = {
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshTokens?: Prisma.refreshTokenUncheckedUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  bolsas?: Prisma.BolsaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -819,6 +936,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   manager?: Prisma.UserCreateNestedOneWithoutUsersInput
   verificationTokens?: Prisma.verificationTokenCreateNestedManyWithoutUserInput
   users?: Prisma.UserCreateNestedManyWithoutManagerInput
+  bolsas?: Prisma.BolsaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -835,6 +953,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   managerId?: string | null
   verificationTokens?: Prisma.verificationTokenUncheckedCreateNestedManyWithoutUserInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  bolsas?: Prisma.BolsaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -867,6 +986,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   manager?: Prisma.UserUpdateOneWithoutUsersNestedInput
   verificationTokens?: Prisma.verificationTokenUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  bolsas?: Prisma.BolsaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -883,6 +1003,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationTokens?: Prisma.verificationTokenUncheckedUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  bolsas?: Prisma.BolsaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyManagerInput = {
@@ -912,6 +1033,7 @@ export type UserUpdateWithoutManagerInput = {
   verificationTokens?: Prisma.verificationTokenUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  bolsas?: Prisma.BolsaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagerInput = {
@@ -928,6 +1050,7 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   verificationTokens?: Prisma.verificationTokenUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.refreshTokenUncheckedUpdateManyWithoutUserNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  bolsas?: Prisma.BolsaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutManagerInput = {
@@ -952,12 +1075,14 @@ export type UserCountOutputType = {
   verificationTokens: number
   refreshTokens: number
   users: number
+  bolsas: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   verificationTokens?: boolean | UserCountOutputTypeCountVerificationTokensArgs
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
   users?: boolean | UserCountOutputTypeCountUsersArgs
+  bolsas?: boolean | UserCountOutputTypeCountBolsasArgs
 }
 
 /**
@@ -991,6 +1116,13 @@ export type UserCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.UserWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBolsasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BolsaWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   userId?: boolean
@@ -1008,6 +1140,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   verificationTokens?: boolean | Prisma.User$verificationTokensArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   users?: boolean | Prisma.User$usersArgs<ExtArgs>
+  bolsas?: boolean | Prisma.User$bolsasArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1061,6 +1194,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   verificationTokens?: boolean | Prisma.User$verificationTokensArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   users?: boolean | Prisma.User$usersArgs<ExtArgs>
+  bolsas?: boolean | Prisma.User$bolsasArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1077,6 +1211,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     verificationTokens: Prisma.$verificationTokenPayload<ExtArgs>[]
     refreshTokens: Prisma.$refreshTokenPayload<ExtArgs>[]
     users: Prisma.$UserPayload<ExtArgs>[]
+    bolsas: Prisma.$BolsaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     userId: string
@@ -1488,6 +1623,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   verificationTokens<T extends Prisma.User$verificationTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$verificationTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$verificationTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$refreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   users<T extends Prisma.User$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bolsas<T extends Prisma.User$bolsasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bolsasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BolsaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2012,6 +2148,30 @@ export type User$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
+}
+
+/**
+ * User.bolsas
+ */
+export type User$bolsasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Bolsa
+   */
+  select?: Prisma.BolsaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Bolsa
+   */
+  omit?: Prisma.BolsaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BolsaInclude<ExtArgs> | null
+  where?: Prisma.BolsaWhereInput
+  orderBy?: Prisma.BolsaOrderByWithRelationInput | Prisma.BolsaOrderByWithRelationInput[]
+  cursor?: Prisma.BolsaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BolsaScalarFieldEnum | Prisma.BolsaScalarFieldEnum[]
 }
 
 /**

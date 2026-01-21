@@ -51,6 +51,7 @@ export type BolsaMinAggregateOutputType = {
   updatedAt: Date | null
   fornecedoraId: number | null
   setorId: number | null
+  userId: string | null
 }
 
 export type BolsaMaxAggregateOutputType = {
@@ -64,6 +65,7 @@ export type BolsaMaxAggregateOutputType = {
   updatedAt: Date | null
   fornecedoraId: number | null
   setorId: number | null
+  userId: string | null
 }
 
 export type BolsaCountAggregateOutputType = {
@@ -77,6 +79,7 @@ export type BolsaCountAggregateOutputType = {
   updatedAt: number
   fornecedoraId: number
   setorId: number
+  userId: number
   _all: number
 }
 
@@ -106,6 +109,7 @@ export type BolsaMinAggregateInputType = {
   updatedAt?: true
   fornecedoraId?: true
   setorId?: true
+  userId?: true
 }
 
 export type BolsaMaxAggregateInputType = {
@@ -119,6 +123,7 @@ export type BolsaMaxAggregateInputType = {
   updatedAt?: true
   fornecedoraId?: true
   setorId?: true
+  userId?: true
 }
 
 export type BolsaCountAggregateInputType = {
@@ -132,6 +137,7 @@ export type BolsaCountAggregateInputType = {
   updatedAt?: true
   fornecedoraId?: true
   setorId?: true
+  userId?: true
   _all?: true
 }
 
@@ -232,6 +238,7 @@ export type BolsaGroupByOutputType = {
   updatedAt: Date | null
   fornecedoraId: number
   setorId: number
+  userId: string | null
   _count: BolsaCountAggregateOutputType | null
   _avg: BolsaAvgAggregateOutputType | null
   _sum: BolsaSumAggregateOutputType | null
@@ -268,9 +275,11 @@ export type BolsaWhereInput = {
   updatedAt?: Prisma.DateTimeNullableFilter<"Bolsa"> | Date | string | null
   fornecedoraId?: Prisma.IntFilter<"Bolsa"> | number
   setorId?: Prisma.IntFilter<"Bolsa"> | number
+  userId?: Prisma.StringNullableFilter<"Bolsa"> | string | null
   fornecedora?: Prisma.XOR<Prisma.FornecedoraScalarRelationFilter, Prisma.FornecedoraWhereInput>
   setor?: Prisma.XOR<Prisma.SetorScalarRelationFilter, Prisma.SetorWhereInput>
   pecasCadastradas?: Prisma.PecaCadastradaListRelationFilter
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type BolsaOrderByWithRelationInput = {
@@ -284,9 +293,11 @@ export type BolsaOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   fornecedora?: Prisma.FornecedoraOrderByWithRelationInput
   setor?: Prisma.SetorOrderByWithRelationInput
   pecasCadastradas?: Prisma.PecaCadastradaOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type BolsaWhereUniqueInput = Prisma.AtLeast<{
@@ -303,9 +314,11 @@ export type BolsaWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeNullableFilter<"Bolsa"> | Date | string | null
   fornecedoraId?: Prisma.IntFilter<"Bolsa"> | number
   setorId?: Prisma.IntFilter<"Bolsa"> | number
+  userId?: Prisma.StringNullableFilter<"Bolsa"> | string | null
   fornecedora?: Prisma.XOR<Prisma.FornecedoraScalarRelationFilter, Prisma.FornecedoraWhereInput>
   setor?: Prisma.XOR<Prisma.SetorScalarRelationFilter, Prisma.SetorWhereInput>
   pecasCadastradas?: Prisma.PecaCadastradaListRelationFilter
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "bolsaId">
 
 export type BolsaOrderByWithAggregationInput = {
@@ -319,6 +332,7 @@ export type BolsaOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.BolsaCountOrderByAggregateInput
   _avg?: Prisma.BolsaAvgOrderByAggregateInput
   _max?: Prisma.BolsaMaxOrderByAggregateInput
@@ -340,6 +354,7 @@ export type BolsaScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Bolsa"> | Date | string | null
   fornecedoraId?: Prisma.IntWithAggregatesFilter<"Bolsa"> | number
   setorId?: Prisma.IntWithAggregatesFilter<"Bolsa"> | number
+  userId?: Prisma.StringNullableWithAggregatesFilter<"Bolsa"> | string | null
 }
 
 export type BolsaCreateInput = {
@@ -353,6 +368,7 @@ export type BolsaCreateInput = {
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
+  user?: Prisma.UserCreateNestedOneWithoutBolsasInput
 }
 
 export type BolsaUncheckedCreateInput = {
@@ -366,6 +382,7 @@ export type BolsaUncheckedCreateInput = {
   updatedAt?: Date | string | null
   fornecedoraId: number
   setorId: number
+  userId?: string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
 }
 
@@ -380,6 +397,7 @@ export type BolsaUpdateInput = {
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
+  user?: Prisma.UserUpdateOneWithoutBolsasNestedInput
 }
 
 export type BolsaUncheckedUpdateInput = {
@@ -393,6 +411,7 @@ export type BolsaUncheckedUpdateInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
 }
 
@@ -407,6 +426,7 @@ export type BolsaCreateManyInput = {
   updatedAt?: Date | string | null
   fornecedoraId: number
   setorId: number
+  userId?: string | null
 }
 
 export type BolsaUpdateManyMutationInput = {
@@ -430,6 +450,7 @@ export type BolsaUncheckedUpdateManyInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BolsaListRelationFilter = {
@@ -453,6 +474,7 @@ export type BolsaCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type BolsaAvgOrderByAggregateInput = {
@@ -473,6 +495,7 @@ export type BolsaMaxOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type BolsaMinOrderByAggregateInput = {
@@ -486,6 +509,7 @@ export type BolsaMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type BolsaSumOrderByAggregateInput = {
@@ -610,6 +634,48 @@ export type BolsaUpdateOneRequiredWithoutPecasCadastradasNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BolsaUpdateToOneWithWhereWithoutPecasCadastradasInput, Prisma.BolsaUpdateWithoutPecasCadastradasInput>, Prisma.BolsaUncheckedUpdateWithoutPecasCadastradasInput>
 }
 
+export type BolsaCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.BolsaCreateWithoutUserInput, Prisma.BolsaUncheckedCreateWithoutUserInput> | Prisma.BolsaCreateWithoutUserInput[] | Prisma.BolsaUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.BolsaCreateOrConnectWithoutUserInput | Prisma.BolsaCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.BolsaCreateManyUserInputEnvelope
+  connect?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+}
+
+export type BolsaUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.BolsaCreateWithoutUserInput, Prisma.BolsaUncheckedCreateWithoutUserInput> | Prisma.BolsaCreateWithoutUserInput[] | Prisma.BolsaUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.BolsaCreateOrConnectWithoutUserInput | Prisma.BolsaCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.BolsaCreateManyUserInputEnvelope
+  connect?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+}
+
+export type BolsaUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.BolsaCreateWithoutUserInput, Prisma.BolsaUncheckedCreateWithoutUserInput> | Prisma.BolsaCreateWithoutUserInput[] | Prisma.BolsaUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.BolsaCreateOrConnectWithoutUserInput | Prisma.BolsaCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.BolsaUpsertWithWhereUniqueWithoutUserInput | Prisma.BolsaUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.BolsaCreateManyUserInputEnvelope
+  set?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+  disconnect?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+  delete?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+  connect?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+  update?: Prisma.BolsaUpdateWithWhereUniqueWithoutUserInput | Prisma.BolsaUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.BolsaUpdateManyWithWhereWithoutUserInput | Prisma.BolsaUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.BolsaScalarWhereInput | Prisma.BolsaScalarWhereInput[]
+}
+
+export type BolsaUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.BolsaCreateWithoutUserInput, Prisma.BolsaUncheckedCreateWithoutUserInput> | Prisma.BolsaCreateWithoutUserInput[] | Prisma.BolsaUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.BolsaCreateOrConnectWithoutUserInput | Prisma.BolsaCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.BolsaUpsertWithWhereUniqueWithoutUserInput | Prisma.BolsaUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.BolsaCreateManyUserInputEnvelope
+  set?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+  disconnect?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+  delete?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+  connect?: Prisma.BolsaWhereUniqueInput | Prisma.BolsaWhereUniqueInput[]
+  update?: Prisma.BolsaUpdateWithWhereUniqueWithoutUserInput | Prisma.BolsaUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.BolsaUpdateManyWithWhereWithoutUserInput | Prisma.BolsaUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.BolsaScalarWhereInput | Prisma.BolsaScalarWhereInput[]
+}
+
 export type BolsaCreateWithoutSetorInput = {
   dataDeEntrada?: Date | string
   dataMensagem?: Date | string | null
@@ -620,6 +686,7 @@ export type BolsaCreateWithoutSetorInput = {
   updatedAt?: Date | string | null
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
+  user?: Prisma.UserCreateNestedOneWithoutBolsasInput
 }
 
 export type BolsaUncheckedCreateWithoutSetorInput = {
@@ -632,6 +699,7 @@ export type BolsaUncheckedCreateWithoutSetorInput = {
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
   fornecedoraId: number
+  userId?: string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
 }
 
@@ -675,6 +743,7 @@ export type BolsaScalarWhereInput = {
   updatedAt?: Prisma.DateTimeNullableFilter<"Bolsa"> | Date | string | null
   fornecedoraId?: Prisma.IntFilter<"Bolsa"> | number
   setorId?: Prisma.IntFilter<"Bolsa"> | number
+  userId?: Prisma.StringNullableFilter<"Bolsa"> | string | null
 }
 
 export type BolsaCreateWithoutFornecedoraInput = {
@@ -687,6 +756,7 @@ export type BolsaCreateWithoutFornecedoraInput = {
   updatedAt?: Date | string | null
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
+  user?: Prisma.UserCreateNestedOneWithoutBolsasInput
 }
 
 export type BolsaUncheckedCreateWithoutFornecedoraInput = {
@@ -699,6 +769,7 @@ export type BolsaUncheckedCreateWithoutFornecedoraInput = {
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
   setorId: number
+  userId?: string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
 }
 
@@ -738,6 +809,7 @@ export type BolsaCreateWithoutPecasCadastradasInput = {
   updatedAt?: Date | string | null
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
+  user?: Prisma.UserCreateNestedOneWithoutBolsasInput
 }
 
 export type BolsaUncheckedCreateWithoutPecasCadastradasInput = {
@@ -751,6 +823,7 @@ export type BolsaUncheckedCreateWithoutPecasCadastradasInput = {
   updatedAt?: Date | string | null
   fornecedoraId: number
   setorId: number
+  userId?: string | null
 }
 
 export type BolsaCreateOrConnectWithoutPecasCadastradasInput = {
@@ -779,6 +852,7 @@ export type BolsaUpdateWithoutPecasCadastradasInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
+  user?: Prisma.UserUpdateOneWithoutBolsasNestedInput
 }
 
 export type BolsaUncheckedUpdateWithoutPecasCadastradasInput = {
@@ -792,6 +866,60 @@ export type BolsaUncheckedUpdateWithoutPecasCadastradasInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type BolsaCreateWithoutUserInput = {
+  dataDeEntrada?: Date | string
+  dataMensagem?: Date | string | null
+  quantidadeDePecasSemCadastro: number
+  observacoes?: string | null
+  statusDevolvida?: boolean | null
+  statusDoada?: boolean | null
+  updatedAt?: Date | string | null
+  fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
+  setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
+  pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
+}
+
+export type BolsaUncheckedCreateWithoutUserInput = {
+  bolsaId?: number
+  dataDeEntrada?: Date | string
+  dataMensagem?: Date | string | null
+  quantidadeDePecasSemCadastro: number
+  observacoes?: string | null
+  statusDevolvida?: boolean | null
+  statusDoada?: boolean | null
+  updatedAt?: Date | string | null
+  fornecedoraId: number
+  setorId: number
+  pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
+}
+
+export type BolsaCreateOrConnectWithoutUserInput = {
+  where: Prisma.BolsaWhereUniqueInput
+  create: Prisma.XOR<Prisma.BolsaCreateWithoutUserInput, Prisma.BolsaUncheckedCreateWithoutUserInput>
+}
+
+export type BolsaCreateManyUserInputEnvelope = {
+  data: Prisma.BolsaCreateManyUserInput | Prisma.BolsaCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type BolsaUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.BolsaWhereUniqueInput
+  update: Prisma.XOR<Prisma.BolsaUpdateWithoutUserInput, Prisma.BolsaUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.BolsaCreateWithoutUserInput, Prisma.BolsaUncheckedCreateWithoutUserInput>
+}
+
+export type BolsaUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.BolsaWhereUniqueInput
+  data: Prisma.XOR<Prisma.BolsaUpdateWithoutUserInput, Prisma.BolsaUncheckedUpdateWithoutUserInput>
+}
+
+export type BolsaUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.BolsaScalarWhereInput
+  data: Prisma.XOR<Prisma.BolsaUpdateManyMutationInput, Prisma.BolsaUncheckedUpdateManyWithoutUserInput>
 }
 
 export type BolsaCreateManySetorInput = {
@@ -804,6 +932,7 @@ export type BolsaCreateManySetorInput = {
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
   fornecedoraId: number
+  userId?: string | null
 }
 
 export type BolsaUpdateWithoutSetorInput = {
@@ -816,6 +945,7 @@ export type BolsaUpdateWithoutSetorInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
+  user?: Prisma.UserUpdateOneWithoutBolsasNestedInput
 }
 
 export type BolsaUncheckedUpdateWithoutSetorInput = {
@@ -828,6 +958,7 @@ export type BolsaUncheckedUpdateWithoutSetorInput = {
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
 }
 
@@ -841,6 +972,7 @@ export type BolsaUncheckedUpdateManyWithoutSetorInput = {
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BolsaCreateManyFornecedoraInput = {
@@ -853,6 +985,7 @@ export type BolsaCreateManyFornecedoraInput = {
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
   setorId: number
+  userId?: string | null
 }
 
 export type BolsaUpdateWithoutFornecedoraInput = {
@@ -865,6 +998,7 @@ export type BolsaUpdateWithoutFornecedoraInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
+  user?: Prisma.UserUpdateOneWithoutBolsasNestedInput
 }
 
 export type BolsaUncheckedUpdateWithoutFornecedoraInput = {
@@ -877,6 +1011,7 @@ export type BolsaUncheckedUpdateWithoutFornecedoraInput = {
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
 }
 
@@ -889,6 +1024,60 @@ export type BolsaUncheckedUpdateManyWithoutFornecedoraInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  setorId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type BolsaCreateManyUserInput = {
+  bolsaId?: number
+  dataDeEntrada?: Date | string
+  dataMensagem?: Date | string | null
+  quantidadeDePecasSemCadastro: number
+  observacoes?: string | null
+  statusDevolvida?: boolean | null
+  statusDoada?: boolean | null
+  updatedAt?: Date | string | null
+  fornecedoraId: number
+  setorId: number
+}
+
+export type BolsaUpdateWithoutUserInput = {
+  dataDeEntrada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dataMensagem?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantidadeDePecasSemCadastro?: Prisma.IntFieldUpdateOperationsInput | number
+  observacoes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
+  setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
+  pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
+}
+
+export type BolsaUncheckedUpdateWithoutUserInput = {
+  bolsaId?: Prisma.IntFieldUpdateOperationsInput | number
+  dataDeEntrada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dataMensagem?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantidadeDePecasSemCadastro?: Prisma.IntFieldUpdateOperationsInput | number
+  observacoes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
+  setorId?: Prisma.IntFieldUpdateOperationsInput | number
+  pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
+}
+
+export type BolsaUncheckedUpdateManyWithoutUserInput = {
+  bolsaId?: Prisma.IntFieldUpdateOperationsInput | number
+  dataDeEntrada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dataMensagem?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantidadeDePecasSemCadastro?: Prisma.IntFieldUpdateOperationsInput | number
+  observacoes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -934,9 +1123,11 @@ export type BolsaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedAt?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
+  userId?: boolean
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
   setor?: boolean | Prisma.SetorDefaultArgs<ExtArgs>
   pecasCadastradas?: boolean | Prisma.Bolsa$pecasCadastradasArgs<ExtArgs>
+  user?: boolean | Prisma.Bolsa$userArgs<ExtArgs>
   _count?: boolean | Prisma.BolsaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bolsa"]>
 
@@ -951,8 +1142,10 @@ export type BolsaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   updatedAt?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
+  userId?: boolean
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
   setor?: boolean | Prisma.SetorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Bolsa$userArgs<ExtArgs>
 }, ExtArgs["result"]["bolsa"]>
 
 export type BolsaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -966,8 +1159,10 @@ export type BolsaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   updatedAt?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
+  userId?: boolean
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
   setor?: boolean | Prisma.SetorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Bolsa$userArgs<ExtArgs>
 }, ExtArgs["result"]["bolsa"]>
 
 export type BolsaSelectScalar = {
@@ -981,22 +1176,26 @@ export type BolsaSelectScalar = {
   updatedAt?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
+  userId?: boolean
 }
 
-export type BolsaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"bolsaId" | "dataDeEntrada" | "dataMensagem" | "quantidadeDePecasSemCadastro" | "observacoes" | "statusDevolvida" | "statusDoada" | "updatedAt" | "fornecedoraId" | "setorId", ExtArgs["result"]["bolsa"]>
+export type BolsaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"bolsaId" | "dataDeEntrada" | "dataMensagem" | "quantidadeDePecasSemCadastro" | "observacoes" | "statusDevolvida" | "statusDoada" | "updatedAt" | "fornecedoraId" | "setorId" | "userId", ExtArgs["result"]["bolsa"]>
 export type BolsaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
   setor?: boolean | Prisma.SetorDefaultArgs<ExtArgs>
   pecasCadastradas?: boolean | Prisma.Bolsa$pecasCadastradasArgs<ExtArgs>
+  user?: boolean | Prisma.Bolsa$userArgs<ExtArgs>
   _count?: boolean | Prisma.BolsaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BolsaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
   setor?: boolean | Prisma.SetorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Bolsa$userArgs<ExtArgs>
 }
 export type BolsaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
   setor?: boolean | Prisma.SetorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Bolsa$userArgs<ExtArgs>
 }
 
 export type $BolsaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1005,6 +1204,7 @@ export type $BolsaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     fornecedora: Prisma.$FornecedoraPayload<ExtArgs>
     setor: Prisma.$SetorPayload<ExtArgs>
     pecasCadastradas: Prisma.$PecaCadastradaPayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     bolsaId: number
@@ -1017,6 +1217,7 @@ export type $BolsaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     updatedAt: Date | null
     fornecedoraId: number
     setorId: number
+    userId: string | null
   }, ExtArgs["result"]["bolsa"]>
   composites: {}
 }
@@ -1414,6 +1615,7 @@ export interface Prisma__BolsaClient<T, Null = never, ExtArgs extends runtime.Ty
   fornecedora<T extends Prisma.FornecedoraDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FornecedoraDefaultArgs<ExtArgs>>): Prisma.Prisma__FornecedoraClient<runtime.Types.Result.GetResult<Prisma.$FornecedoraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   setor<T extends Prisma.SetorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SetorDefaultArgs<ExtArgs>>): Prisma.Prisma__SetorClient<runtime.Types.Result.GetResult<Prisma.$SetorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   pecasCadastradas<T extends Prisma.Bolsa$pecasCadastradasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bolsa$pecasCadastradasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PecaCadastradaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.Bolsa$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bolsa$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1453,6 +1655,7 @@ export interface BolsaFieldRefs {
   readonly updatedAt: Prisma.FieldRef<"Bolsa", 'DateTime'>
   readonly fornecedoraId: Prisma.FieldRef<"Bolsa", 'Int'>
   readonly setorId: Prisma.FieldRef<"Bolsa", 'Int'>
+  readonly userId: Prisma.FieldRef<"Bolsa", 'String'>
 }
     
 
@@ -1870,6 +2073,25 @@ export type Bolsa$pecasCadastradasArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.PecaCadastradaScalarFieldEnum | Prisma.PecaCadastradaScalarFieldEnum[]
+}
+
+/**
+ * Bolsa.user
+ */
+export type Bolsa$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**
