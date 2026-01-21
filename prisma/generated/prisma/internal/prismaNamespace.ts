@@ -995,7 +995,8 @@ export const BolsaScalarFieldEnum = {
   statusDoada: 'statusDoada',
   updatedAt: 'updatedAt',
   fornecedoraId: 'fornecedoraId',
-  setorId: 'setorId'
+  setorId: 'setorId',
+  userId: 'userId'
 } as const
 
 export type BolsaScalarFieldEnum = (typeof BolsaScalarFieldEnum)[keyof typeof BolsaScalarFieldEnum]
