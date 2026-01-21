@@ -20,7 +20,7 @@ export class AuthService {
 
         const isPasswordValid = await bcrypt.compare(
             password,
-            user.passwordHash
+            user.passwordHash,
         );
 
         if (!isPasswordValid) {
@@ -51,8 +51,6 @@ export class AuthService {
         }
 
         const token = generateToken(email);
-
-        console.log("TOKEN:", token);
 
         return { message: "Usuário registrado com sucesso", token };
     }
