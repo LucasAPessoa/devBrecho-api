@@ -2,7 +2,7 @@
     "name": "devbrecho-api-ts",
     "version": "1.0.0",
     "description": "API para o sistema DevBrecho",
-    "main": "src/server.ts",
+    "main": "dist/server.js",
     "type": "module",
     "scripts": {
         "dev": "tsx watch src/server.ts",
