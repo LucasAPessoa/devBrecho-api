@@ -51,10 +51,11 @@ app.setSerializerCompiler(serializerCompiler);
 
 const start = async () => {
     try {
+        const corsOrigin = process.env.CORS_ORIGIN || "";
         app.setErrorHandler(globalErrorHandler);
 
         await app.register(cors, {
-            origin: [!process.env.CORS_ORIGIN],
+            origin: [corsOrigin],
             methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
             allowedHeaders: ["Content-Type", "Authorization"],
         });
