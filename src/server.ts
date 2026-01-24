@@ -54,7 +54,7 @@ const start = async () => {
         app.setErrorHandler(globalErrorHandler);
 
         await app.register(cors, {
-            origin: ["http://localhost:5173"],
+            origin: [!process.env.CORS_ORIGIN],
             methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
             allowedHeaders: ["Content-Type", "Authorization"],
         });
