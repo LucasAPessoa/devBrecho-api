@@ -10,7 +10,7 @@ import {
     ZodTypeProvider,
 } from "fastify-type-provider-zod";
 
-import { globalErrorHandler } from "./hooks/globalErrorHandler.hook";
+import { globalErrorHandler } from "./hooks/globalErrorHandler.hook.js";
 import { AuthHook } from "./hooks/auth.hook";
 
 import { AuthService } from "./features/auth/auth.service";
@@ -86,24 +86,24 @@ const start = async () => {
 
         const pecaCadastradaRepository = new PecaCadastradaRepository();
         const pecaCadastradaService = new PecaCadastradaService(
-            pecaCadastradaRepository
+            pecaCadastradaRepository,
         );
         const pecaCadastradaController = new PecaCadastradaController(
-            pecaCadastradaService
+            pecaCadastradaService,
         );
 
         const fornecedoraRepository = new FornecedoraRepository();
         const fornecedoraService = new FornecedoraService(
-            fornecedoraRepository
+            fornecedoraRepository,
         );
         const fornecedoraController = new FornecedoraController(
-            fornecedoraService
+            fornecedoraService,
         );
 
         const bolsaRepository = new BolsaRepository();
         const bolsaService = new BolsaService(
             bolsaRepository,
-            pecaCadastradaService
+            pecaCadastradaService,
         );
         const bolsaController = new BolsaController(bolsaService);
 
