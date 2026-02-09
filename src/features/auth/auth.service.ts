@@ -1,9 +1,9 @@
 import { UserService } from "../users/user.service";
 import { UserCreateType } from "../users/user.schema";
 import bcrypt from "bcrypt";
-import { generateToken } from "../../utils/tokenHelper";
+import { decodeToken, generateToken } from "../../utils/tokenHelper";
 
-import { LoginType } from "./auth.schema";
+import { LoginType, ProfileType } from "./auth.schema";
 
 export class AuthService {
     constructor(private userService: UserService) {}
@@ -12,11 +12,13 @@ export class AuthService {
         email,
         password,
     }: LoginType): Promise<{ message: string; token: string }> {
-        const user = await this.userService.getEmailAndPasswordByEmail(email);
+        const user = await this.userService.getIdEmailAndPasswordByEmail(email);
 
         if (!user) {
-            throw new Error("Usuário não encontrado");
+            throw new Error("Email ou senha incorretos");
         }
+
+        const { userId } = user;
 
         const isPasswordValid = await bcrypt.compare(
             password,
@@ -27,7 +29,7 @@ export class AuthService {
             throw new Error("Senha inválida");
         }
 
-        const token = generateToken(email);
+        const token = generateToken(userId);
 
         return { message: "Login realizado com sucesso", token };
     }
