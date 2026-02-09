@@ -18,12 +18,16 @@ export class UserService {
         return userExists;
     }
 
-    async getEmailAndPasswordByEmail(
-        email: string
+    async getIdEmailAndPasswordByEmail(
+        email: string,
     ): Promise<UserGetEmailAndPasswordType | null> {
-        const user = await this.userRepository.getEmailAndPasswordByEmail(
-            email
-        );
+        const user =
+            await this.userRepository.getEmailAndPasswordByEmail(email);
+        return user;
+    }
+
+    async getById(id: string): Promise<UserResponseType | null> {
+        const user = await this.userRepository.getById(id);
         return user;
     }
 }
