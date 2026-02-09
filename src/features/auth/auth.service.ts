@@ -56,4 +56,18 @@ export class AuthService {
 
         return { message: "Usuário registrado com sucesso", token };
     }
+
+    async getProfile(token: string): Promise<ProfileType | null> {
+        const { userId, exp } = decodeToken(token);
+
+        if (Date.now() >= exp! * 1000) {
+            throw new Error("Token expirado");
+        }
+
+        const user = await this.userService.getById(userId);
+
+        const userProfile = user as ProfileType;
+
+        return userProfile;
+    }
 }
