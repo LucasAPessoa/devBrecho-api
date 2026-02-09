@@ -17,8 +17,8 @@ import type * as Prisma from "./prismaNamespace.js"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.1.0",
-  "engineVersion": "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba",
+  "clientVersion": "7.3.0",
+  "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
   "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Setor {\n  setorId Int     @id @default(autoincrement())\n  nome    String\n  bolsas  Bolsa[]\n}\n\nmodel Fornecedora {\n  fornecedoraId Int     @id @default(autoincrement())\n  codigo        String  @unique\n  nome          String\n  telefone      String?\n  bolsas        Bolsa[]\n}\n\nmodel Bolsa {\n  bolsaId                      Int       @id @default(autoincrement())\n  dataDeEntrada                DateTime  @default(now())\n  dataMensagem                 DateTime?\n  quantidadeDePecasSemCadastro Int\n  observacoes                  String?\n  statusDevolvida              Boolean?  @default(false)\n  statusDoada                  Boolean?  @default(false)\n  updatedAt                    DateTime? @updatedAt\n\n  fornecedora   Fornecedora @relation(fields: [fornecedoraId], references: [fornecedoraId])\n  fornecedoraId Int\n\n  setor   Setor @relation(fields: [setorId], references: [setorId])\n  setorId Int\n\n  pecasCadastradas PecaCadastrada[]\n\n  user   User?   @relation(fields: [userId], references: [userId])\n  userId String?\n}\n\nenum Role {\n  USER\n  ADMIN\n  MANAGER\n}\n\nmodel PecaCadastrada {\n  pecaCadastradaId Int    @id @default(autoincrement())\n  codigoDaPeca     String @unique\n\n  bolsa   Bolsa @relation(fields: [bolsaId], references: [bolsaId])\n  bolsaId Int\n}\n\nmodel User {\n  userId       String    @id @default(uuid())\n  firstName    String\n  lastName     String\n  phone        String?   @unique\n  email        String    @unique\n  passwordHash String\n  createdAt    DateTime  @default(now())\n  updatedAt    DateTime? @updatedAt\n  deletedAt    DateTime?\n\n  role Role @default(USER)\n\n  managerId String?\n  manager   User?   @relation(\"ManagerToUsers\", fields: [managerId], references: [userId])\n\n  verificationTokens verificationToken[]\n  refreshTokens      refreshToken[]\n\n  users  User[]  @relation(\"ManagerToUsers\")\n  bolsas Bolsa[]\n}\n\nmodel verificationToken {\n  tokenId    String   @id @default(uuid())\n  identifier String\n  token      String\n  expires    DateTime\n\n  userId String\n  user   User   @relation(fields: [userId], references: [userId], onDelete: Cascade)\n\n  @@unique([identifier, token])\n}\n\nmodel refreshToken {\n  tokenId String @id @default(uuid())\n  token   String\n\n  userId String\n  user   User   @relation(fields: [userId], references: [userId], onDelete: Cascade)\n\n  @@unique([tokenId, token])\n}\n",
   "runtimeDataModel": {
@@ -37,12 +37,14 @@ async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Modul
 }
 
 config.compilerWasm = {
-  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_bg.postgresql.mjs"),
+  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.mjs"),
 
   getQueryCompilerWasmModule: async () => {
-    const { wasm } = await import("@prisma/client/runtime/query_compiler_bg.postgresql.wasm-base64.mjs")
+    const { wasm } = await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.wasm-base64.mjs")
     return await decodeBase64AsWasm(wasm)
-  }
+  },
+
+  importName: "./query_compiler_fast_bg.js"
 }
 
 
