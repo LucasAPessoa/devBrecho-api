@@ -21,11 +21,12 @@ export class UserRepository {
     }
 
     async getEmailAndPasswordByEmail(
-        email: string
+        email: string,
     ): Promise<UserGetEmailAndPasswordType | null> {
         const user = await prisma.user.findUnique({
             where: { email },
             select: {
+                userId: true,
                 email: true,
                 passwordHash: true,
             },
