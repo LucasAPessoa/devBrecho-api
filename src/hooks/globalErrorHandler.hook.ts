@@ -4,7 +4,7 @@ import { ZodError } from "zod";
 export async function globalErrorHandler(
     error: FastifyError,
     req: FastifyRequest,
-    rep: FastifyReply
+    rep: FastifyReply,
 ) {
     console.error("Global Error Handler:", error);
     console.error("Request URL: ", req.url);
@@ -23,6 +23,14 @@ export async function globalErrorHandler(
             statusCode: 400,
             message: "Validation failed",
             details: error.format(),
+        });
+    }
+
+    if (error.statusCode === 401) {
+        return rep.status(401).send({
+            statusCode: 401,
+            message: "Unauthorized",
+            details: error.message,
         });
     }
 
