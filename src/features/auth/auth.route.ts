@@ -6,11 +6,11 @@ import {
     userParamsSchema,
     userResponseSchema,
 } from "../users/user.schema";
-import { loginSchema } from "./auth.schema";
+import { loginSchema, profileSchema, ProfileType } from "./auth.schema";
 
 export async function authRoutes(
     app: FastifyInstance,
-    options: { controller: AuthController }
+    options: { controller: AuthController },
 ) {
     const { controller } = options;
 
@@ -22,7 +22,7 @@ export async function authRoutes(
                 body: userCreateSchema,
             },
         },
-        controller.register.bind(controller)
+        controller.register.bind(controller),
     );
 
     app.post(
@@ -33,6 +33,20 @@ export async function authRoutes(
                 body: loginSchema,
             },
         },
-        controller.login.bind(controller)
+        controller.login.bind(controller),
+    );
+
+    app.get(
+        "/profile",
+        {
+            schema: {
+                tags: ["Auth"],
+
+                response: {
+                    200: profileSchema,
+                },
+            },
+        },
+        controller.getProfile.bind(controller),
     );
 }
