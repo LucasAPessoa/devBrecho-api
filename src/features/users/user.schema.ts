@@ -39,6 +39,7 @@ export const userUpdateSchema = userSchema.pick({
 });
 
 export const userGetEmailAndPasswordSchema = userSchema.pick({
+    userId: true,
     email: true,
     passwordHash: true,
 });
