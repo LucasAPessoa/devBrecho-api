@@ -3,6 +3,7 @@ import { z } from "zod";
 import { pecaCadastradaSchema } from "../pecasCadastradas/pecaCadastrada.schema";
 import { fornecedoraSchema } from "../fornecedoras/fornecedora.schema";
 import { setorSchema } from "../setores/setor.schema";
+import { is } from "zod/v4/locales";
 
 export const bolsaSchema = z.object({
     bolsaId: z.number().int().positive(),
@@ -22,6 +23,7 @@ export const bolsaSchema = z.object({
     fornecedoraId: z.number().int().positive(),
     setorId: z.number().int().positive(),
     pecasCadastradas: z.array(pecaCadastradaSchema).optional(),
+    isArchived: z.boolean().optional().nullable(),
 });
 
 export const bolsaCreateSchema = z.object({
@@ -47,8 +49,9 @@ export const bolsaCreateSchema = z.object({
         .positive(),
 
     codigosDasPecas: z.array(
-        z.string().min(1, "O código da peça não pode ser vazio.")
+        z.string().min(1, "O código da peça não pode ser vazio."),
     ),
+    isArchived: z.boolean().optional().nullable(),
 });
 
 export const bolsaUpdateSchema = z.object({
@@ -73,9 +76,10 @@ export const bolsaUpdateSchema = z.object({
         .int()
         .positive(),
     codigosDasPecas: z.array(z.string()).optional(),
+    isArchived: z.boolean().optional().nullable(),
 });
 
-export const bolsaGetAllDoadasAndDevolvidasSchema = z.object({
+export const bolsaGetArchivedByIdSchema = z.object({
     fornecedoraId: z.coerce.number().int().positive(),
 });
 
@@ -101,8 +105,8 @@ export type BolsaUpdateType = z.infer<typeof bolsaUpdateSchema>;
 export type BolsaParamsType = z.infer<typeof bolsaParamsSchema>;
 export type BolsaSetStatusType = z.infer<typeof bolsaSetStatusSchema>;
 export type BolsaSearchQueryType = z.infer<typeof bolsaSearchQuerySchema>;
-export type BolsaGetAllDoadasAndDevolvidasType = z.infer<
-    typeof bolsaGetAllDoadasAndDevolvidasSchema
+export type BolsaGetArchivedByIdType = z.infer<
+    typeof bolsaGetArchivedByIdSchema
 >;
 
 export const bolsaPopulatedResponseSchema = bolsaSchema.extend({
@@ -114,19 +118,19 @@ export const bolsaPopulatedResponseSchema = bolsaSchema.extend({
 export const bolsaResponseSchema = bolsaPopulatedResponseSchema;
 
 export const bolsaGetAllActiveResponseSchema = z.array(
-    bolsaPopulatedResponseSchema
+    bolsaPopulatedResponseSchema,
 );
 
-export const bolsaGetAllDoadasAndDevolvidasResponseSchema = z.array(
-    bolsaPopulatedResponseSchema
+export const bolsaGetArchivedByIdResponseSchema = z.array(
+    bolsaPopulatedResponseSchema,
 );
 
 export type BolsaResponseType = z.infer<typeof bolsaResponseSchema>;
 export type BolsaGetAllActiveResponseType = z.infer<
     typeof bolsaGetAllActiveResponseSchema
 >;
-export type BolsaGetAllDoadasAndDevolvidasResponseType = z.infer<
-    typeof bolsaGetAllDoadasAndDevolvidasResponseSchema
+export type BolsaGetArchivedByIdResponseType = z.infer<
+    typeof bolsaGetArchivedByIdResponseSchema
 >;
 
 export const bolsaSyncPecasSchema = z.object({
@@ -141,7 +145,7 @@ export const bolsaGetGroupedByPrazoSchema = z.array(
     z.object({
         date: z.string(),
         bolsas: z.array(bolsaPopulatedResponseSchema),
-    })
+    }),
 );
 
 export type BolsaGetGroupedByPrazoType = z.infer<
