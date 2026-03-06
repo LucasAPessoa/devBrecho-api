@@ -9,15 +9,15 @@ import {
     BolsaGetAllActiveResponseType,
     BolsaSyncPecasType,
     BolsaSetStatusType,
-    BolsaGetAllDoadasAndDevolvidasResponseType,
-    BolsaGetAllDoadasAndDevolvidasType,
+    BolsaGetArchivedByIdResponseType,
+    BolsaGetArchivedByIdType,
     BolsaGetGroupedByPrazoType,
 } from "./bolsa.schema";
 
 export class BolsaService {
     constructor(
         private repository: BolsaRepository,
-        private pecaService: PecaCadastradaService
+        private pecaService: PecaCadastradaService,
     ) {}
 
     async getAll(query: string): Promise<BolsaGetAllActiveResponseType> {
@@ -37,12 +37,12 @@ export class BolsaService {
     async create(data: BolsaCreateType): Promise<BolsaType> {
         try {
             const bolsaExists = await this.repository.getByFornecedoraId(
-                data.fornecedoraId
+                data.fornecedoraId,
             );
 
             if (bolsaExists) {
                 throw new Error(
-                    "Já existe uma bolsa cadastrada para essa fornecedora."
+                    "Já existe uma bolsa cadastrada para essa fornecedora.",
                 );
             }
 
@@ -50,13 +50,12 @@ export class BolsaService {
 
             for (let i = 0; i < pecasCadastradas.length; i++) {
                 const peca = pecasCadastradas[i];
-                const pecaExists = await this.pecaService.getByCodigoDaPeca(
-                    peca
-                );
+                const pecaExists =
+                    await this.pecaService.getByCodigoDaPeca(peca);
 
                 if (pecaExists) {
                     throw new Error(
-                        "Uma das peças cadastradas já está cadastrada em outra fornecedora, verifique e refaça o cadastro."
+                        "Uma das peças cadastradas já está cadastrada em outra fornecedora, verifique e refaça o cadastro.",
                     );
                 }
             }
@@ -64,15 +63,38 @@ export class BolsaService {
             return await this.repository.create(data);
         } catch (error) {
             throw new Error(
-                "Não foi possível criar a bolsa. Verifique os dados." + error
+                "Não foi possível criar a bolsa. Verifique os dados." + error,
             );
         }
     }
 
     async update(data: BolsaUpdateType, bolsaId: number): Promise<BolsaType> {
-        await this.getById({ bolsaId: bolsaId });
+        const bolsaAtual = await this.repository.getByIdAny({ bolsaId });
+
+        if (!bolsaAtual) {
+            throw new Error("Bolsa não encontrada.");
+        }
 
         const { codigosDasPecas, ...dadosDaBolsa } = data;
+
+        const fornecedoraIdAlvo =
+            dadosDaBolsa.fornecedoraId ?? bolsaAtual.fornecedoraId;
+        const isArchivedAlvo =
+            dadosDaBolsa.isArchived ?? bolsaAtual.isArchived ?? false;
+
+        if (isArchivedAlvo === false) {
+            const outraBolsaAtiva =
+                await this.repository.getByFornecedoraId(fornecedoraIdAlvo);
+
+            if (
+                outraBolsaAtiva &&
+                outraBolsaAtiva.bolsaId !== bolsaAtual.bolsaId
+            ) {
+                throw new Error(
+                    "Já existe uma bolsa ativa para essa fornecedora.",
+                );
+            }
+        }
 
         try {
             await this.repository.update(dadosDaBolsa, bolsaId);
@@ -90,14 +112,14 @@ export class BolsaService {
 
     async syncPecas(
         params: BolsaParamsType,
-        data: BolsaSyncPecasType
+        data: BolsaSyncPecasType,
     ): Promise<void> {
         try {
             await this.getById(params);
 
             await this.repository.syncPecas(
                 params.bolsaId,
-                data.codigosDasPecas
+                data.codigosDasPecas,
             );
         } catch (error) {
             throw new Error("Erro ao sincronizar as peças da bolsa.");
@@ -106,7 +128,7 @@ export class BolsaService {
 
     async setStatus(
         params: BolsaParamsType,
-        data: BolsaSetStatusType
+        data: BolsaSetStatusType,
     ): Promise<void> {
         try {
             await this.getById(params);
@@ -116,10 +138,43 @@ export class BolsaService {
         }
     }
 
-    async getAllDoadasAndDevolvidas(
-        fornecedoraId: BolsaGetAllDoadasAndDevolvidasType
-    ): Promise<BolsaGetAllDoadasAndDevolvidasResponseType> {
-        return this.repository.getAllDoadasAndDevolvidas(fornecedoraId);
+    async archive(params: BolsaParamsType): Promise<void> {
+        try {
+            await this.getById(params);
+            await this.repository.archive(params);
+        } catch (error) {
+            throw new Error("Erro ao arquivar a bolsa.");
+        }
+    }
+
+    async unarchive(params: BolsaParamsType): Promise<void> {
+        try {
+            const bolsaAtual = await this.repository.getByIdAny(params);
+
+            if (!bolsaAtual) {
+                throw new Error("Bolsa não encontrada.");
+            }
+
+            const bolsaAtiva = await this.repository.getByFornecedoraId(
+                bolsaAtual.fornecedoraId,
+            );
+
+            if (bolsaAtiva && bolsaAtiva.bolsaId !== bolsaAtual.bolsaId) {
+                throw new Error(
+                    "Já existe uma bolsa ativa para essa fornecedora.",
+                );
+            }
+
+            await this.repository.unarchive(params);
+        } catch (error) {
+            throw new Error("Erro ao desarquivar a bolsa.");
+        }
+    }
+
+    async getArchivedById(
+        fornecedoraId: BolsaGetArchivedByIdType,
+    ): Promise<BolsaGetArchivedByIdResponseType> {
+        return this.repository.getArchivedById(fornecedoraId);
     }
 
     async getBolsasGroupedByPrazo(): Promise<BolsaGetGroupedByPrazoType> {
@@ -139,11 +194,11 @@ export class BolsaService {
 
                 return accumulator;
             },
-            {}
+            {},
         );
 
         const bolsasGroupedObject = Object.entries(bolsasGrouped).map(
-            ([date, bolsas]) => ({ date: date, bolsas: bolsas })
+            ([date, bolsas]) => ({ date: date, bolsas: bolsas }),
         );
 
         return bolsasGroupedObject;

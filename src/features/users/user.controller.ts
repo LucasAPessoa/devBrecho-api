@@ -7,10 +7,10 @@ export class UserController {
 
     async create(
         request: FastifyRequest,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<UserCreateType> {
         const newUser = await this.userService.create(
-            request.body as UserCreateType
+            request.body as UserCreateType,
         );
 
         if (!newUser) {

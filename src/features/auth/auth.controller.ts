@@ -8,7 +8,7 @@ export class AuthController {
 
     async login(
         request: FastifyRequest,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<{ message: string; token: string }> {
         const login = request.body as LoginType;
 
@@ -18,12 +18,27 @@ export class AuthController {
 
     async register(
         request: FastifyRequest,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<{ message: string; token: Promise<string> }> {
         const response = await this.authService.register(
-            request.body as UserCreateType
+            request.body as UserCreateType,
         );
 
         return reply.status(201).send(response);
+    }
+
+    async getProfile(
+        request: FastifyRequest,
+        reply: FastifyReply,
+    ): Promise<FastifyReply> {
+        const token = request.headers["authorization"];
+        if (!token) {
+            return reply.status(401).send("Token não fornecido");
+        }
+        const userProfile = await this.authService.getProfile(token);
+        if (!userProfile) {
+            return reply.status(404).send("Usuário não encontrado");
+        }
+        return reply.status(200).send(userProfile);
     }
 }

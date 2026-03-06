@@ -8,7 +8,7 @@ import {
     BolsaSyncPecasType,
     BolsaSetStatusType,
     BolsaGetAllActiveResponseType,
-    BolsaGetAllDoadasAndDevolvidasType,
+    BolsaGetArchivedByIdType,
 } from "./bolsa.schema";
 
 export class BolsaController {
@@ -16,7 +16,7 @@ export class BolsaController {
 
     async getAll(
         request: FastifyRequest,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<BolsaGetAllActiveResponseType> {
         const { query } = request.query as BolsaSearchQueryType;
 
@@ -27,7 +27,7 @@ export class BolsaController {
 
     async getById(
         request: FastifyRequest<{ Params: BolsaParamsType }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ) {
         const { bolsaId } = request.params;
         const bolsa = await this.bolsaService.getById({ bolsaId });
@@ -36,7 +36,7 @@ export class BolsaController {
 
     async create(
         request: FastifyRequest<{ Body: BolsaCreateType }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ) {
         const novaBolsa = await this.bolsaService.create(request.body);
         return reply.status(201).send(novaBolsa);
@@ -47,7 +47,7 @@ export class BolsaController {
             Body: BolsaUpdateType;
             Params: BolsaParamsType;
         }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ) {
         const bolsaId = request.params.bolsaId;
         const data = request.body;
@@ -60,7 +60,7 @@ export class BolsaController {
             Params: BolsaParamsType;
             Body: BolsaSyncPecasType;
         }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ) {
         const { bolsaId } = request.params;
         await this.bolsaService.syncPecas({ bolsaId }, request.body);
@@ -73,7 +73,7 @@ export class BolsaController {
             Params: BolsaParamsType;
             Body: BolsaSetStatusType;
         }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ) {
         const { bolsaId } = request.params;
 
@@ -82,15 +82,37 @@ export class BolsaController {
         return reply.status(204).send();
     }
 
-  async getAllDoadasAndDevolvidas(
+    async archive(
+        request: FastifyRequest<{ Params: BolsaParamsType }>,
+        reply: FastifyReply,
+    ) {
+        const { bolsaId } = request.params;
+
+        await this.bolsaService.archive({ bolsaId });
+
+        return reply.status(204).send();
+    }
+
+    async unarchive(
+        request: FastifyRequest<{ Params: BolsaParamsType }>,
+        reply: FastifyReply,
+    ) {
+        const { bolsaId } = request.params;
+
+        await this.bolsaService.unarchive({ bolsaId });
+
+        return reply.status(204).send();
+    }
+
+    async getArchivedById(
         request: FastifyRequest<{
-            Params: BolsaGetAllDoadasAndDevolvidasType;
+            Params: BolsaGetArchivedByIdType;
         }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ) {
         const { fornecedoraId } = request.params;
 
-        const bolsas = await this.bolsaService.getAllDoadasAndDevolvidas({
+        const bolsas = await this.bolsaService.getArchivedById({
             fornecedoraId,
         });
         return bolsas;
@@ -98,7 +120,7 @@ export class BolsaController {
 
     async getBolsasGroupedByPrazo(
         request: FastifyRequest,
-        reply: FastifyReply
+        reply: FastifyReply,
     ) {
         const bolsas = await this.bolsaService.getBolsasGroupedByPrazo();
         return bolsas;

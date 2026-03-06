@@ -10,15 +10,15 @@ import {
     bolsaSyncPecasSchema,
     bolsaSetStatusSchema,
     bolsaSearchQuerySchema,
-    bolsaGetAllDoadasAndDevolvidasSchema,
-    bolsaGetAllDoadasAndDevolvidasResponseSchema,
+    bolsaGetArchivedByIdSchema,
+    bolsaGetArchivedByIdResponseSchema,
     bolsaGetGroupedByPrazoSchema,
 } from "./bolsa.schema";
 import z from "zod";
 
 export async function bolsaRoutes(
     app: FastifyInstance,
-    options: { controller: BolsaController }
+    options: { controller: BolsaController },
 ) {
     const { controller } = options;
 
@@ -34,7 +34,7 @@ export async function bolsaRoutes(
                 },
             },
         },
-        controller.getAll.bind(controller)
+        controller.getAll.bind(controller),
     );
 
     // GetById
@@ -49,7 +49,7 @@ export async function bolsaRoutes(
                 },
             },
         },
-        controller.getById.bind(controller)
+        controller.getById.bind(controller),
     );
 
     // Create
@@ -64,7 +64,7 @@ export async function bolsaRoutes(
                 },
             },
         },
-        controller.create.bind(controller)
+        controller.create.bind(controller),
     );
 
     // Update
@@ -80,7 +80,7 @@ export async function bolsaRoutes(
                 },
             },
         },
-        controller.update.bind(controller)
+        controller.update.bind(controller),
     );
 
     // Sync Pecas
@@ -97,7 +97,7 @@ export async function bolsaRoutes(
                 },
             },
         },
-        controller.syncPecas.bind(controller)
+        controller.syncPecas.bind(controller),
     );
 
     // Set Status
@@ -114,23 +114,55 @@ export async function bolsaRoutes(
                 },
             },
         },
-        controller.setStatus.bind(controller)
+        controller.setStatus.bind(controller),
     );
 
-    // Get All Doadas And Devolvidas
+    // Archive
 
-    app.get(
-        "/doadasEDevolvidas/:fornecedoraId",
+    app.patch(
+        "/:bolsaId/archive",
         {
             schema: {
                 tags: ["Bolsas"],
-                params: bolsaGetAllDoadasAndDevolvidasSchema,
+                params: bolsaParamsSchema,
                 response: {
-                    200: bolsaGetAllDoadasAndDevolvidasResponseSchema,
+                    204: z.null(),
                 },
             },
         },
-        controller.getAllDoadasAndDevolvidas.bind(controller)
+        controller.archive.bind(controller),
+    );
+
+    // Unarchive
+
+    app.patch(
+        "/:bolsaId/unarchive",
+        {
+            schema: {
+                tags: ["Bolsas"],
+                params: bolsaParamsSchema,
+                response: {
+                    204: z.null(),
+                },
+            },
+        },
+        controller.unarchive.bind(controller),
+    );
+
+    // Get Archived By Fornecedora
+
+    app.get(
+        "/archived/:fornecedoraId",
+        {
+            schema: {
+                tags: ["Bolsas"],
+                params: bolsaGetArchivedByIdSchema,
+                response: {
+                    200: bolsaGetArchivedByIdResponseSchema,
+                },
+            },
+        },
+        controller.getArchivedById.bind(controller),
     );
 
     // Get Bolsas Grouped By Mensagem
@@ -145,6 +177,6 @@ export async function bolsaRoutes(
                 },
             },
         },
-        controller.getBolsasGroupedByPrazo.bind(controller)
+        controller.getBolsasGroupedByPrazo.bind(controller),
     );
 }

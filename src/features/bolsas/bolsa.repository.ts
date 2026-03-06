@@ -1,7 +1,7 @@
 import { prisma } from "../../lib/prisma";
 import {
-    BolsaGetAllDoadasAndDevolvidasResponseType,
-    BolsaGetAllDoadasAndDevolvidasType,
+    BolsaGetArchivedByIdResponseType,
+    BolsaGetArchivedByIdType,
     BolsaGetGroupedByPrazoType,
     BolsaSetStatusType,
 } from "./bolsa.schema";
@@ -18,14 +18,20 @@ export class BolsaRepository {
         return prisma.bolsa.findFirst({
             where: {
                 fornecedoraId: fornecedoraId,
-                statusDevolvida: false,
-                statusDoada: false,
+                isArchived: { not: true },
             },
             include: { pecasCadastradas: true, fornecedora: true, setor: true },
         });
     }
 
     async getById(data: BolsaParamsType): Promise<BolsaResponseType | null> {
+        return prisma.bolsa.findFirst({
+            where: { bolsaId: data.bolsaId, isArchived: { not: true } },
+            include: { pecasCadastradas: true, fornecedora: true, setor: true },
+        });
+    }
+
+    async getByIdAny(data: BolsaParamsType): Promise<BolsaResponseType | null> {
         return prisma.bolsa.findUnique({
             where: { bolsaId: data.bolsaId },
             include: { pecasCadastradas: true, fornecedora: true, setor: true },
@@ -96,7 +102,7 @@ export class BolsaRepository {
 
     async setStatus(
         bolsaId: BolsaParamsType,
-        data: BolsaSetStatusType
+        data: BolsaSetStatusType,
     ): Promise<boolean> {
         try {
             console.log(data);
@@ -112,12 +118,25 @@ export class BolsaRepository {
         }
     }
 
+    async archive(bolsaId: BolsaParamsType): Promise<void> {
+        await prisma.bolsa.update({
+            where: { bolsaId: bolsaId.bolsaId },
+            data: { isArchived: true },
+        });
+    }
+
+    async unarchive(bolsaId: BolsaParamsType): Promise<void> {
+        await prisma.bolsa.update({
+            where: { bolsaId: bolsaId.bolsaId },
+            data: { isArchived: false },
+        });
+    }
+
     async getAll(query?: string): Promise<BolsaResponseType[]> {
         const term = query?.trim();
 
         const activeFilters = {
-            statusDevolvida: { not: true },
-            statusDoada: { not: true },
+            isArchived: { not: true },
         };
 
         let textFilter = {};
@@ -172,14 +191,14 @@ export class BolsaRepository {
         });
     }
 
-    async getAllDoadasAndDevolvidas(
-        fornecedoraId: BolsaGetAllDoadasAndDevolvidasType
-    ): Promise<BolsaGetAllDoadasAndDevolvidasResponseType> {
+    async getArchivedById(
+        fornecedoraId: BolsaGetArchivedByIdType,
+    ): Promise<BolsaGetArchivedByIdResponseType> {
         return prisma.bolsa.findMany({
             include: { pecasCadastradas: true, fornecedora: true, setor: true },
             where: {
                 fornecedoraId: fornecedoraId.fornecedoraId,
-                OR: [{ statusDevolvida: true }, { statusDoada: true }],
+                isArchived: true,
             },
         });
     }
@@ -188,8 +207,7 @@ export class BolsaRepository {
         return await prisma.bolsa.findMany({
             include: { pecasCadastradas: true, fornecedora: true, setor: true },
             where: {
-                statusDevolvida: false,
-                statusDoada: false,
+                isArchived: { not: true },
                 dataMensagem: { not: null },
             },
         });

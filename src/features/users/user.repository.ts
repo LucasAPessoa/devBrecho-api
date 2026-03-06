@@ -21,14 +21,22 @@ export class UserRepository {
     }
 
     async getEmailAndPasswordByEmail(
-        email: string
+        email: string,
     ): Promise<UserGetEmailAndPasswordType | null> {
         const user = await prisma.user.findUnique({
             where: { email },
             select: {
+                userId: true,
                 email: true,
                 passwordHash: true,
             },
+        });
+        return user;
+    }
+
+    async getById(id: string): Promise<UserResponseType | null> {
+        const user = await prisma.user.findUnique({
+            where: { userId: id },
         });
         return user;
     }

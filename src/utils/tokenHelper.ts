@@ -1,4 +1,5 @@
-import jwt, { SignOptions } from "jsonwebtoken";
+import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
+import { jwtDecode } from "jwt-decode";
 
 export function generateToken(userId: string): string {
     const payload = { userId };
@@ -24,4 +25,14 @@ export function verifyToken(token: string): string | jwt.JwtPayload {
     }
 
     return jwt.verify(token, secret);
+}
+
+export function decodeToken(token: string): JwtPayload {
+    if (!token) {
+        throw new Error("Token não fornecido");
+    }
+
+    const decoded = jwtDecode(token);
+
+    return decoded;
 }
