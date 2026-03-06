@@ -49,6 +49,7 @@ export type BolsaMinAggregateOutputType = {
   statusDevolvida: boolean | null
   statusDoada: boolean | null
   updatedAt: Date | null
+  isArchived: boolean | null
   fornecedoraId: number | null
   setorId: number | null
   userId: string | null
@@ -63,6 +64,7 @@ export type BolsaMaxAggregateOutputType = {
   statusDevolvida: boolean | null
   statusDoada: boolean | null
   updatedAt: Date | null
+  isArchived: boolean | null
   fornecedoraId: number | null
   setorId: number | null
   userId: string | null
@@ -77,6 +79,7 @@ export type BolsaCountAggregateOutputType = {
   statusDevolvida: number
   statusDoada: number
   updatedAt: number
+  isArchived: number
   fornecedoraId: number
   setorId: number
   userId: number
@@ -107,6 +110,7 @@ export type BolsaMinAggregateInputType = {
   statusDevolvida?: true
   statusDoada?: true
   updatedAt?: true
+  isArchived?: true
   fornecedoraId?: true
   setorId?: true
   userId?: true
@@ -121,6 +125,7 @@ export type BolsaMaxAggregateInputType = {
   statusDevolvida?: true
   statusDoada?: true
   updatedAt?: true
+  isArchived?: true
   fornecedoraId?: true
   setorId?: true
   userId?: true
@@ -135,6 +140,7 @@ export type BolsaCountAggregateInputType = {
   statusDevolvida?: true
   statusDoada?: true
   updatedAt?: true
+  isArchived?: true
   fornecedoraId?: true
   setorId?: true
   userId?: true
@@ -236,6 +242,7 @@ export type BolsaGroupByOutputType = {
   statusDevolvida: boolean | null
   statusDoada: boolean | null
   updatedAt: Date | null
+  isArchived: boolean | null
   fornecedoraId: number
   setorId: number
   userId: string | null
@@ -273,6 +280,7 @@ export type BolsaWhereInput = {
   statusDevolvida?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   statusDoada?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Bolsa"> | Date | string | null
+  isArchived?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   fornecedoraId?: Prisma.IntFilter<"Bolsa"> | number
   setorId?: Prisma.IntFilter<"Bolsa"> | number
   userId?: Prisma.StringNullableFilter<"Bolsa"> | string | null
@@ -291,6 +299,7 @@ export type BolsaOrderByWithRelationInput = {
   statusDevolvida?: Prisma.SortOrderInput | Prisma.SortOrder
   statusDoada?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  isArchived?: Prisma.SortOrderInput | Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -312,6 +321,7 @@ export type BolsaWhereUniqueInput = Prisma.AtLeast<{
   statusDevolvida?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   statusDoada?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Bolsa"> | Date | string | null
+  isArchived?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   fornecedoraId?: Prisma.IntFilter<"Bolsa"> | number
   setorId?: Prisma.IntFilter<"Bolsa"> | number
   userId?: Prisma.StringNullableFilter<"Bolsa"> | string | null
@@ -330,6 +340,7 @@ export type BolsaOrderByWithAggregationInput = {
   statusDevolvida?: Prisma.SortOrderInput | Prisma.SortOrder
   statusDoada?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  isArchived?: Prisma.SortOrderInput | Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -352,6 +363,7 @@ export type BolsaScalarWhereWithAggregatesInput = {
   statusDevolvida?: Prisma.BoolNullableWithAggregatesFilter<"Bolsa"> | boolean | null
   statusDoada?: Prisma.BoolNullableWithAggregatesFilter<"Bolsa"> | boolean | null
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Bolsa"> | Date | string | null
+  isArchived?: Prisma.BoolNullableWithAggregatesFilter<"Bolsa"> | boolean | null
   fornecedoraId?: Prisma.IntWithAggregatesFilter<"Bolsa"> | number
   setorId?: Prisma.IntWithAggregatesFilter<"Bolsa"> | number
   userId?: Prisma.StringNullableWithAggregatesFilter<"Bolsa"> | string | null
@@ -365,6 +377,7 @@ export type BolsaCreateInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
@@ -380,6 +393,7 @@ export type BolsaUncheckedCreateInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedoraId: number
   setorId: number
   userId?: string | null
@@ -394,6 +408,7 @@ export type BolsaUpdateInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
@@ -409,6 +424,7 @@ export type BolsaUncheckedUpdateInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -424,6 +440,7 @@ export type BolsaCreateManyInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedoraId: number
   setorId: number
   userId?: string | null
@@ -437,6 +454,7 @@ export type BolsaUpdateManyMutationInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type BolsaUncheckedUpdateManyInput = {
@@ -448,6 +466,7 @@ export type BolsaUncheckedUpdateManyInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -472,6 +491,7 @@ export type BolsaCountOrderByAggregateInput = {
   statusDevolvida?: Prisma.SortOrder
   statusDoada?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isArchived?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -493,6 +513,7 @@ export type BolsaMaxOrderByAggregateInput = {
   statusDevolvida?: Prisma.SortOrder
   statusDoada?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isArchived?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -507,6 +528,7 @@ export type BolsaMinOrderByAggregateInput = {
   statusDevolvida?: Prisma.SortOrder
   statusDoada?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isArchived?: Prisma.SortOrder
   fornecedoraId?: Prisma.SortOrder
   setorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -684,6 +706,7 @@ export type BolsaCreateWithoutSetorInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
   user?: Prisma.UserCreateNestedOneWithoutBolsasInput
@@ -698,6 +721,7 @@ export type BolsaUncheckedCreateWithoutSetorInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedoraId: number
   userId?: string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
@@ -741,6 +765,7 @@ export type BolsaScalarWhereInput = {
   statusDevolvida?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   statusDoada?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Bolsa"> | Date | string | null
+  isArchived?: Prisma.BoolNullableFilter<"Bolsa"> | boolean | null
   fornecedoraId?: Prisma.IntFilter<"Bolsa"> | number
   setorId?: Prisma.IntFilter<"Bolsa"> | number
   userId?: Prisma.StringNullableFilter<"Bolsa"> | string | null
@@ -754,6 +779,7 @@ export type BolsaCreateWithoutFornecedoraInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
   user?: Prisma.UserCreateNestedOneWithoutBolsasInput
@@ -768,6 +794,7 @@ export type BolsaUncheckedCreateWithoutFornecedoraInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   setorId: number
   userId?: string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
@@ -807,6 +834,7 @@ export type BolsaCreateWithoutPecasCadastradasInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
   user?: Prisma.UserCreateNestedOneWithoutBolsasInput
@@ -821,6 +849,7 @@ export type BolsaUncheckedCreateWithoutPecasCadastradasInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedoraId: number
   setorId: number
   userId?: string | null
@@ -850,6 +879,7 @@ export type BolsaUpdateWithoutPecasCadastradasInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
   user?: Prisma.UserUpdateOneWithoutBolsasNestedInput
@@ -864,6 +894,7 @@ export type BolsaUncheckedUpdateWithoutPecasCadastradasInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -877,6 +908,7 @@ export type BolsaCreateWithoutUserInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedora: Prisma.FornecedoraCreateNestedOneWithoutBolsasInput
   setor: Prisma.SetorCreateNestedOneWithoutBolsasInput
   pecasCadastradas?: Prisma.PecaCadastradaCreateNestedManyWithoutBolsaInput
@@ -891,6 +923,7 @@ export type BolsaUncheckedCreateWithoutUserInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedoraId: number
   setorId: number
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedCreateNestedManyWithoutBolsaInput
@@ -931,6 +964,7 @@ export type BolsaCreateManySetorInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedoraId: number
   userId?: string | null
 }
@@ -943,6 +977,7 @@ export type BolsaUpdateWithoutSetorInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
   user?: Prisma.UserUpdateOneWithoutBolsasNestedInput
@@ -957,6 +992,7 @@ export type BolsaUncheckedUpdateWithoutSetorInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
@@ -971,6 +1007,7 @@ export type BolsaUncheckedUpdateManyWithoutSetorInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -984,6 +1021,7 @@ export type BolsaCreateManyFornecedoraInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   setorId: number
   userId?: string | null
 }
@@ -996,6 +1034,7 @@ export type BolsaUpdateWithoutFornecedoraInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
   user?: Prisma.UserUpdateOneWithoutBolsasNestedInput
@@ -1010,6 +1049,7 @@ export type BolsaUncheckedUpdateWithoutFornecedoraInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
@@ -1024,6 +1064,7 @@ export type BolsaUncheckedUpdateManyWithoutFornecedoraInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -1037,6 +1078,7 @@ export type BolsaCreateManyUserInput = {
   statusDevolvida?: boolean | null
   statusDoada?: boolean | null
   updatedAt?: Date | string | null
+  isArchived?: boolean | null
   fornecedoraId: number
   setorId: number
 }
@@ -1049,6 +1091,7 @@ export type BolsaUpdateWithoutUserInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedora?: Prisma.FornecedoraUpdateOneRequiredWithoutBolsasNestedInput
   setor?: Prisma.SetorUpdateOneRequiredWithoutBolsasNestedInput
   pecasCadastradas?: Prisma.PecaCadastradaUpdateManyWithoutBolsaNestedInput
@@ -1063,6 +1106,7 @@ export type BolsaUncheckedUpdateWithoutUserInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
   pecasCadastradas?: Prisma.PecaCadastradaUncheckedUpdateManyWithoutBolsaNestedInput
@@ -1077,6 +1121,7 @@ export type BolsaUncheckedUpdateManyWithoutUserInput = {
   statusDevolvida?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   statusDoada?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   fornecedoraId?: Prisma.IntFieldUpdateOperationsInput | number
   setorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -1121,6 +1166,7 @@ export type BolsaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   statusDevolvida?: boolean
   statusDoada?: boolean
   updatedAt?: boolean
+  isArchived?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
   userId?: boolean
@@ -1140,6 +1186,7 @@ export type BolsaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   statusDevolvida?: boolean
   statusDoada?: boolean
   updatedAt?: boolean
+  isArchived?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
   userId?: boolean
@@ -1157,6 +1204,7 @@ export type BolsaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   statusDevolvida?: boolean
   statusDoada?: boolean
   updatedAt?: boolean
+  isArchived?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
   userId?: boolean
@@ -1174,12 +1222,13 @@ export type BolsaSelectScalar = {
   statusDevolvida?: boolean
   statusDoada?: boolean
   updatedAt?: boolean
+  isArchived?: boolean
   fornecedoraId?: boolean
   setorId?: boolean
   userId?: boolean
 }
 
-export type BolsaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"bolsaId" | "dataDeEntrada" | "dataMensagem" | "quantidadeDePecasSemCadastro" | "observacoes" | "statusDevolvida" | "statusDoada" | "updatedAt" | "fornecedoraId" | "setorId" | "userId", ExtArgs["result"]["bolsa"]>
+export type BolsaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"bolsaId" | "dataDeEntrada" | "dataMensagem" | "quantidadeDePecasSemCadastro" | "observacoes" | "statusDevolvida" | "statusDoada" | "updatedAt" | "isArchived" | "fornecedoraId" | "setorId" | "userId", ExtArgs["result"]["bolsa"]>
 export type BolsaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fornecedora?: boolean | Prisma.FornecedoraDefaultArgs<ExtArgs>
   setor?: boolean | Prisma.SetorDefaultArgs<ExtArgs>
@@ -1215,6 +1264,7 @@ export type $BolsaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     statusDevolvida: boolean | null
     statusDoada: boolean | null
     updatedAt: Date | null
+    isArchived: boolean | null
     fornecedoraId: number
     setorId: number
     userId: string | null
@@ -1653,6 +1703,7 @@ export interface BolsaFieldRefs {
   readonly statusDevolvida: Prisma.FieldRef<"Bolsa", 'Boolean'>
   readonly statusDoada: Prisma.FieldRef<"Bolsa", 'Boolean'>
   readonly updatedAt: Prisma.FieldRef<"Bolsa", 'DateTime'>
+  readonly isArchived: Prisma.FieldRef<"Bolsa", 'Boolean'>
   readonly fornecedoraId: Prisma.FieldRef<"Bolsa", 'Int'>
   readonly setorId: Prisma.FieldRef<"Bolsa", 'Int'>
   readonly userId: Prisma.FieldRef<"Bolsa", 'String'>
