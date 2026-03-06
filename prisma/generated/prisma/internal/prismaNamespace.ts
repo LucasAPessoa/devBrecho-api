@@ -994,6 +994,7 @@ export const BolsaScalarFieldEnum = {
   statusDevolvida: 'statusDevolvida',
   statusDoada: 'statusDoada',
   updatedAt: 'updatedAt',
+  isArchived: 'isArchived',
   fornecedoraId: 'fornecedoraId',
   setorId: 'setorId',
   userId: 'userId'
