@@ -4,6 +4,9 @@
     "description": "API para o sistema DevBrecho",
     "main": "dist/server.js",
     "type": "module",
+    "prisma": {
+        "seed": "tsx prisma/seed.ts"
+    },
     "scripts": {
         "dev": "tsx watch src/server.ts",
         "build": "tsup src/server.ts --format esm --out-dir dist --clean",
