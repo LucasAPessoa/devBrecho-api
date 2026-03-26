@@ -105,8 +105,7 @@ export class BolsaRepository {
         data: BolsaSetStatusType,
     ): Promise<boolean> {
         try {
-            console.log(data);
-
+           
             await prisma.bolsa.update({
                 where: { bolsaId: bolsaId.bolsaId },
                 data: data,
